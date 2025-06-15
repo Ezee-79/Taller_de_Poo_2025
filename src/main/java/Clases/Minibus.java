@@ -1,13 +1,14 @@
 package Clases;
 
-public class Minibus {
+public class Minibus extends Vehiculo {
     private boolean tieneBodega;
     private boolean aireAcondicionado;
 
     public Minibus() {
     }
 
-    public Minibus(boolean tieneBodega, boolean aireAcondicionado) {
+    public Minibus(String patente, int capacidad, boolean tieneBodega, boolean aireAcondicionado) {
+        super(patente, capacidad);
         this.tieneBodega = tieneBodega;
         this.aireAcondicionado = aireAcondicionado;
     }

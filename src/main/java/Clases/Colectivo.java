@@ -1,12 +1,13 @@
 package Clases;
 
-public class Colectivo {
+public class Colectivo extends Vehiculo {
     private boolean pisoDoble;
 
     public Colectivo() {
     }
 
-    public Colectivo(boolean pisoDoble) {
+    public Colectivo(String patente, int capacidad, boolean pisoDoble) {
+        super(patente, capacidad);
         this.pisoDoble = pisoDoble;
     }
 
