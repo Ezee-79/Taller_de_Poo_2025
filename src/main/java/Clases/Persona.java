@@ -8,7 +8,7 @@ package Clases;
  *
  * @author Gaston PC
  */
-public class Persona {
+public abstract class Persona {
     private long dni ;
     private String nombre;
     private String apellido;

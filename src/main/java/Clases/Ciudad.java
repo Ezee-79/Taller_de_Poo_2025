@@ -1,5 +1,7 @@
 package Clases;
+
 import java.util.ArrayList;
+
 
 public class Ciudad {
     private String nombre;
@@ -15,6 +17,10 @@ public class Ciudad {
         this.provincia = provincia;
         this.viajeOrigen = new ArrayList<Viaje>();
         this.viajeDestino = new ArrayList<Viaje>();
+
+    public Ciudad(String nombre, Provincia provincia) {
+        this.nombre = nombre;
+        this.provincia = provincia;
     }
 
     public String getNombre() {
@@ -48,6 +54,4 @@ public class Ciudad {
     public void setViajeDestino(ArrayList<Viaje> viajeDestino) {
         this.viajeDestino = viajeDestino;
     }
-
-    
 }
