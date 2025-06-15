@@ -21,8 +21,6 @@ public class Chofer extends Persona {
         this.viaje = viaje;
         this.choferCategorias = new ArrayList<ChoferCategoria>();
     
-    public Chofer(String nroLicencia){
-        this.nroLicencia = nroLicencia;
     }
     
     // set

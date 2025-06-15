@@ -1,8 +1,5 @@
 package Clases;
 
-
-public class Colectivo {
-  
 public class Colectivo extends Vehiculo {
     private boolean pisoDoble;
 

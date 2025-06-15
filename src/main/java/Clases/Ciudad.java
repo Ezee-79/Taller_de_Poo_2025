@@ -17,10 +17,7 @@ public class Ciudad {
         this.provincia = provincia;
         this.viajeOrigen = new ArrayList<Viaje>();
         this.viajeDestino = new ArrayList<Viaje>();
-
-    public Ciudad(String nombre, Provincia provincia) {
-        this.nombre = nombre;
-        this.provincia = provincia;
+;
     }
 
     public String getNombre() {

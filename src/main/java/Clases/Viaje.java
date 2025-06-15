@@ -27,12 +27,7 @@ public class Viaje {
         this.ciudadDestino = ciudadDestino;
         this.ciudadOrigen = ciudadOrigen;
    
-    public Viaje (String fecha, String horarioSalida, String horarioLlegada){
-        this.fecha = fecha;
-        this.horarioSalida = horarioSalida;
-        this.horarioLlegada = horarioLlegada;
-
-    }
+        }
     
     // set
     public void setFecha(String fecha){
