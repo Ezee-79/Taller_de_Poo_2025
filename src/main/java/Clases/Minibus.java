@@ -1,5 +1,8 @@
 package Clases;
 
+
+public class Minibus {
+  
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;
     private boolean aireAcondicionado;

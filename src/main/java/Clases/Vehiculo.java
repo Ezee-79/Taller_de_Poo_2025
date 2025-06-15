@@ -1,5 +1,7 @@
 package Clases;
 
+
+public class Vehiculo {
 public abstract class Vehiculo {
     private String patente;
     private int capacidad;

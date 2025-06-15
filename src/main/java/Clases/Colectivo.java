@@ -1,5 +1,8 @@
 package Clases;
 
+
+public class Colectivo {
+  
 public class Colectivo extends Vehiculo {
     private boolean pisoDoble;
 
@@ -18,4 +21,5 @@ public class Colectivo extends Vehiculo {
     public void setPisoDoble(boolean pisoDoble) {
         this.pisoDoble = pisoDoble;
     }
+
 }
