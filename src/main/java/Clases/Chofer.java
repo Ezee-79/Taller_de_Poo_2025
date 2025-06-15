@@ -2,36 +2,53 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Clases;
-
+ 
+ package Clases;
+ import java.util.ArrayList;
 /**
  *
  * @author Gaston PC
  */
-public class Chofer {
+public class Chofer extends Persona {
     private String nroLicencia;
-    private Categoria categoria;
+    private Viaje viaje;
+    private ArrayList <ChoferCategoria> choferCategorias;
+
     
-    public Chofer(String nroLicencia, Categoria categoria){
+    public Chofer(String nroLicencia, long dni, String nombre, String apellido, Viaje viaje){
+        super(dni, nombre, apellido);
         this.nroLicencia = nroLicencia;
-        this.categoria = categoria;
+        this.viaje = viaje;
+        this.choferCategorias = new ArrayList<ChoferCategoria>();
     }
     
     // set
-    public void setNroLicencia( String nroLicencia){
+    public void setNroLicencia(String nroLicencia){
         this.nroLicencia= nroLicencia;
     }
-    public void setCategoria( Categoria categoria){
-        this.categoria= categoria;
+
+    public void setViaje (Viaje viaje) {
+        this.viaje = viaje;
     }
+
+    public void setChoferCategoria(ArrayList <ChoferCategoria> choferCategorias) {
+        this.choferCategorias = new ArrayList<ChoferCategoria>();
+    }
+   
     
-    // gett
+    // get
     
     public String getNroLicencia(){
         return nroLicencia;
     }
-    public Categoria getCategoria(){
-        return categoria;
+
+    public Viaje getViaje(){
+        return viaje;
     }
+
+    public ArrayList <ChoferCategoria> getChoferCategorias(){
+        return choferCategorias;
+    }
+ 
 
 }
