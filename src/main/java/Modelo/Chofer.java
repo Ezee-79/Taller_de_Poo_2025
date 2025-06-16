@@ -8,26 +8,26 @@ package Modelo;
  *
  * @author Gaston PC
  */
-public class Chofer {
+public class Chofer extends Persona {
     private String nroLicencia;
 
-    
-    public Chofer(String nroLicencia){
+    public Chofer() {
+    }
+
+    public Chofer(String nroLicencia) {
         this.nroLicencia = nroLicencia;
 
     }
-    
+
     // set
-    public void setNroLicencia( String nroLicencia){
-        this.nroLicencia= nroLicencia;
+    public void setNroLicencia(String nroLicencia) {
+        this.nroLicencia = nroLicencia;
     }
-   
-    
+
     // gett
-    
-    public String getNroLicencia(){
+
+    public String getNroLicencia() {
         return nroLicencia;
     }
- 
 
 }
