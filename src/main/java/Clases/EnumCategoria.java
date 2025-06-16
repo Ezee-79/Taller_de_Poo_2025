@@ -8,7 +8,7 @@ package Clases;
  *
  * @author Gaston PC
  */
-public enum NCategoria {
+public enum EnumCategoria {
     Microbus,
     Colectivo
 }

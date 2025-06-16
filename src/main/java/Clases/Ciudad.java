@@ -2,12 +2,12 @@ package Clases;
 
 public class Ciudad {
     private String nombre;
-    private Provincia provincia;
+    private EnumProvincia provincia;
 
     public Ciudad() {
     }
 
-    public Ciudad(String nombre, Provincia provincia) {
+    public Ciudad(String nombre, EnumProvincia provincia) {
         this.nombre = nombre;
         this.provincia = provincia;
     }
@@ -20,11 +20,11 @@ public class Ciudad {
         this.nombre = nombre;
     }
 
-    public Provincia getProvincia() {
+    public EnumProvincia getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(Provincia provincia) {
+    public void setProvincia(EnumProvincia provincia) {
         this.provincia = provincia;
     }
 }

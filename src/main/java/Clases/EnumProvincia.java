@@ -8,7 +8,7 @@ package Clases;
  *
  * @author Gaston PC
  */
-public enum Provincia {
+public enum EnumProvincia {
     Buenos_Aires,
     Catamarca,
     Chaco,
