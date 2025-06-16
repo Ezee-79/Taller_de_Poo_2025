@@ -1,18 +1,18 @@
-package Clases;
+package Modelo;
 
 import java.util.ArrayList;
 
 
 public class Ciudad {
     private String nombre;
-    private Provincia provincia;
+    private EnumProvincia provincia;
     private ArrayList<Viaje> viajeOrigen;
     private ArrayList<Viaje> viajeDestino;
 
     public Ciudad() {
     }
 
-    public Ciudad(String nombre, Provincia provincia, ArrayList<Viaje> viajeOrigen, ArrayList<Viaje> viajeDestino) {
+    public Ciudad(String nombre, EnumProvincia provincia, ArrayList<Viaje> viajeOrigen, ArrayList<Viaje> viajeDestino) {
         this.nombre = nombre;
         this.provincia = provincia;
         this.viajeOrigen = new ArrayList<Viaje>();
@@ -28,11 +28,11 @@ public class Ciudad {
         this.nombre = nombre;
     }
 
-    public Provincia getProvincia() {
+    public EnumProvincia getProvincia() {
         return provincia;
     }
 
-    public void setProvincia(Provincia provincia) {
+    public void setProvincia(EnumProvincia provincia) {
         this.provincia = provincia;
     }
 

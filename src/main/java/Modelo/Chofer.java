@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
  
- package Clases;
+ package Modelo;
  import java.util.ArrayList;
 /**
  *
@@ -14,6 +14,9 @@ public class Chofer extends Persona {
     private Viaje viaje;
     private ArrayList <ChoferCategoria> choferCategorias;
 
+    public Chofer() { 
+
+    }
     
     public Chofer(String nroLicencia, long dni, String nombre, String apellido, Viaje viaje){
         super(dni, nombre, apellido);
