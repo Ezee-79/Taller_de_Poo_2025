@@ -10,5 +10,6 @@ package Modelo;
 
 public enum EnumCategoria {
     Microbus,
-    Colectivo
+    Colectivo,
+    pepe
 }
