@@ -13,5 +13,4 @@ public enum EnumProvincia {
     Catamarca,
     Chaco,
     Chubut,
-    pepe
 }
