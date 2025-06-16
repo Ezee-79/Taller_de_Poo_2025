@@ -1,4 +1,4 @@
-package Clases;
+package Modelo;
 
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;

@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.taller_de_poo_2025;
+package Vista;
 
 /**
  *
  * @author Gaston PC
  */
+import com.mycompany.taller_de_poo_2025.SistemaGestion;
 import java.util.*;
 
-public class Taller_de_Poo_2025 {
+public class Rutas_SA {
     public static void main(String[] args) {
       Scanner sc = new Scanner(System.in);
       SistemaGestion sistema = new SistemaGestion();
