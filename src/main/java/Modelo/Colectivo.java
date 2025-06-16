@@ -18,5 +18,4 @@ public class Colectivo extends Vehiculo {
     public void setPisoDoble(boolean pisoDoble) {
         this.pisoDoble = pisoDoble;
     }
-
 }

@@ -1,7 +1,6 @@
 package Modelo;
 
 public class ChoferCategoria {
-
     private Chofer chofer;
     private Categoria categoria;
     private String fechaVencimiento;

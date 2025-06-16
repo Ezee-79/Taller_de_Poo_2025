@@ -13,9 +13,6 @@ public abstract class Persona {
     private String nombre;
     private String apellido;
     
-    public Persona (){
-
-    }
     public Persona (long dni , String nombre, String apellido){
         this.dni = dni;
         this.nombre = nombre;

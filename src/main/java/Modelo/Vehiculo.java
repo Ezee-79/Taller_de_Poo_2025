@@ -1,6 +1,5 @@
 package Modelo;
 
-
 public abstract class Vehiculo {
     private String patente;
     private int capacidad;
