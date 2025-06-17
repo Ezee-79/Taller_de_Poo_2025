@@ -14,6 +14,10 @@ public class Chofer extends Persona {
     private Viaje viaje;
     private ArrayList <ChoferCategoria> choferCategorias;
 
+    public Chofer() {
+        
+    }
+
     
     public Chofer(String nroLicencia, long dni, String nombre, String apellido, Viaje viaje){
         super(dni, nombre, apellido);
