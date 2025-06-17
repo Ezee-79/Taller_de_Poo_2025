@@ -12,11 +12,20 @@ public class Viaje {
     private String fecha;
     private String horarioSalida;
     private String horarioLlegada;
+    private Chofer chofer;
+    private Vehiculo vehiculo;
+    private Ciudad ciudadOrigen;
+    private Ciudad ciudadDestino;
+
+
     
-    public Viaje (String fecha, String horarioSalida, String horarioLlegada){
+    public Viaje (String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo, Ciudad ciudadOrigen, Ciudad ciudadDestino){
         this.fecha = fecha;
         this.horarioSalida = horarioSalida;
         this.horarioLlegada = horarioLlegada;
+        this.chofer = chofer;
+        this.ciudadDestino = ciudadDestino;
+        this.ciudadOrigen = ciudadOrigen;
     }
     
     // set
@@ -29,7 +38,20 @@ public class Viaje {
     public void setHorarioSalida(String horarioSalida){
         this.horarioSalida = horarioSalida;
     }
-    
+    public void setChofer(Chofer chofer) {
+        this.chofer = chofer;
+    }
+    public void setVehiculo(Vehiculo vehiculo){
+        this.vehiculo = vehiculo;
+    }
+    public void setCiudadOrigen(Ciudad ciudadOrigen) {
+        this.ciudadOrigen = ciudadOrigen;
+    }
+
+    public void setCiudadDestino(Ciudad ciudadDestino) {
+        this.ciudadDestino = ciudadDestino;
+    }
+
     // get
     public String getFecha(){
         return fecha;
@@ -40,5 +62,18 @@ public class Viaje {
     public String getHorarioSalida(){
         return horarioSalida;
     }
-    
+    public Chofer getChofer() {
+        return chofer;
+    }
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public Ciudad getCiudadOrigen() {
+        return ciudadOrigen;
+    }
+
+    public Ciudad getCiudadDestino() {
+        return ciudadDestino;
+    }
 }
