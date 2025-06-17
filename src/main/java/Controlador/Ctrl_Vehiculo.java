@@ -7,6 +7,7 @@ import Modelo.Colectivo;
 import Modelo.Minibus;
 import Modelo.Vehiculo;
 
+/* Enzo */
 public class Ctrl_Vehiculo {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
     private Scanner sc = new Scanner(System.in);
@@ -14,9 +15,11 @@ public class Ctrl_Vehiculo {
     private Colectivo colectivo = new Colectivo();
     private Vehiculo vehiculo;
 
+    // CONSTRUCTOR
     public Ctrl_Vehiculo() {
     }
 
+    // INGRESO DE DATOS PARA MINIBUS.
     public void setMinibus() {
         boolean bodega = false;
         boolean aireAcondicionado = false;
@@ -37,6 +40,7 @@ public class Ctrl_Vehiculo {
         minibus.setAireAcondicionado(aireAcondicionado);
     }
 
+    // INGRESO DE DATOS PARA COLECTIVO.
     public void setColectivo() {
         boolean pisoDoble;
 
@@ -52,6 +56,7 @@ public class Ctrl_Vehiculo {
         colectivo.setPisoDoble(pisoDoble);
     }
 
+    // AGREGAMOS UN NUEVO VEHICULO A LA LISTA SEGUN LA OPCION INGRESADA.
     public void agregarVehiculo() {
         System.out.println("Ingresa los datos solicitados para el nuevo vehiculo:\n");
         System.out.println("Seleccione el tipo: [1.MiniBus][2.Colectivo]");
@@ -66,6 +71,8 @@ public class Ctrl_Vehiculo {
         }
     }
 
+    // BUSCAMOS UN VEHICULO SEGUN PATENTE, SI SE ENCUENTRA SE EDITAN SUS DATOS SEGUN
+    // SU TIPO.
     public void editarVehiculo(String patente) {
         int posicion = 0;
         for (int i = 0; i < vehiculos.size(); i++) {
@@ -92,6 +99,7 @@ public class Ctrl_Vehiculo {
         }
     }
 
+    // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE ELIMINA.
     public void eliminarVehiculo(String patente) {
         boolean modificado = false;
 
@@ -110,6 +118,7 @@ public class Ctrl_Vehiculo {
         }
     }
 
+    // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
     public void mostrarChofer(String patente) {
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
