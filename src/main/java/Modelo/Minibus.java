@@ -1,9 +1,10 @@
 package Modelo;
-
+/* Enzo */
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;
     private boolean aireAcondicionado;
 
+    //CONSTRUCTORES.
     public Minibus() {
     }
 
@@ -13,6 +14,7 @@ public class Minibus extends Vehiculo {
         this.aireAcondicionado = aireAcondicionado;
     }
 
+    //SETTERS & GETTERS
     public boolean isTieneBodega() {
         return tieneBodega;
     }

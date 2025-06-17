@@ -1,5 +1,5 @@
 package Modelo;
-
+/* Enzo */
 public class Colectivo extends Vehiculo {
     private boolean pisoDoble;
 

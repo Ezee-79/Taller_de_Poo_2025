@@ -1,9 +1,10 @@
 package Modelo;
-
+/* Enzo */
 public abstract class Vehiculo {
     private String patente;
     private int capacidad;
 
+    //CONSTRUCTORES
     public Vehiculo() {
     }
 
@@ -12,6 +13,7 @@ public abstract class Vehiculo {
         this.capacidad = capacidad;
     }
 
+    //GETTERS & SETTERS.
     public String getPatente() {
         return patente;
     }

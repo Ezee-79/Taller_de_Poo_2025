@@ -1,9 +1,6 @@
 package Modelo;
 
-/**
- *
- 
-@author Gaston PC*/
+/* Eze */
 public enum EnumProvincia {
     Buenos_Aires,
     Catamarca,
