@@ -39,8 +39,6 @@ public class Ctrl_Chofer {
             if (choferes.get(i).getDni() == dni) {
                 chofer = choferes.get(i);
                 break;
-            } else {
-                System.out.println("El chofer no fue encontrado.");
             }
         }
 
@@ -49,31 +47,36 @@ public class Ctrl_Chofer {
             setChofer();
             choferes.set(posicion, chofer);
             chofer = new Chofer();
-        }
-    }
-
-    public void eliminarChofer(long dni) {
-        int tamaño = choferes.size();
-        choferes.remove(chofer);
-
-        if (tamaño < choferes.size()) {
-            System.out.println("El chofer fue eliminado de la lista.");
         } else {
             System.out.println("El chofer no fue encontrado.");
         }
     }
 
-    public void mostrarChofer(long dni) {
-        for (int i = 0; i < choferes.size(); i++) {
-            if (choferes.get(i).getDni() == dni) {
-                chofer = choferes.get(i);
+    public void eliminarChofer(long dni) {
+        boolean modificado = false;
+
+        for (Chofer c : choferes) {
+            if (c.getDni() == dni) {
+                choferes.remove(c);
+                modificado = true;
                 break;
-            } else {
-                System.out.println("El chofer no fue encontrado.");
             }
         }
 
-        System.out.println("Chofer encontrado:\n");
-        chofer.toString();
+        if (modificado == true) {
+            System.out.println("El chofer fue eliminado de la lista.");
+        } else{
+            System.out.println("El chofer no fue encontrado.");
+        }
+    }
+
+    public void mostrarChofer(long dni) {
+        for (Chofer c : choferes) {
+            if (c.getDni() == dni) {
+                System.out.println("Chofer encontrado:\n");
+                c.toString();
+                break;
+            }
+        }
     }
 }
