@@ -1,21 +1,32 @@
 package Modelo;
+
 /* Enzo */
 public class Colectivo extends Vehiculo {
-    private boolean pisoDoble;
+    private boolean tienePisoDoble;
 
     public Colectivo() {
     }
 
-    public Colectivo(String patente, int capacidad, boolean pisoDoble) {
+    public Colectivo(String patente, int capacidad, boolean tienePisoDoble) {
         super(patente, capacidad);
-        this.pisoDoble = pisoDoble;
+        this.tienePisoDoble = tienePisoDoble;
     }
 
-    public boolean isPisoDoble() {
-        return pisoDoble;
+    public boolean isTienePisoDoble() {
+        return tienePisoDoble;
     }
 
-    public void setPisoDoble(boolean pisoDoble) {
-        this.pisoDoble = pisoDoble;
+    public void setTienePisoDoble(boolean tienePisoDoble) {
+        this.tienePisoDoble = tienePisoDoble;
+    }
+
+    @Override
+    public String toString() {
+        String pisoDoble = (tienePisoDoble) ? "Si" : "No";
+
+        return "COLECTIVO{\n"
+                + " Patente: " + getPatente() + ",\n"
+                + " Capacidad: " + getCapacidad() + ",\n"
+                + " Piso Doble: " + pisoDoble + "}";
     }
 }

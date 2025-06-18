@@ -10,122 +10,183 @@ import Modelo.Vehiculo;
 /* Enzo */
 public class Ctrl_Vehiculo {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
-    private Scanner sc = new Scanner(System.in);
-    private Minibus minibus = new Minibus();
-    private Colectivo colectivo = new Colectivo();
+    private Scanner scL = new Scanner(System.in);
+    private Scanner scI = new Scanner(System.in);
+    private Minibus minibus;
+    private Colectivo colectivo;
     private Vehiculo vehiculo;
 
     // CONSTRUCTOR
     public Ctrl_Vehiculo() {
     }
 
-    // INGRESO DE DATOS PARA MINIBUS.
-    public void setMinibus() {
-        boolean bodega = false;
-        boolean aireAcondicionado = false;
-
-        System.out.print("Patente: ");
-        minibus.setPatente(sc.nextLine());
-
-        System.out.print("Capacidad: ");
-        minibus.setCapacidad(sc.nextInt());
-
-        System.out.print("Seleccione una opcion: [0.Falso][1.Verdadero]");
-        System.out.print("Cuenta con bodega: ");
-        bodega = (sc.nextInt() == 0) ? true : false;
-        minibus.setTieneBodega(bodega);
-
-        System.out.print("Cuenta con aire acondicionado: ");
-        aireAcondicionado = (sc.nextInt() == 0) ? true : false;
-        minibus.setAireAcondicionado(aireAcondicionado);
-    }
-
-    // INGRESO DE DATOS PARA COLECTIVO.
-    public void setColectivo() {
+    // INGRESO DE DATOS DE VEHICULOS SEGUN SU TIPO.
+    public void setVehiculo(int tipo) {
+        String patente;
+        int capacidad;
+        boolean bodega;
+        boolean aireAcondicionado;
         boolean pisoDoble;
 
-        System.out.print("Patente: ");
-        colectivo.setPatente(sc.nextLine());
+        switch (tipo) {
+            case 1:
+                if (minibus == null) {
+                    minibus = new Minibus();
+                } else {
+                    System.out.println("[DATOS ACTUALES DEL VEHICULO]\n" + minibus.toString());
+                }
 
-        System.out.print("Capacidad: ");
-        colectivo.setCapacidad(sc.nextInt());
+                System.out.println("\nIngresar los siguientes datos:");
+                System.out.print("\nPatente: ");
+                patente = scL.nextLine();
 
-        System.out.print("Seleccione una opcion: [0.Falso][1.Verdadero]");
-        System.out.print("Cuenta con piso doble: ");
-        pisoDoble = (sc.nextInt() == 0) ? true : false;
-        colectivo.setPisoDoble(pisoDoble);
+                System.out.print("Capacidad (en Kg): ");
+                capacidad = scI.nextInt();
+
+                System.out.println("\nResponder con [0.Falso][1.Verdadero]\n");
+                System.out.print("Cuenta con bodega: ");
+                bodega = (scI.nextInt() == 1) ? true : false;
+
+                System.out.print("Cuenta con aire acondicionado: ");
+                aireAcondicionado = (scI.nextInt() == 1) ? true : false;
+
+                minibus.setPatente(patente);
+                minibus.setCapacidad(capacidad);
+                minibus.setTieneBodega(bodega);
+                minibus.setTieneAire(aireAcondicionado);
+                break;
+            case 2:
+                if (colectivo == null) {
+                    colectivo = new Colectivo();
+                } else {
+                    System.out.println("[DATOS ACTUALES DEL VEHICULO]\n" + colectivo.toString());
+                }
+
+                System.out.print("\nPatente: ");
+                patente = scL.nextLine();
+
+                System.out.print("Capacidad (en Kg): ");
+                capacidad = scI.nextInt();
+
+                System.out.println("\nResponder con [0.Falso][1.Verdadero]\n");
+                System.out.print("Cuenta con piso doble: ");
+                pisoDoble = (scI.nextInt() == 1) ? true : false;
+
+                colectivo.setPatente(patente);
+                colectivo.setCapacidad(capacidad);
+                colectivo.setTienePisoDoble(pisoDoble);
+                break;
+        }
     }
 
     // AGREGAMOS UN NUEVO VEHICULO A LA LISTA SEGUN LA OPCION INGRESADA.
     public void agregarVehiculo() {
-        System.out.println("Ingresa los datos solicitados para el nuevo vehiculo:\n");
-        System.out.println("Seleccione el tipo: [1.MiniBus][2.Colectivo]");
-        if (sc.nextInt() == 1) {
-            setMinibus();
-            vehiculos.add(minibus);
-            minibus = new Minibus();
-        } else {
-            setColectivo();
-            vehiculos.add(colectivo);
-            colectivo = new Colectivo();
+        System.out.println("***************************************************");
+        System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VEHICULO]\n");
+        System.out.print("Ingrese el tipo de vehiculo: [1.Minibus][2.Colectivo] -> ");
+
+        switch (scI.nextInt()) {
+            case 1:
+                minibus = null;
+                setVehiculo(1);
+                vehiculos.add(minibus);
+                break;
+            case 2:
+                colectivo = null;
+                setVehiculo(2);
+                vehiculos.add(colectivo);
+                break;
+            default:
+                System.out.println("\n[INGRESO INVALIDO]");
+                break;
         }
+
+        System.out.println("\n[NUEVO VEHICULO AGREGADO A LA LISTA]");
+        System.out.println("***************************************************\n");
     }
 
     // BUSCAMOS UN VEHICULO SEGUN PATENTE, SI SE ENCUENTRA SE EDITAN SUS DATOS SEGUN
     // SU TIPO.
     public void editarVehiculo(String patente) {
-        int posicion = 0;
-        for (int i = 0; i < vehiculos.size(); i++) {
-            if (vehiculos.get(i).getPatente().equals(patente)) {
-                vehiculo = vehiculos.get(i);
+        boolean encontrado = false;
+        for (Vehiculo v : vehiculos) {
+            if (v.getPatente().equals(patente)) {
+                vehiculo = v;
+                encontrado = true;
+                break;
             }
         }
 
-        if (vehiculo != null) {
-            System.out.println("Edita los datos del vehiculo seleccionado:\n");
-            if (vehiculos.getClass().isInstance(Minibus.class)) {
+        if (encontrado) {
+            System.out.println("***************************************************");
+            System.out.println("[EDITA EL VEHICULO CON PATENTE " + patente + "]");
+            System.out.println("[NOTA: COPIA Y PEGA LOS DATOS QUE NO QUIERES EDITAR]\n");
+
+            if (vehiculo instanceof Minibus) {
                 minibus = (Minibus) vehiculo;
-                setMinibus();
-                vehiculos.set(posicion, minibus);
-                minibus = new Minibus();
+                setVehiculo(1);
+                vehiculos.set(vehiculos.indexOf(minibus), minibus);
             } else {
                 colectivo = (Colectivo) vehiculo;
-                setColectivo();
-                vehiculos.set(posicion, colectivo);
-                colectivo = new Colectivo();
+                setVehiculo(2);
+                vehiculos.set(vehiculos.indexOf(colectivo), colectivo);
             }
+
+            System.out.println("\n[EL VEHICULO CON PATENTE " + patente + " HA SIDO MODIFICADO]");
         } else {
-            System.out.println("El vehiculo no fue encontrado.");
+            System.out.println("\n[EL VEHICULO NO FUE ENCONTRADO]");
         }
+
+        System.out.println("***************************************************\n");
     }
 
     // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE ELIMINA.
     public void eliminarVehiculo(String patente) {
-        boolean modificado = false;
+        boolean encontrado = false;
 
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
                 vehiculos.remove(v);
-                modificado = true;
+                encontrado = true;
                 break;
             }
         }
 
-        if (modificado == true) {
-            System.out.println("El vehiculo fue eliminado de la lista.");
+        System.out.println("***************************************************");
+        if (encontrado) {
+            System.out.println("[EL VEHICULO CON PATENTE " + patente + " HA SIDO ELIMINADO]");
         } else {
-            System.out.println("El vehiculo no fue encontrado.");
+            System.out.println("[EL VEHICULO NO FUE ENCONTRADO]");
         }
+        System.out.println("***************************************************\n");
     }
 
     // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
-    public void mostrarChofer(String patente) {
+    public void mostrarVehiculo(String patente) {
+        System.out.println("***************************************************");
+        boolean encontrado = false;
+
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
-                System.out.println("Vehiculo encontrado:");
-                v.toString();
+                System.out.println("[VEHICULO ENCONTRADO]\n");
+                encontrado = true;
+
+                if (v instanceof Minibus) {
+                    minibus = (Minibus) v;
+                    System.out.println(minibus.toString());
+                } else {
+                    colectivo = (Colectivo) v;
+                    System.out.println(colectivo.toString());
+                }
+
                 break;
             }
         }
+
+        if (!encontrado) {
+            System.out.println("[EL VEHICULO NO FUE ENCONTRADO]");
+        }
+
+        System.out.println("***************************************************\n");
     }
 }
