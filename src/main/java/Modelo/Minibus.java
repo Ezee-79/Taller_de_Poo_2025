@@ -2,16 +2,16 @@ package Modelo;
 /* Enzo */
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;
-    private boolean aireAcondicionado;
+    private boolean tieneAire;
 
     //CONSTRUCTORES.
     public Minibus() {
     }
 
-    public Minibus(String patente, int capacidad, boolean tieneBodega, boolean aireAcondicionado) {
+    public Minibus(String patente, int capacidad, boolean tieneBodega, boolean tieneAire) {
         super(patente, capacidad);
         this.tieneBodega = tieneBodega;
-        this.aireAcondicionado = aireAcondicionado;
+        this.tieneAire = tieneAire;
     }
 
     //SETTERS & GETTERS
@@ -23,11 +23,23 @@ public class Minibus extends Vehiculo {
         this.tieneBodega = tieneBodega;
     }
 
-    public boolean isAireAcondicionado() {
-        return aireAcondicionado;
+    public boolean isTieneAire() {
+        return tieneAire;
     }
 
-    public void setAireAcondicionado(boolean aireAcondicionado) {
-        this.aireAcondicionado = aireAcondicionado;
+    public void setTieneAire(boolean tieneAire) {
+        this.tieneAire = tieneAire;
+    }
+
+    @Override
+    public String toString() {
+        String bodega = (tieneBodega) ? "Si" : "No";
+        String aire = (tieneAire) ? "Si" : "No";
+
+        return "MINIBUS{\n"
+                + " Patente: " + getPatente() + ",\n"
+                + " Capacidad: " + getCapacidad() + ",\n"
+                + " Bodega: " + bodega + ",\n"
+                + " Aire Acondicionado: " + aire + "}";
     }
 }

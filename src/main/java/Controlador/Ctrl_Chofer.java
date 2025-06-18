@@ -1,14 +1,15 @@
 package Controlador;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import Modelo.Chofer;
+
 /* Enzo */
 public class Ctrl_Chofer {
     private ArrayList<Chofer> choferes = new ArrayList<Chofer>();
-    private Scanner sc = new Scanner(System.in);
-    private Chofer chofer = new Chofer();
+    private Scanner scL = new Scanner(System.in);
+    private Scanner scI = new Scanner(System.in);
+    private Chofer chofer;
 
     // CONSTRUCTOR.
     public Ctrl_Chofer() {
@@ -16,77 +17,113 @@ public class Ctrl_Chofer {
 
     // INGRESAMOS NUEVOS DATOS AL OBJETO CHOFER.
     public void setChofer() {
-        System.out.print("Nombre: ");
-        chofer.setNombre(sc.nextLine());
+        String nombre;
+        String apellido;
+        int dni;
+        String nroLicencia;
 
-        System.out.print("Apellido: ");
-        chofer.setApellido(sc.nextLine());
+        if (chofer == null) {
+            chofer = new Chofer();
+        } else {
+            System.out.println("[DATOS ACTUALES DEL CHOFER]\n" + chofer.toString());
+        }
 
-        System.out.print("DNI: ");
-        chofer.setDni(sc.nextLong());
+        System.out.println("\nIngresar los siguientes datos:");
+        System.out.print("\nNombre: ");
+        nombre = scL.nextLine();
 
-        System.out.print("Numero de Licencia: ");
-        chofer.setNroLicencia(sc.nextLine());
+        System.out.print("\nApellido: ");
+        apellido = scL.nextLine();
+
+        System.out.print("\nDNI: ");
+        dni = scI.nextInt();
+
+        System.out.print("\nNumero de Licencia: ");
+        nroLicencia = scL.nextLine();
+
+        chofer.setNombre(nombre);
+        chofer.setApellido(apellido);
+        chofer.setDni(dni);
+        chofer.setNroLicencia(nroLicencia);
     }
 
     // AGREGAMOS NUEVO CHOFER A LA LISTA.
     public void agregarChofer() {
-        System.out.println("Ingresa los datos solicitados para el nuevo chofer:\n");
+        System.out.println("***************************************************");
+        System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO CHOFER]\n");
+        chofer = null;
         setChofer();
         choferes.add(chofer);
-        chofer = new Chofer();
-        System.out.println("Chofer creado y agregado a la lista.\n");
+        System.out.println("\n[NUEVO CHOFER AGREGADO A LA LISTA]");
+        System.out.println("***************************************************\n");
     }
 
     // BUSCAMOS EL CHOFER EN LA LISTA POR DNI, SI SE ENCUENTRA SE EDITAN LOS DATOS.
     public void editarChofer(long dni) {
-        int posicion = 0;
-        for (int i = 0; i < choferes.size(); i++) {
-            if (choferes.get(i).getDni() == dni) {
-                chofer = choferes.get(i);
+        boolean encontrado = false;
+        for (Chofer c : choferes) {
+            if (c.getDni() == dni) {
+                chofer = c;
+                encontrado = true;
                 break;
             }
         }
 
-        if (chofer != null) {
-            System.out.println("Edita los datos del chofer seleccionado:\n");
+        if (encontrado) {
+            System.out.println("***************************************************");
+            System.out.println("[EDITA EL CHOFER CON DNI " + dni + "]");
+            System.out.println("[NOTA: COPIA Y PEGA LOS DATOS QUE NO QUIERES EDITAR]\n");
             setChofer();
-            choferes.set(posicion, chofer);
+            choferes.set(choferes.indexOf(chofer), chofer);
             chofer = new Chofer();
-            System.out.println("Datos del chofer [DNI: " + dni + "] editados.\n");
+            System.out.println("\n[EL CHOFER CON DNI " + dni + " HA SIDO MODIFICADO]");
         } else {
-            System.out.println("El chofer no fue encontrado.\n");
+            System.out.println("\n[EL CHOFER NO FUE ENCONTRADO]");
         }
+
+        System.out.println("***************************************************\n");
     }
 
     // BUSCAMOS UN CHOFER EN LA LISTA POR DNI, SI SE ENCUENTRA SE ELIMINA.
     public void eliminarChofer(long dni) {
-        boolean modificado = false;
+        boolean encontrado = false;
 
         for (Chofer c : choferes) {
             if (c.getDni() == dni) {
                 choferes.remove(c);
-                modificado = true;
+                encontrado = true;
                 break;
             }
         }
 
-        if (modificado == true) {
-            System.out.println("El chofer [DNI: " + dni + "] fue eliminado de la lista.\n");
+        System.out.println("***************************************************");
+        if (encontrado) {
+            System.out.println("[EL CHOFER CON DNI " + dni + " HA SIDO ELIMINADO]");
         } else {
-            System.out.println("El chofer no fue encontrado.\n");
+            System.out.println("[EL CHOFER NO FUE ENCONTRADO]");
         }
+        System.out.println("***************************************************\n");
     }
 
     // BUSCAMOS UN CHOFER EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
     public void mostrarChofer(long dni) {
+        System.out.println("***************************************************");
+        boolean encontrado = false;
+
         for (Chofer c : choferes) {
             if (c.getDni() == dni) {
-                System.out.println("Chofer encontrado:");
-                c.toString();
-                System.out.println();
+                System.out.println("[CHOFER ENCONTRADO]\n");
+                encontrado = true;
+
+                System.out.println(c.toString());
                 break;
             }
         }
+
+        if (!encontrado) {
+            System.out.println("[EL CHOFER NO FUE ENCONTRADO]");
+        }
+
+        System.out.println("***************************************************\n");
     }
 }
