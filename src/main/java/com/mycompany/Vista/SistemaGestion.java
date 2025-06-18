@@ -4,11 +4,15 @@
  */
 package com.mycompany.Vista;
 import java.util.*;
+import Modelo.Viaje;
 /**
  *
  * @author Gaston PC
  */
 public class SistemaGestion {
+   
+    private ArrayList<Viaje> viajes = new ArrayList<>();
+    
     
     public void registrarChofer(Scanner sc) {
         // Pedir datos del chofer y agregarlo a la lista
