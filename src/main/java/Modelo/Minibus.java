@@ -1,10 +1,11 @@
 package Modelo;
+
 /* Enzo */
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;
     private boolean tieneAire;
 
-    //CONSTRUCTORES.
+    // CONSTRUCTORES.
     public Minibus() {
     }
 
@@ -14,7 +15,7 @@ public class Minibus extends Vehiculo {
         this.tieneAire = tieneAire;
     }
 
-    //SETTERS & GETTERS
+    // SETTERS & GETTERS
     public boolean isTieneBodega() {
         return tieneBodega;
     }
@@ -31,6 +32,7 @@ public class Minibus extends Vehiculo {
         this.tieneAire = tieneAire;
     }
 
+    // TOSTRING.
     @Override
     public String toString() {
         String bodega = (tieneBodega) ? "Si" : "No";

@@ -13,17 +13,14 @@ import java.util.ArrayList;
  */
 public class Chofer extends Persona {
     private String nroLicencia;
-    private Viaje viaje;
-    private ArrayList<ChoferCategoria> choferCategorias;
+    private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
     public Chofer() {
     }
 
-    public Chofer(String nroLicencia, long dni, String nombre, String apellido, Viaje viaje) {
+    public Chofer(String nroLicencia, long dni, String nombre, String apellido) {
         super(dni, nombre, apellido);
         this.nroLicencia = nroLicencia;
-        this.viaje = viaje;
-        this.choferCategorias = new ArrayList<ChoferCategoria>();
     }
 
     // set
@@ -31,28 +28,20 @@ public class Chofer extends Persona {
         this.nroLicencia = nroLicencia;
     }
 
-    public void setViaje(Viaje viaje) {
-        this.viaje = viaje;
-    }
-
-    public void setChoferCategoria(ArrayList<ChoferCategoria> choferCategorias) {
-        this.choferCategorias = new ArrayList<ChoferCategoria>();
+    public void setViajes(ArrayList<Viaje> viajes) {
+        this.viajes = viajes;
     }
 
     // get
-
     public String getNroLicencia() {
         return nroLicencia;
     }
 
-    public Viaje getViaje() {
-        return viaje;
+    public ArrayList<Viaje> getViajes() {
+        return viajes;
     }
 
-    public ArrayList<ChoferCategoria> getChoferCategorias() {
-        return choferCategorias;
-    }
-
+    // toString
     @Override
     public String toString() {
         return "CHOFER{\n"

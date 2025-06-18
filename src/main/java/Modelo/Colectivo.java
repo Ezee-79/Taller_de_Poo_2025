@@ -4,6 +4,7 @@ package Modelo;
 public class Colectivo extends Vehiculo {
     private boolean tienePisoDoble;
 
+    // CONSTRUCTORES.
     public Colectivo() {
     }
 
@@ -12,6 +13,7 @@ public class Colectivo extends Vehiculo {
         this.tienePisoDoble = tienePisoDoble;
     }
 
+    // GETTERS & SETTERS.
     public boolean isTienePisoDoble() {
         return tienePisoDoble;
     }
@@ -20,6 +22,7 @@ public class Colectivo extends Vehiculo {
         this.tienePisoDoble = tienePisoDoble;
     }
 
+    // TOSTRING.
     @Override
     public String toString() {
         String pisoDoble = (tienePisoDoble) ? "Si" : "No";
