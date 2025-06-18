@@ -3,17 +3,20 @@ package Modelo;
 public class Categoria {
     private EnumCategoria tipo;
 
-    public Categoria (EnumCategoria tipo) {
+    public Categoria() {
+    }
+
+    public Categoria(EnumCategoria tipo) {
         this.tipo = tipo;
     }
 
-    //set
+    // set
 
     public void setTipo(EnumCategoria tipo) {
         this.tipo = tipo;
     }
 
-    //get
+    // get
     public EnumCategoria getTipo() {
         return tipo;
     }
