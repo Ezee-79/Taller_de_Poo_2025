@@ -4,16 +4,19 @@
 
 package Vista;
 
-/**
- *
- * @author Gaston PC
- */
-//import java.util.*;
+/*
 
+
+import java.util.*;
 import Controlador.Ctrl_Chofer;
 import Controlador.Ctrl_Vehiculo;
 
-public class Rutas_SA {
+
+
+
+
+ public class Rutas_SA {
+    
     public static void main(String[] args) {
 
         // PRUEBA PARA COMPROBAR EL FUNCIONAMIENTO DE LOS CONTROLADORES.
@@ -48,6 +51,24 @@ public class Rutas_SA {
         ctrlV.mostrarVehiculo("321");
 
         ctrlV.eliminarVehiculo("321");
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+        
+        // Menu de opciones 
+
 
         /*
          * Scanner sc = new Scanner(System.in);
@@ -109,6 +130,6 @@ public class Rutas_SA {
          * 
          * }while (opcion !=0);
          * sc.close();
-         */
-    }
-}
+
+
+*/

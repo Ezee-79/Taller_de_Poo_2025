@@ -10,7 +10,7 @@ public class Ciudad {
     public Ciudad() {
     }
 
-    public Ciudad(String nombre, EnumProvincia provincia, ArrayList<Viaje> viajeOrigen, ArrayList<Viaje> viajeDestino) {
+    public Ciudad(String nombre, EnumProvincia provincia) {
         this.nombre = nombre;
         this.provincia = provincia;
         this.viajeOrigen = new ArrayList<Viaje>();
