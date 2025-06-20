@@ -85,4 +85,16 @@ public class Viaje {
     public Ciudad getCiudadDestino() {
         return ciudadDestino;
     }
+
+    @Override
+    public String toString() {
+        return "CHOFER{\n"
+                + " Fecha " + getFecha() + ",\n"
+                + " Horario de salida " + getHorarioSalida() + ",\n"
+                + " Horario de  llegada" + getHorarioLlegada() + ",\n"
+                + " Chofer designado: " + getChofer() + ",\n"
+                + " Vehiculo designado: " + getVehiculo() +",\n"
+                + " Ciudad de partida: " + getCiudadOrigen() +",\n"
+                + " Ciudad destino: " + getCiudadDestino() + "}";
+    }
 }
