@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Chofer extends Persona {
     private String nroLicencia;
+    private boolean estaDisponible;
     private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
     public Chofer() {
@@ -21,6 +22,7 @@ public class Chofer extends Persona {
     public Chofer(String nroLicencia, long dni, String nombre, String apellido) {
         super(dni, nombre, apellido);
         this.nroLicencia = nroLicencia;
+        this.estaDisponible = true;
     }
 
     // set
@@ -41,13 +43,23 @@ public class Chofer extends Persona {
         return viajes;
     }
 
+    public boolean isEstaDisponible() {
+        return estaDisponible;
+    }
+
+    public void setEstaDisponible(boolean estaDisponible) {
+        this.estaDisponible = estaDisponible;
+    }
+
     // toString
     @Override
     public String toString() {
+        String disponible = (estaDisponible) ? "Si" : "No";
         return "CHOFER{\n"
                 + " Nombre: " + getNombre() + ",\n"
                 + " Apellido: " + getApellido() + ",\n"
                 + " DNI: " + getDni() + ",\n"
-                + " Numero de Licencia: " + nroLicencia + "}";
+                + " Numero de Licencia: " + nroLicencia + ",\n"
+                + " Disponible: " + disponible + "}";
     }
 }

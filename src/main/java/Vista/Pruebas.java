@@ -59,7 +59,7 @@ public class Pruebas {
         viajePrueba.Ciudades();
 
         System.out.println("\n=== PLANIFICAR VIAJE ===");
-        viajePrueba.planificarViaje(sc);
+        //viajePrueba.planificarViaje(sc);
 
         System.out.println("\n=== MOSTRAR VIAJES ===");
         viajePrueba.mostrarViajes();
