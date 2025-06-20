@@ -134,10 +134,10 @@ public class Rutas_SA {
                     new Ctrl_Viaje().mostrarViajes();
                     break;
                 case 5:
-                    new Ctrl_Viaje().mostrarViajesVehiculo();
+                   // new Ctrl_Viaje().mostrarViajesVehiculo();
                     break;
                 case 6:
-                    new Ctrl_Viaje().mostrarViajesChoferes();
+                    // new Ctrl_Viaje().mostrarViajesChoferes();
                     break;
             }
         } while (!finalizar);

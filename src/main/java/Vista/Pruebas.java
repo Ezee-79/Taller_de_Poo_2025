@@ -17,7 +17,7 @@ public class Pruebas {
   
     // Pruebas para vehiculo y chofer
     
-    
+    /*
     // CREAMOS UN CONTROLADOR PARA CHOFERES.
         Ctrl_Chofer ctrlC = new Ctrl_Chofer();
 
@@ -49,7 +49,7 @@ public class Pruebas {
 
         ctrlV.eliminarVehiculo();
 
-        
+        */
         //Pruebas ciudad y viajes
         
         Ctrl_Viaje viajePrueba = new Ctrl_Viaje();
