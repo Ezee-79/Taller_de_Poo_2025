@@ -3,7 +3,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Modelo.Chofer;
-
+import Excepciones.*;
 /* Enzo */
 public class Ctrl_Chofer {
     private ArrayList<Chofer> choferes = new ArrayList<Chofer>();
@@ -16,10 +16,10 @@ public class Ctrl_Chofer {
     }
 
     // INGRESAMOS NUEVOS DATOS AL OBJETO CHOFER.
-    public void setChofer() {
+    public void setChofer() throws IngresoInvalidoExcepcion {
         String nombre;
         String apellido;
-        int dni;
+        long dni;
         String nroLicencia;
 
         if (chofer == null) {
@@ -31,16 +31,28 @@ public class Ctrl_Chofer {
         System.out.println("\nIngresar los siguientes datos:");
         System.out.print("\nNombre: ");
         nombre = scL.nextLine();
+        if(!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+") ||  nombre.trim().isEmpty()){
+         throw new IngresoInvalidoExcepcion("No se pueden ingresar numeros.");
+        }
 
         System.out.print("\nApellido: ");
         apellido = scL.nextLine();
+        if(!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+") ||  apellido.trim().isEmpty()){
+         throw new IngresoInvalidoExcepcion("No se pueden ingresar numeros.");
+        }
 
         System.out.print("\nDNI: ");
-        dni = scI.nextInt();
+        dni = scI.nextLong();
+        if (dni < 1000000 || dni > 99999999 ) {
+            throw new IngresoInvalidoExcepcion("DNI inválido. Debe tener entre 7 y 8 dígitos.");
+        }
 
         System.out.print("\nNumero de Licencia: ");
         nroLicencia = scL.nextLine();
-
+        if(!nroLicencia.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+") ||  nroLicencia.trim().isEmpty()){
+         throw new IngresoInvalidoExcepcion("No se pueden ingresar numeros.");
+        }
+        
         chofer.setNombre(nombre);
         chofer.setApellido(apellido);
         chofer.setDni(dni);
@@ -52,10 +64,14 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO CHOFER]\n");
         chofer = null;
+        try {
         setChofer();
         choferes.add(chofer);
         System.out.println("\n[NUEVO CHOFER AGREGADO A LA LISTA]");
         System.out.println("***************************************************\n");
+        }catch(IngresoInvalidoExcepcion e) {
+            System.out.println("Error agregar chofer");
+        }
     }
 
     // BUSCAMOS EL CHOFER EN LA LISTA POR DNI, SI SE ENCUENTRA SE EDITAN LOS DATOS.
@@ -75,7 +91,10 @@ public class Ctrl_Chofer {
 
         if (encontrado) {
             System.out.println("\n[INGRESAR LOS NUEVOS DATOS PARA EL CHOFER]\n");
-            setChofer();
+            try {setChofer();
+        }catch(IngresoInvalidoExcepcion e) {
+            System.out.println("Error agregar nuevo chofer");
+        }
             choferes.set(choferes.indexOf(chofer), chofer);
             chofer = new Chofer();
             System.out.println("\n[EL CHOFER HA SIDO MODIFICADO]");
