@@ -107,7 +107,11 @@ public class Ctrl_Vehiculo {
 
     // BUSCAMOS UN VEHICULO SEGUN PATENTE, SI SE ENCUENTRA SE EDITAN SUS DATOS SEGUN
     // SU TIPO.
-    public void editarVehiculo(String patente) {
+    public void editarVehiculo() {
+        System.out.println("***************************************************");
+        System.out.print("INGRESAR PATENTE DEL VEHICULO A EDITAR: ");
+        String patente = scL.nextLine();
+
         boolean encontrado = false;
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
@@ -119,7 +123,7 @@ public class Ctrl_Vehiculo {
 
         if (encontrado) {
             System.out.println("***************************************************");
-            System.out.println("[EDITA EL VEHICULO CON PATENTE " + patente + "]");
+            System.out.println("[INGRESAR NUEVOS DATOS PARA EL VEHICULO]");
             System.out.println("[NOTA: COPIA Y PEGA LOS DATOS QUE NO QUIERES EDITAR]\n");
 
             if (vehiculo instanceof Minibus) {
@@ -132,7 +136,7 @@ public class Ctrl_Vehiculo {
                 vehiculos.set(vehiculos.indexOf(colectivo), colectivo);
             }
 
-            System.out.println("\n[EL VEHICULO CON PATENTE " + patente + " HA SIDO MODIFICADO]");
+            System.out.println("\n[EL VEHICULO HA SIDO MODIFICADO]");
         } else {
             System.out.println("\n[EL VEHICULO NO FUE ENCONTRADO]");
         }
@@ -141,9 +145,12 @@ public class Ctrl_Vehiculo {
     }
 
     // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE ELIMINA.
-    public void eliminarVehiculo(String patente) {
-        boolean encontrado = false;
+    public void eliminarVehiculo() {
+        System.out.println("***************************************************");
+        System.out.print("INGRESAR PATENTE DEL VEHICULO A ELIMINAR: ");
+        String patente = scL.nextLine();
 
+        boolean encontrado = false;
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
                 vehiculos.remove(v);
@@ -152,23 +159,24 @@ public class Ctrl_Vehiculo {
             }
         }
 
-        System.out.println("***************************************************");
         if (encontrado) {
-            System.out.println("[EL VEHICULO CON PATENTE " + patente + " HA SIDO ELIMINADO]");
+            System.out.println("\n[EL VEHICULO HA SIDO ELIMINADO]");
         } else {
-            System.out.println("[EL VEHICULO NO FUE ENCONTRADO]");
+            System.out.println("\n[EL VEHICULO NO FUE ENCONTRADO]");
         }
         System.out.println("***************************************************\n");
     }
 
     // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
-    public void mostrarVehiculo(String patente) {
+    public void mostrarVehiculo() {
         System.out.println("***************************************************");
-        boolean encontrado = false;
+        System.out.print("INGRESAR PATENTE DEL VEHICULO A MOSTRAR: ");
+        String patente = scL.nextLine();
 
+        boolean encontrado = false;
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
-                System.out.println("[VEHICULO ENCONTRADO]\n");
+                System.out.println("\n[VEHICULO ENCONTRADO]\n");
                 encontrado = true;
 
                 if (v instanceof Minibus) {
@@ -184,7 +192,7 @@ public class Ctrl_Vehiculo {
         }
 
         if (!encontrado) {
-            System.out.println("[EL VEHICULO NO FUE ENCONTRADO]");
+            System.out.println("\n[EL VEHICULO NO FUE ENCONTRADO]");
         }
 
         System.out.println("***************************************************\n");

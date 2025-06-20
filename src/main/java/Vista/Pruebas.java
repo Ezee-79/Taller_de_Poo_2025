@@ -25,29 +25,29 @@ public class Pruebas {
         ctrlC.agregarChofer();
 
         // BUSCAMOS EL CHOFER POR DNI Y LO MOSTRAMOS.
-        ctrlC.mostrarChofer(123);
+        ctrlC.mostrarChofer();
 
         // BUSCAMOS EL CHOFER POR DNI Y LO EDITAMOS.
-        ctrlC.editarChofer(123);
+        ctrlC.editarChofer();
 
         // BUSCAMOS EL CHOFER EDITADO Y LO MOSTRAMOS.
-        ctrlC.mostrarChofer(321);
+        ctrlC.mostrarChofer();
 
         // BUSCAMOS EL CHOFER POR DNI Y LO ELIMINAMOS.
-        ctrlC.eliminarChofer(321);
+        ctrlC.eliminarChofer();
 
         // LO MISMO QUE ARRIBA PERO CON VEHICULOS.
         Ctrl_Vehiculo ctrlV = new Ctrl_Vehiculo();
 
         ctrlV.agregarVehiculo();
 
-        ctrlV.mostrarVehiculo("123");
+        ctrlV.mostrarVehiculo();
 
-        ctrlV.editarVehiculo("123");
+        ctrlV.editarVehiculo();
 
-        ctrlV.mostrarVehiculo("321");
+        ctrlV.mostrarVehiculo();
 
-        ctrlV.eliminarVehiculo("321");
+        ctrlV.eliminarVehiculo();
 
         
         //Pruebas ciudad y viajes
