@@ -197,4 +197,21 @@ public class Ctrl_Vehiculo {
 
         System.out.println("***************************************************\n");
     }
+
+    // GETTERS & SETTERS.
+    public ArrayList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 }
