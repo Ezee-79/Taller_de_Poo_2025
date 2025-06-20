@@ -85,16 +85,46 @@ public class Rutas_SA {
     }
 
     private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl) {
-        System.out.print("\n* SUBMENU VIAJES *\n"
-                + "[1.AGREGAR VIAJE]\n"
-                + "[2.EDITAR VIAJE]\n"
-                + "[3.ELIMINAR VIAJE]\n"
-                + "[4.MOSTRAR VIAJE]\n"
-                + "[0.VOLVER]\n"
-                + "INGRESE UNA OPCION: ");
+        boolean volver = false;
+        int opcion = 0;
+        do {
+            System.out.print("\n* SUBMENU VIAJES *\n"
+                    + "[1.AGREGAR VIAJE]\n"
+                    + "[2.EDITAR VIAJE]\n"
+                    + "[3.ELIMINAR VIAJE]\n"
+                    + "[4.MOSTRAR VIAJE]\n"
+                    + "[0.VOLVER]\n"
+                    + "INGRESE UNA OPCION: ");
+
+            opcion = sc.nextInt();
+            switch (opcion) {
+                case 0:
+                    volver = true;
+                    break;
+                case 1:
+                    ctrl.planificarViaje();
+                    break;
+                case 2:
+                    // ctrl.editarViaje();
+                    break;
+                case 3:
+                    // ctrl.eliminarViaje();
+                    break;
+                case 4:
+                    // ctrl.mostrarViaje();
+                    break;
+                default:
+                    System.out.println("[INGRESO INVALIDO]");
+                    break;
+            }
+        } while (!volver);
     }
 
     public static void main(String[] args) {
+        Ctrl_Chofer ctrlChofer = new Ctrl_Chofer();
+        Ctrl_Vehiculo ctrlVehiculo = new Ctrl_Vehiculo();
+        Ctrl_Viaje ctrlViaje = new Ctrl_Viaje();
+
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
         boolean finalizar;
@@ -122,22 +152,26 @@ public class Rutas_SA {
                     System.out.println("**************************************************");
                     break;
                 case 1:
-                    menuChoferes(sc, new Ctrl_Chofer());
+                    menuChoferes(sc, ctrlChofer);
                     break;
                 case 2:
-                    menuVehiculos(sc, new Ctrl_Vehiculo());
+                    menuVehiculos(sc, ctrlVehiculo);
                     break;
                 case 3:
-                    menuViajes(sc, new Ctrl_Viaje());
+                    menuViajes(sc, ctrlViaje);
                     break;
                 case 4:
-                    new Ctrl_Viaje().mostrarViajes();
+                    ctrlViaje.mostrarViajes();
                     break;
                 case 5:
-                   // new Ctrl_Viaje().mostrarViajesVehiculo();
+
+                    ctrlViaje.mostrarViajesVehiculo();
                     break;
                 case 6:
-                    // new Ctrl_Viaje().mostrarViajesChoferes();
+                    ctrlViaje.mostrarViajesChoferes();
+                    break;
+                case 6:
+                    ctrlViaje.mostrarViajesChoferes();
                     break;
             }
         } while (!finalizar);
