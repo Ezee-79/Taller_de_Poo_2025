@@ -31,21 +31,19 @@ public class Ctrl_Viaje {
         listaCiudades.add(new Ciudad("Chubut", EnumProvincia.CHUBUT));
 
     }
-    
-    
+
+    Viaje viaje;
     Scanner sc = new Scanner(System.in);
 
-    public void planificarViaje(Scanner sc) {
-        
-
+    public void planificarViaje(Ctrl_Chofer ctrlC, Ctrl_Vehiculo ctrlV) {
         System.out.println("Ciudades disponibles");
         for (int i = 0; i < listaCiudades.size(); i++) {
             System.out.println((i + 1) + "-" + listaCiudades.get(i).getNombre());
         }
-        
+
         System.out.print("Seleccione ciudad de origen: ");
         int origenx = sc.nextInt() - 1;
-        
+
         System.out.print("Seleccione ciudad de destino: ");
         int destinox = sc.nextInt() - 1;
         sc.nextLine();
@@ -53,7 +51,7 @@ public class Ctrl_Viaje {
         Ciudad origen = listaCiudades.get(origenx);
         Ciudad destino = listaCiudades.get(destinox);
 
-        //fecha viaje
+        // fecha viaje
         System.out.print("Ingrese la fecha del viaje: ");
         String fecha = sc.nextLine();
 
@@ -64,11 +62,10 @@ public class Ctrl_Viaje {
         System.out.print("Ingrese horario de llegada: ");
         String llegada = sc.nextLine();
 
-
-        //agregar chofer a viaje
-        Chofer c;
+        // agregar chofer a viaje
+        Chofer c = null;
         for (Chofer p : new Ctrl_Chofer().getChoferes()) {
-            if (p.getDisponible() == true) {
+            if (p.isEstaDisponible() == true) {
                 c = p;
             }
         }
@@ -77,11 +74,11 @@ public class Ctrl_Viaje {
         System.out.print("2 - COLECTIVO ");
         System.out.print("Ingrese vehiculo preferido: ");
         int opcionv = sc.nextInt();
-        Vehiculo Vtipo;
-        
+        Vehiculo Vtipo = null;
+
         if (opcionv == 1) {
             for (Vehiculo p : new Ctrl_Vehiculo().getVehiculos()) {
-                if (p.getDisponible() == true && p instanceof Minibus) {
+                if (p.isEstaDisponible() == true && p instanceof Minibus) {
                     Vtipo = p;
                 }
             }
@@ -89,14 +86,14 @@ public class Ctrl_Viaje {
         } else {
 
             for (Vehiculo p : new Ctrl_Vehiculo().getVehiculos()) {
-                if (p.getDisponible() == true && p instanceof Colectivo) {
+                if (p.isEstaDisponible() == true && p instanceof Colectivo) {
                     Vtipo = p;
                 }
             }
 
         }
 
-        // Viaje completo 
+        // Viaje completo
         Viaje viaje = new Viaje(fecha, salida, llegada, c, Vtipo, origen, destino);
 
         listaViajes.add(viaje);
@@ -108,8 +105,7 @@ public class Ctrl_Viaje {
             System.out.println(ciudad.getNombre() + " - " + ciudad.getProvincia());
         }
     }
-    
-    
+
     public void mostrarViajes() {
         if (listaViajes.isEmpty()) {
             System.out.println("No hay ningun viaje programado.");
@@ -120,8 +116,6 @@ public class Ctrl_Viaje {
         }
     }
 
-    
-    
     public ArrayList<Viaje> getListaViajes() {
         return listaViajes;
     }

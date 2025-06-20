@@ -132,4 +132,21 @@ public class Ctrl_Chofer {
 
         System.out.println("***************************************************\n");
     }
+
+    // GETTERS & SETTERS.
+    public ArrayList<Chofer> getChoferes() {
+        return choferes;
+    }
+
+    public void setChoferes(ArrayList<Chofer> choferes) {
+        this.choferes = choferes;
+    }
+
+    public Chofer getChofer() {
+        return chofer;
+    }
+
+    public void setChofer(Chofer chofer) {
+        this.chofer = chofer;
+    }
 }

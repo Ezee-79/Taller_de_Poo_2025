@@ -84,7 +84,7 @@ public class Rutas_SA {
         } while (!volver);
     }
 
-    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl) {
+    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         boolean volver = false;
         int opcion = 0;
         do {
@@ -102,7 +102,7 @@ public class Rutas_SA {
                     volver = true;
                     break;
                 case 1:
-                    ctrl.planificarViaje();
+                    ctrl.planificarViaje(ctrlC, ctrlV);
                     break;
                 case 2:
                     // ctrl.editarViaje();
@@ -158,17 +158,13 @@ public class Rutas_SA {
                     menuVehiculos(sc, ctrlVehiculo);
                     break;
                 case 3:
-                    menuViajes(sc, ctrlViaje);
+                    menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer);
                     break;
                 case 4:
                     ctrlViaje.mostrarViajes();
                     break;
                 case 5:
-
                     ctrlViaje.mostrarViajesVehiculo();
-                    break;
-                case 6:
-                    ctrlViaje.mostrarViajesChoferes();
                     break;
                 case 6:
                     ctrlViaje.mostrarViajesChoferes();
