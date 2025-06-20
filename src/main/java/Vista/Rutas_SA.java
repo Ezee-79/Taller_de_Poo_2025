@@ -164,10 +164,10 @@ public class Rutas_SA {
                     ctrlViaje.mostrarViajes();
                     break;
                 case 5:
-                    ctrlViaje.mostrarViajesVehiculo();
+                  // ctrlViaje.mostrarViajesVehiculo();
                     break;
                 case 6:
-                    ctrlViaje.mostrarViajesChoferes();
+                  // ctrlViaje.mostrarViajesChoferes();
                     break;
             }
         } while (!finalizar);
