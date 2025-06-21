@@ -16,6 +16,7 @@ public class Viaje {
     private Vehiculo vehiculo;
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
+    private EstadoViaje estado;
 
     public Viaje(String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
             Ciudad ciudadOrigen, Ciudad ciudadDestino) {
@@ -57,6 +58,10 @@ public class Viaje {
         this.ciudadDestino = ciudadDestino;
     }
 
+    public void setEstadoViaje(EstadoViaje estado){
+        this.estado = estado;
+    }
+
     // get
     public String getFecha() {
         return fecha;
@@ -84,6 +89,22 @@ public class Viaje {
 
     public Ciudad getCiudadDestino() {
         return ciudadDestino;
+    }
+
+    public EstadoViaje getEstadoViaje(){
+        return estado;
+    }
+
+    @Override
+    public String toString() {
+        return "CHOFER{\n"
+                + " Fecha " + getFecha() + ",\n"
+                + " Horario de salida " + getHorarioSalida() + ",\n"
+                + " Horario de  llegada" + getHorarioLlegada() + ",\n"
+                + " Chofer designado: " + getChofer() + ",\n"
+                + " Vehiculo designado: " + getVehiculo() +",\n"
+                + " Ciudad de partida: " + getCiudadOrigen() +",\n"
+                + " Ciudad destino: " + getCiudadDestino() + "}";
     }
     
     @Override

@@ -4,14 +4,22 @@
  */
 package Controlador;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import Excepciones.IngresoInvalidoExcepcion;
 /**
  *
  * @author Gaston PC
  */
 import Modelo.*;
+
+
+
+import Excepciones.IngresoInvalidoExcepcion;
+
+
 
 public class Ctrl_Viaje {
     private ArrayList<Viaje> listaViajes = new ArrayList<>();
@@ -141,13 +149,26 @@ public class Ctrl_Viaje {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
 
+
+        
+
         // Viaje completo
         Viaje viaje = new Viaje(fecha, salida, llegada, c, v, origen, destino);
+
         listaViajes.add(viaje);
         sc.nextLine();
         System.out.println("**************************************************");
         System.out.println("El VIAJE PROGRAMADO CON EXITO");
         System.out.println("**************************************************");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
+        if (!horaLlegada.isAfter(LocalDateTime.now())) {
+            viaje.setEstadoViaje(EstadoViaje.TERMINADO);
+        } else {
+            viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
+        }
+
     }
     
 
@@ -284,6 +305,31 @@ public class Ctrl_Viaje {
             for (Viaje viaje : listaViajes) {
                 System.out.println(viaje.toString());
             }
+        }
+    }
+
+    public void mostrarViajesVehiculo() {
+        System.out.print("Ingresar patente del colectivo a revisar:");
+        String patente = sc.nextLine();
+        for (Viaje viaje: listaViajes) {
+            if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo){
+                if (viaje.getEstadoViaje() == EstadoViaje.EN_CURSO) {
+                    System.out.println(viaje);
+                }
+            } else {
+                System.out.print("Ocurrio un error inesperado: patente equivocada o no perteneciente a un colectivo");
+            }
+        }
+    }
+
+    public void mostrarViajesChoferes() {
+        System.out.print("Ingresar el dni del chofer a revisar:");
+        long dni = sc.nextLong();
+        int cantViajes = 0;
+        for (Viaje viaje: listaViajes) {
+             if ((viaje.getChofer().getDni()) == (dni) && viaje.getVehiculo() instanceof Colectivo && viaje.getEstadoViaje() == EstadoViaje.TERMINADO) {
+                cantViajes = cantViajes + 1;
+             }
         }
     }
 }
