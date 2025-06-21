@@ -16,6 +16,7 @@ public class Viaje {
     private Vehiculo vehiculo;
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
+    private EstadoViaje estado;
 
     public Viaje(String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
             Ciudad ciudadOrigen, Ciudad ciudadDestino) {
@@ -57,6 +58,10 @@ public class Viaje {
         this.ciudadDestino = ciudadDestino;
     }
 
+    public void setEstadoViaje(EstadoViaje estado){
+        this.estado = estado;
+    }
+
     // get
     public String getFecha() {
         return fecha;
@@ -84,6 +89,10 @@ public class Viaje {
 
     public Ciudad getCiudadDestino() {
         return ciudadDestino;
+    }
+
+    public EstadoViaje getEstadoViaje(){
+        return estado;
     }
 
     @Override

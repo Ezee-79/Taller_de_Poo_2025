@@ -5,14 +5,14 @@
 package Controlador;
 
 import java.time.LocalDateTime;
-import java.util.*;
 import java.time.format.DateTimeFormatter;
-
+import java.util.*;
+import Modelo.*;
 /**
  *
  * @author Gaston PC
  */
-import Modelo.*;
+
 
 public class Ctrl_Viaje {
 
@@ -93,9 +93,20 @@ public class Ctrl_Viaje {
 
         }
 
+
+        
+
         // Viaje completo
         Viaje viaje = new Viaje(fecha, salida, llegada, c, Vtipo, origen, destino);
-
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
+        if (horaLlegada.isBefore(LocalDateTime.now())) {
+            viaje.setEstadoViaje(EstadoViaje.TERMINADO);
+        } else {
+            viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
+        }
+        
         listaViajes.add(viaje);
 
     }
@@ -124,16 +135,28 @@ public class Ctrl_Viaje {
         return listaCiudades;
     }
 
-    public void mostrarViajesVehiculo(String patente) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String llegada = viaje.getHorarioLlegada();
-        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
-        for (Viaje viaje : listaViajes) {
-            if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo) {
-                if (LocalDateTime.now().isBefore(horaLlegada)){
+    public void mostrarViajesVehiculo() {
+        System.out.print("Ingresar patente del colectivo a revisar:");
+        String patente = sc.nextLine();
+        for (Viaje viaje: listaViajes) {
+            if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo){
+                if (viaje.getEstadoViaje() == EstadoViaje.EN_CURSO) {
                     System.out.println(viaje);
                 }
+            } else {
+                System.out.print("Ocurrio un error inesperado: patente equivocada o no perteneciente a un colectivo");
             }
+        }
+    }
+
+    public void mostrarViajesChoferes() {
+        System.out.print("Ingresar el dni del chofer a revisar:");
+        long dni = sc.nextLong();
+        int cantViajes = 0;
+        for (Viaje viaje: listaViajes) {
+             if ((viaje.getChofer().getDni()) == (dni) && viaje.getVehiculo() instanceof Colectivo && viaje.getEstadoViaje() == EstadoViaje.TERMINADO) {
+                cantViajes = cantViajes + 1;
+             }
         }
     }
 }
