@@ -49,7 +49,7 @@ public class Pruebas {
 
         ctrlV.eliminarVehiculo();
 
-        */
+        
         //Pruebas ciudad y viajes
         
         Ctrl_Viaje viajePrueba = new Ctrl_Viaje();
@@ -65,7 +65,7 @@ public class Pruebas {
         viajePrueba.mostrarViajes();
 
         sc.close();
-        
+        */
         
         
         
