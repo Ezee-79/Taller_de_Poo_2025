@@ -4,14 +4,14 @@
  */
 package Controlador;
 
+import java.time.LocalDateTime;
+import java.util.*;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author Gaston PC
  */
-import Modelo.Viaje;
-import Modelo.Ciudad;
-import Modelo.EnumProvincia;
-import java.util.*;
 import Modelo.*;
 
 public class Ctrl_Viaje {
@@ -124,4 +124,16 @@ public class Ctrl_Viaje {
         return listaCiudades;
     }
 
+    public void mostrarViajesVehiculo(String patente) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String llegada = viaje.getHorarioLlegada();
+        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
+        for (Viaje viaje : listaViajes) {
+            if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo) {
+                if (LocalDateTime.now().isBefore(horaLlegada)){
+                    System.out.println(viaje);
+                }
+            }
+        }
+    }
 }
