@@ -6,10 +6,23 @@ public enum EnumProvincia {
     CATAMARCA,
     CHACO,
     CHUBUT,
+    CORDOBA,
+    CORRIENTES,
+    ENTRE_RIOS,
+    FORMOSA,
+    JUJUY,
+    LA_PAMPA,
     LA_RIOJA,
-    TUCUMAN,
     MENDOZA,
+    MISIONES,
+    NEUQUEN,
+    RIO_NEGRO,
+    SALTA,
+    SAN_JUAN,
+    SAN_LUIS,
+    SANTA_CRUZ,
     SANTA_FE,
-    CORDOBA
-    
+    SANTIAGO_DEL_ESTERO,
+    TIERRA_DEL_FUEGO,
+    TUCUMAN
 }
