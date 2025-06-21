@@ -9,8 +9,14 @@ package Excepciones;
  * @author Gaston PC
  */
 
-public class IngresoInvalidoExcepcion extends Exception{
-    public IngresoInvalidoExcepcion(String mensaje){ 
-        super (mensaje);
-        }
+public class IngresoInvalidoExcepcion extends Exception {
+    private String mensaje;
+
+    public IngresoInvalidoExcepcion(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
 }

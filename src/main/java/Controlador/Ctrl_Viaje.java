@@ -4,106 +4,147 @@
  */
 package Controlador;
 
+import java.util.*;
+
+import Excepciones.IngresoInvalidoExcepcion;
 /**
  *
  * @author Gaston PC
  */
-import Modelo.Viaje;
-import Modelo.Ciudad;
-import Modelo.EnumProvincia;
-import java.util.*;
 import Modelo.*;
 
 public class Ctrl_Viaje {
-
     private ArrayList<Viaje> listaViajes = new ArrayList<>();
-    private ArrayList<Ciudad> listaCiudades = new ArrayList<>();
+    Scanner sc;
+    Scanner scL;
+    Viaje viaje;
 
-    public void Ciudades() {
-        listaCiudades.add(new Ciudad("Buenos Aires", EnumProvincia.BUENOS_AIRES));
-        listaCiudades.add(new Ciudad("Córdoba", EnumProvincia.CORDOBA));
-        listaCiudades.add(new Ciudad("Santa fe", EnumProvincia.SANTA_FE));
-        listaCiudades.add(new Ciudad("Mendoza", EnumProvincia.MENDOZA));
-        listaCiudades.add(new Ciudad("San Miguel de Tucumán", EnumProvincia.TUCUMAN));
-        listaCiudades.add(new Ciudad("Catamarca", EnumProvincia.CATAMARCA));
-        listaCiudades.add(new Ciudad("Chaco", EnumProvincia.CHACO));
-        listaCiudades.add(new Ciudad("La Rioja", EnumProvincia.LA_RIOJA));
-        listaCiudades.add(new Ciudad("Chubut", EnumProvincia.CHUBUT));
-
+    public Ctrl_Viaje() {
     }
 
-    Viaje viaje;
-    Scanner sc = new Scanner(System.in);
-
-    public void planificarViaje(Ctrl_Chofer ctrlC, Ctrl_Vehiculo ctrlV) {
+    public void planificarViaje(Ctrl_Chofer ctrlCho, Ctrl_Vehiculo ctrlV, Ctrl_Ciudad ctrlCiu)
+            throws IngresoInvalidoExcepcion, InputMismatchException {
+        sc = new Scanner(System.in);
+        scL = new Scanner(System.in);
+        // ESTO LO PODRIAMOS BORRAR PORQUE SI TENEMOS MIL CIUDADES NO PODEMOS MOSTRAR TODAS POR PANTALLA.
+        // QUE EL USUARIO ESCRIBA LA CIUDAD Y EL PROGRAMA LE DIGA SI EXISTE O NO ESA CIUDAD.
+        // ESTO LO IMPLEMENTE MAS ABAJO, ESTA TODO COMENTADO. SI LO QUIEREN DESCARTAR LO BORRAN JAJAJA.
         System.out.println("Ciudades disponibles");
-        for (int i = 0; i < listaCiudades.size(); i++) {
-            System.out.println((i + 1) + "-" + listaCiudades.get(i).getNombre());
+        for (int i = 0; i < ctrlCiu.getCiudades().size(); i++) {
+            System.out.println((i + 1) + "-" + ctrlCiu.getCiudades().get(i).getNombre());
         }
 
         System.out.print("Seleccione ciudad de origen: ");
         int origenx = sc.nextInt() - 1;
+        sc.nextLine();
 
         System.out.print("Seleccione ciudad de destino: ");
         int destinox = sc.nextInt() - 1;
         sc.nextLine();
 
-        Ciudad origen = listaCiudades.get(origenx);
-        Ciudad destino = listaCiudades.get(destinox);
+        Ciudad origen = ctrlCiu.getCiudades().get(origenx);
+        Ciudad destino = ctrlCiu.getCiudades().get(destinox);
+        /*
+        System.out.print("Ingrese ciudad de origen: ");
+        String origenx = scL.nextLine();
+        origenx = origenx.trim();
+        if (!origenx.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR NUMEROS]");
+        } else if (origenx.isEmpty()) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
+        }
+        
+        System.out.print("ingrese ciudad de destino: ");
+        String destinox = scL.nextLine();
+        if (!destinox.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR NUMEROS]");
+        } else if (destinox.isEmpty()) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
+        }
 
+        Ciudad origen;
+        Ciudad destino;
+        for(Ciudad c : ctrlCiu.getCiudades()){
+            if(c.getNombre().equalsIgnoreCase(origenx)){
+                origen = c;
+            } else if(c.getNombre().equalsIgnoreCase(destinox)){
+                destino = c;
+            }
+        }
+
+        if(origen == null || destino == null){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO UNA O NINGUNA CIUDAD]");
+        }
+         */
         // fecha viaje
-        System.out.print("Ingrese la fecha del viaje: ");
+        System.out.print("Ingrese la fecha del viaje (DD/MM/AAAA): ");
         String fecha = sc.nextLine();
+        fecha = fecha.trim();
+        if(!fecha.matches("\\d{2}/\\d{2}/\\d{4}")){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
+        } else if(fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        }
 
         // horarios del viaje
-        System.out.print("Ingrese horario de salida: ");
+        System.out.print("Ingrese horario de salida (HH:MM): ");
         String salida = sc.nextLine();
+        salida = salida.trim();
+        if(!salida.matches("\\d{2}:\\d{2}")){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
+        } else if(salida.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        }
 
-        System.out.print("Ingrese horario de llegada: ");
+        System.out.print("Ingrese horario de llegada (HH:MM): ");
         String llegada = sc.nextLine();
+        if(!llegada.matches("\\d{2}:\\d{2}")){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
+        } else if(llegada.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        }
 
         // agregar chofer a viaje
         Chofer c = null;
-        for (Chofer p : new Ctrl_Chofer().getChoferes()) {
+        for (Chofer p : ctrlCho.getChoferes()) {
             if (p.isEstaDisponible() == true) {
                 c = p;
             }
+        }
+        if(c == null){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO CHOFER DISPONIBLE]");
         }
 
         System.out.print("1- MINI BUS ");
         System.out.print("2 - COLECTIVO ");
         System.out.print("Ingrese vehiculo preferido: ");
         int opcionv = sc.nextInt();
-        Vehiculo Vtipo = null;
+        Vehiculo v = null;
 
         if (opcionv == 1) {
-            for (Vehiculo p : new Ctrl_Vehiculo().getVehiculos()) {
+            for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p.isEstaDisponible() == true && p instanceof Minibus) {
-                    Vtipo = p;
+                    v = p;
                 }
             }
 
         } else {
 
-            for (Vehiculo p : new Ctrl_Vehiculo().getVehiculos()) {
+            for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p.isEstaDisponible() == true && p instanceof Colectivo) {
-                    Vtipo = p;
+                    v = p;
                 }
             }
 
         }
+        if(v == null){
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO VEHICULO DISPONIBLE]");
+        }
 
         // Viaje completo
-        Viaje viaje = new Viaje(fecha, salida, llegada, c, Vtipo, origen, destino);
-
+        Viaje viaje = new Viaje(fecha, salida, llegada, c, v, origen, destino);
         listaViajes.add(viaje);
-
-    }
-
-    public void mostrarCiudades() {
-        for (Ciudad ciudad : listaCiudades) {
-            System.out.println(ciudad.getNombre() + " - " + ciudad.getProvincia());
-        }
+        sc.nextLine();
     }
 
     public void mostrarViajes() {
@@ -115,13 +156,4 @@ public class Ctrl_Viaje {
             }
         }
     }
-
-    public ArrayList<Viaje> getListaViajes() {
-        return listaViajes;
-    }
-
-    public ArrayList<Ciudad> getListaCiudades() {
-        return listaCiudades;
-    }
-
 }
