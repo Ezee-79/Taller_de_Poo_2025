@@ -116,7 +116,7 @@ public class Ctrl_Viaje {
         }
 
         System.out.print("1- MINI BUS ");
-        System.out.print("2 - COLECTIVO ");
+        System.out.print("2 - COLECTIVO \n");
         System.out.print("Ingrese vehiculo preferido: ");
         int opcionv = sc.nextInt();
         Vehiculo v = null;
@@ -145,8 +145,138 @@ public class Ctrl_Viaje {
         Viaje viaje = new Viaje(fecha, salida, llegada, c, v, origen, destino);
         listaViajes.add(viaje);
         sc.nextLine();
+        System.out.println("**************************************************");
+        System.out.println("El VIAJE PROGRAMADO CON EXITO");
+        System.out.println("**************************************************");
+    }
+    
+
+    public void mostrarViajesConIndice() {
+    if (listaViajes.isEmpty()) {
+        System.out.println("No hay viajes programados.");
+    } else {
+        System.out.println("==== VIAJES DISPONIBLES ====");
+        for (int i = 0; i < listaViajes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + listaViajes.get(i).getResumen());
+        }
+        System.out.println("============================");
+    }
+}
+
+ 
+    // Metodo para eliminar un viaje
+    public void eliminarViaje() throws InputMismatchException {
+    Scanner sc = new Scanner(System.in);
+
+    mostrarViajesConIndice();
+
+    if (listaViajes.isEmpty()) return;
+
+    System.out.print("Ingrese el numero del viaje a eliminar: ");
+    int opcion = sc.nextInt();
+
+    if (opcion < 1 || opcion > listaViajes.size()) {
+        System.out.println("[ERROR: Numero inválido]");
+        return;
     }
 
+    Viaje eliminado = listaViajes.remove(opcion - 1);
+    System.out.println("El viaje fue eliminado con exito.");
+}
+
+    
+    //Metodo para editar un viaje
+    public void editarViaje(Ctrl_Ciudad ctrlCiu) throws InputMismatchException {
+    Scanner sc = new Scanner(System.in);
+
+    mostrarViajesConIndice();
+    if (listaViajes.isEmpty()) return;
+
+    System.out.print("Ingrese el numero del viaje a editar: ");
+    int opcion = sc.nextInt();
+    sc.nextLine(); // limpiar buffer
+
+    if (opcion < 1 || opcion > listaViajes.size()) {
+        System.out.println("[ERROR: Numero invalido]");
+        return;
+    }
+
+    Viaje viaje = listaViajes.get(opcion - 1);
+
+    // Mostrar ciudades disponibles
+    ArrayList<Ciudad> ciudades = ctrlCiu.getCiudades();
+    System.out.println("\nCiudades disponibles:");
+    for (int i = 0; i < ciudades.size(); i++) {
+        System.out.println("[" + (i + 1) + "] " + ciudades.get(i).getNombre());
+    }
+
+    // Seleccionar nueva ciudad de origen
+    System.out.print("Seleccione nueva ciudad de origen: ");
+    int origenIndex = sc.nextInt() - 1;
+    sc.nextLine();
+
+    // Validar selección
+    if (origenIndex < 0 || origenIndex >= ciudades.size()) {
+        System.out.println("[ERROR: Ciudad origen no valida]");
+        return;
+    }
+
+    // Seleccionar nueva ciudad de destino
+    System.out.print("Seleccione nueva ciudad de destino: ");
+    int destinoIndex = sc.nextInt() - 1;
+    sc.nextLine();
+
+    if (destinoIndex < 0 || destinoIndex >= ciudades.size()) {
+        System.out.println("[ERROR: Ciudad destino no valida]");
+        return;
+    }
+
+    // Asignar nuevas ciudades al viaje
+    viaje.setCiudadOrigen(ciudades.get(origenIndex));
+    viaje.setCiudadDestino(ciudades.get(destinoIndex));
+
+    System.out.println("El viaje fue editado correctamente.");
+}
+
+    
+    
+    //metodo mostar viaje
+    public void mostrarViaje() {
+    Scanner sc = new Scanner(System.in);
+
+    if (listaViajes.isEmpty()) {
+        System.out.println("No hay viajes cargados.");
+        return;
+    }
+
+    System.out.println("==== VIAJES DISPONIBLES ====");
+    for (int i = 0; i < listaViajes.size(); i++) {
+        System.out.println("[" + (i + 1) + "] " + listaViajes.get(i).getResumen());
+    }
+    System.out.println("============================");
+
+    System.out.print("Seleccione el numero del viaje para ver detalles: ");
+    int seleccion = sc.nextInt();
+    sc.nextLine(); // limpiar buffer
+
+    if (seleccion < 1 || seleccion > listaViajes.size()) {
+        System.out.println("[ERROR: Numero invalido]");
+        return;
+    }
+
+    Viaje viaje = listaViajes.get(seleccion - 1);
+
+    System.out.println("\n===== DETALLES DEL VIAJE =====");
+    System.out.println(viaje.toString());
+    System.out.println("===============================");
+}
+
+
+    
+    
+    
+    
+    
     public void mostrarViajes() {
         if (listaViajes.isEmpty()) {
             System.out.println("No hay ningun viaje programado.");
