@@ -106,4 +106,19 @@ public class Viaje {
                 + " Ciudad de partida: " + getCiudadOrigen() +",\n"
                 + " Ciudad destino: " + getCiudadDestino() + "}";
     }
+    
+    @Override
+    public String toString() {
+    return "Viaje de " + ciudadOrigen.getNombre() +
+           " a " + ciudadDestino.getNombre() +
+           "\nFecha: " + getFecha()+
+           "\nChofer: " + chofer.getNombre() + " " + chofer.getApellido() +
+           "\nVehiculo: " + vehiculo.getPatente();
+    }
+    
+    public String getResumen() {
+    return ciudadOrigen.getNombre() + " a " + ciudadDestino.getNombre() + " - " + fecha + " - " + "Salida:" + horarioSalida + "Llegada:" + horarioLlegada ;
+    }
+
+
 }
