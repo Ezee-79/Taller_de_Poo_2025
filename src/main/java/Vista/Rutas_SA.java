@@ -3,18 +3,11 @@
  */
 
 package Vista;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import Controlador.Ctrl_Chofer;
-import Controlador.Ctrl_Ciudad;
-import Controlador.Ctrl_Vehiculo;
-import Controlador.Ctrl_Viaje;
-import Excepciones.IngresoInvalidoExcepcion;
+import java.util.*;
+import Controlador.*;
+import Excepciones.*;
 
 public class Rutas_SA {
-
     private static void menuChoferes(Scanner sc, Ctrl_Chofer ctrl) {
         int opcion;
         boolean volver = false;
@@ -99,6 +92,7 @@ public class Rutas_SA {
         } while (!volver);
     }
 
+    /*
     private static void menuCiudad(Scanner sc, Ctrl_Ciudad ctrl) {
         int opcion;
         boolean volver = false;
@@ -140,6 +134,7 @@ public class Rutas_SA {
             }
         } while (!volver);
     }
+     */
 
     private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlCho,
             Ctrl_Ciudad ctrlCiu) {
@@ -167,13 +162,13 @@ public class Rutas_SA {
                         ctrl.planificarViaje(ctrlCho, ctrlV, ctrlCiu);
                         break;
                     case 2:
-                        // ctrl.editarViaje();
+                          ctrl.editarViaje(ctrlCiu);
                         break;
                     case 3:
-                        // ctrl.eliminarViaje();
+                          ctrl.eliminarViaje();
                         break;
                     case 4:
-                        // ctrl.mostrarViaje();
+                         ctrl.mostrarViaje();
                         break;
                 }
             } catch (IngresoInvalidoExcepcion e) {
@@ -203,15 +198,15 @@ public class Rutas_SA {
                 System.out.print("\n* MENU PRINCIPAL *\n"
                         + "[1.GESTIONAR CHOFERES]\n"
                         + "[2.GESTIONAR VEHICULOS]\n"
-                        + "[3.GESTIONAR CIUDADES]\n"
-                        + "[4.GESTIONAR VIAJES]\n"
-                        + "[5.MOSTRAR VIAJES PROGRAMADOS]\n"
-                        + "[6.MOSTRAR VIAJES HA REALIZAR DE UN VEHICULO]\n"
-                        + "[7.MOSTRAR VIAJES REALIZADOS DE CADA CHOFER]\n"
+                        //+  "[3.GESTIONAR CIUDADES]\n"
+                        + "[3.GESTIONAR VIAJES]\n"
+                        + "[4.MOSTRAR VIAJES PROGRAMADOS]\n"
+                        + "[5.MOSTRAR VIAJES HA REALIZAR DE UN VEHICULO]\n"
+                        + "[6.MOSTRAR VIAJES REALIZADOS DE CADA CHOFER]\n"
                         + "[0.FINALIZAR]\n"
                         + "INGRESE UNA OPCION: ");
                 opcion = sc.nextInt();
-                if (opcion < 0 || opcion > 7) {
+                if (opcion < 0 || opcion > 6) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
 
@@ -228,18 +223,18 @@ public class Rutas_SA {
                         menuVehiculos(sc, ctrlVehiculo);
                         break;
                     case 3:
-                        menuCiudad(sc, ctrlCiudad);
+                        /* menuCiudad(sc, ctrlCiudad);
                         break;
-                    case 4:
+                    case 4: */
                         menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer, ctrlCiudad);
                         break;
-                    case 5:
+                    case 4:
                         ctrlViaje.mostrarViajes();
                         break;
-                    case 6:
+                    case 5:
                         // ctrlViaje.mostrarViajesVehiculo();
                         break;
-                    case 7:
+                    case 6:
                         // ctrlViaje.mostrarViajesChoferes();
                         break;
                 }
