@@ -58,7 +58,7 @@ public class Viaje {
         this.ciudadDestino = ciudadDestino;
     }
 
-    public void setEstadoViaje(EstadoViaje estado){
+    public void setEstadoViaje(EstadoViaje estado) {
         this.estado = estado;
     }
 
@@ -91,34 +91,25 @@ public class Viaje {
         return ciudadDestino;
     }
 
-    public EstadoViaje getEstadoViaje(){
+    public EstadoViaje getEstadoViaje() {
         return estado;
     }
 
     @Override
     public String toString() {
-        return "CHOFER{\n"
+        return "VIAJE{\n"
                 + " Fecha " + getFecha() + ",\n"
                 + " Horario de salida " + getHorarioSalida() + ",\n"
                 + " Horario de  llegada" + getHorarioLlegada() + ",\n"
                 + " Chofer designado: " + getChofer() + ",\n"
-                + " Vehiculo designado: " + getVehiculo() +",\n"
-                + " Ciudad de partida: " + getCiudadOrigen() +",\n"
+                + " Vehiculo designado: " + getVehiculo() + ",\n"
+                + " Ciudad de partida: " + getCiudadOrigen() + ",\n"
                 + " Ciudad destino: " + getCiudadDestino() + "}";
     }
-    
-    @Override
-    public String toString() {
-    return "Viaje de " + ciudadOrigen.getNombre() +
-           " a " + ciudadDestino.getNombre() +
-           "\nFecha: " + getFecha()+
-           "\nChofer: " + chofer.getNombre() + " " + chofer.getApellido() +
-           "\nVehiculo: " + vehiculo.getPatente();
-    }
-    
-    public String getResumen() {
-    return ciudadOrigen.getNombre() + " a " + ciudadDestino.getNombre() + " - " + fecha + " - " + "Salida:" + horarioSalida + "Llegada:" + horarioLlegada ;
-    }
 
+    public String getResumen() {
+        return ciudadOrigen.getNombre() + " a " + ciudadDestino.getNombre() + " - " + fecha + " - " + "Salida:"
+                + horarioSalida + "Llegada:" + horarioLlegada;
+    }
 
 }
