@@ -3,6 +3,7 @@
  */
 
 package Vista;
+
 import java.util.*;
 import Controlador.*;
 import Excepciones.*;
@@ -92,52 +93,7 @@ public class Rutas_SA {
         } while (!volver);
     }
 
-    /*
-    private static void menuCiudad(Scanner sc, Ctrl_Ciudad ctrl) {
-        int opcion;
-        boolean volver = false;
-        do {
-            sc = new Scanner(System.in);
-            try {
-                System.out.print("\n* SUBMENU CIUDADES *\n"
-                        + "[1.AGREGAR CIUDAD]\n"
-                        + "[2.EDITAR CIUDAD]\n"
-                        + "[3.ELIMINAR CIUDAD]\n"
-                        + "[4.MOSTRAR CIUDAD]\n"
-                        + "[0.VOLVER]\n"
-                        + "INGRESE UNA OPCION: ");
-                opcion = sc.nextInt();
-                if (opcion < 0 || opcion > 4) {
-                    throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
-                }
-                switch (opcion) {
-                    case 0:
-                        volver = true;
-                        break;
-                    case 1:
-                        ctrl.registrarCiudad();
-                        break;
-                    case 2:
-                        // ctrl.editarVehiculo();
-                        break;
-                    case 3:
-                        // ctrl.eliminarVehiculo();
-                        break;
-                    case 4:
-                        // ctrl.mostrarVehiculo();
-                        break;
-                }
-            } catch (IngresoInvalidoExcepcion e) {
-                System.out.println("\n" + e.getMensaje());
-            } catch (InputMismatchException e) {
-                System.out.println("[ERROR: NO PUEDE INGRESAR LETRAS EN UN CAMPO NUMERICO]");
-            }
-        } while (!volver);
-    }
-     */
-
-    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlCho,
-            Ctrl_Ciudad ctrlCiu) {
+    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         int opcion;
         boolean volver = false;
         do {
@@ -159,16 +115,16 @@ public class Rutas_SA {
                         volver = true;
                         break;
                     case 1:
-                        ctrl.planificarViaje(ctrlCho, ctrlV, ctrlCiu);
+                        ctrl.planificarViaje(ctrlC, ctrlV);
                         break;
                     case 2:
-                          ctrl.editarViaje(ctrlCiu);
+                        ctrl.editarViaje();
                         break;
                     case 3:
-                          ctrl.eliminarViaje();
+                        ctrl.eliminarViaje();
                         break;
                     case 4:
-                         ctrl.mostrarViaje();
+                        ctrl.mostrarViaje();
                         break;
                 }
             } catch (IngresoInvalidoExcepcion e) {
@@ -182,7 +138,6 @@ public class Rutas_SA {
     public static void main(String[] args) {
         Ctrl_Viaje ctrlViaje = new Ctrl_Viaje();
         Ctrl_Chofer ctrlChofer = new Ctrl_Chofer();
-        Ctrl_Ciudad ctrlCiudad = new Ctrl_Ciudad();
         Ctrl_Vehiculo ctrlVehiculo = new Ctrl_Vehiculo();
 
         Scanner sc;
@@ -198,7 +153,6 @@ public class Rutas_SA {
                 System.out.print("\n* MENU PRINCIPAL *\n"
                         + "[1.GESTIONAR CHOFERES]\n"
                         + "[2.GESTIONAR VEHICULOS]\n"
-                        //+  "[3.GESTIONAR CIUDADES]\n"
                         + "[3.GESTIONAR VIAJES]\n"
                         + "[4.MOSTRAR VIAJES PROGRAMADOS]\n"
                         + "[5.MOSTRAR VIAJES HA REALIZAR DE UN VEHICULO]\n"
@@ -223,19 +177,16 @@ public class Rutas_SA {
                         menuVehiculos(sc, ctrlVehiculo);
                         break;
                     case 3:
-                        /* menuCiudad(sc, ctrlCiudad);
-                        break;
-                    case 4: */
-                        menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer, ctrlCiudad);
+                        menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer);
                         break;
                     case 4:
                         ctrlViaje.mostrarViajes();
                         break;
                     case 5:
-                        // ctrlViaje.mostrarViajesVehiculo();
+                        ctrlViaje.mostrarViajesVehiculo();
                         break;
                     case 6:
-                        // ctrlViaje.mostrarViajesChoferes();
+                        ctrlViaje.mostrarViajesChoferes();
                         break;
                 }
             } catch (IngresoInvalidoExcepcion e) {
