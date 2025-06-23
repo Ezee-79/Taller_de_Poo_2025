@@ -8,7 +8,26 @@ import java.util.*;
 import Controlador.*;
 import Excepciones.*;
 
+/**
+ * Clase principal del sistema Rutas S.A. que contiene el menú de interacción con el usuario.
+ * Permite gestionar choferes, vehículos y viajes mediante un menú de consola.
+ * 
+ * Ofrece submenús para realizar operaciones como agregar, editar, eliminar y mostrar registros.
+ * Controla también excepciones personalizadas y errores de entrada del usuario.
+ * 
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ */
 public class Rutas_SA {
+    
+    /**
+     * Muestra el submenú de gestión de choferes y permite realizar operaciones
+     * como agregar, editar, eliminar o mostrar choferes.
+     * 
+     * @param sc   Scanner utilizado para capturar entradas desde consola.
+     * @param ctrl Controlador de choferes.
+     */
     private static void menuChoferes(Scanner sc, Ctrl_Chofer ctrl) {
         int opcion;
         boolean volver = false;
@@ -51,6 +70,13 @@ public class Rutas_SA {
         } while (!volver);
     }
 
+    /**
+     * Muestra el submenú de gestión de vehiculos y permite realizar operaciones
+     * como agregar, editar, eliminar o mostrar vehiculos.
+     * 
+     * @param sc   Scanner utilizado para capturar entradas desde consola.
+     * @param ctrl Controlador de vehiculos.
+     */
     private static void menuVehiculos(Scanner sc, Ctrl_Vehiculo ctrl) {
         int opcion;
         boolean volver = false;
@@ -93,6 +119,15 @@ public class Rutas_SA {
         } while (!volver);
     }
 
+    /**
+     * Muestra el submenú de gestión de viajes y permite realizar operaciones
+     * como planificar, editar, eliminar o mostrar viajes.
+     *
+     * @param sc     Scanner utilizado para capturar entradas desde consola.
+     * @param ctrl   Controlador de viajes, encargado de gestionar las operaciones sobre viajes.
+     * @param ctrlV  Controlador de vehículos, utilizado para asociar vehículos a los viajes.
+     * @param ctrlC  Controlador de choferes, utilizado para asociar choferes a los viajes.
+     */
     private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         int opcion;
         boolean volver = false;
@@ -135,6 +170,13 @@ public class Rutas_SA {
         } while (!volver);
     }
 
+    /**
+     * Método principal que lanza el sistema Rutas S.A.
+     * Presenta el menú principal y delega a los submenús correspondientes
+     * para gestionar choferes, vehículos y viajes.
+     *
+     * @param args Argumentos de línea de comandos (no utilizados).
+     */
     public static void main(String[] args) {
         Ctrl_Viaje ctrlViaje = new Ctrl_Viaje();
         Ctrl_Chofer ctrlChofer = new Ctrl_Chofer();
