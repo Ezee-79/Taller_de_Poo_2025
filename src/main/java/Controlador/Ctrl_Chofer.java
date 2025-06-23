@@ -10,13 +10,13 @@ import Modelo.ChoferCategoria;
 import Modelo.EnumCategoria;
 import Excepciones.*;
 
-
 /**
  * Clase controladora encargada de gestionar choferes.
- * Permite agregar, editar, eliminar y mostrar choferes, tambien muestra aquellos que estan disponibles para su asignacion a un viaje.
+ * Permite agregar, editar, eliminar y mostrar choferes, tambien muestra
+ * aquellos que estan disponibles para su asignacion a un viaje.
  * Se encarga también de validar los datos ingresados por el usuario.
  * 
- * @author Gaston. 
+ * @author Gaston.
  * @author Denis.
  * @author Enzo.
  */
@@ -27,7 +27,8 @@ public class Ctrl_Chofer {
     private Scanner scI;
 
     /**
-     * Constructor que inicializa la lista de choferes con algunos valores por defecto.
+     * Constructor que inicializa la lista de choferes con algunos valores por
+     * defecto.
      */
     public Ctrl_Chofer() {
         choferCateg = new ChoferCategoria(
@@ -51,7 +52,8 @@ public class Ctrl_Chofer {
      * Lanza excepciones si los datos ingresados no son del mismo tipo.
      * 
      * @throws IngresoInvalidoExcepcion si se ingresan datos inválidos.
-     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     * @throws InputMismatchException   si se produce un error en el tipo de
+     *                                  entrada.
      */
     public void setChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
@@ -139,7 +141,8 @@ public class Ctrl_Chofer {
      * Agrega un nuevo chofer a la lista cuyos datos son ingresados por consola.
      * 
      * @throws IngresoInvalidoExcepcion si se ingresan datos inválidos.
-     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     * @throws InputMismatchException   si se produce un error en el tipo de
+     *                                  entrada.
      */
     public void agregarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         System.out.println("***************************************************");
@@ -151,11 +154,12 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
-     /**
+    /**
      * Se busca un chofer por su Dni y si hay una coincidencia se editan sus datos.
      * 
      * @throws IngresoInvalidoExcepcion si el DNI o los nuevos datos son inválidos.
-     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     * @throws InputMismatchException   si se produce un error en el tipo de
+     *                                  entrada.
      */
     public void editarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
@@ -190,7 +194,8 @@ public class Ctrl_Chofer {
     }
 
     /**
-     * Se busca un chofer por su Dni y si hay una coincidencia se lo elimina de la lista.
+     * Se busca un chofer por su Dni y si hay una coincidencia se lo elimina de la
+     * lista.
      * 
      * @throws IngresoInvalidoExcepcion
      * @throws InputMismatchException
@@ -222,7 +227,8 @@ public class Ctrl_Chofer {
     }
 
     /**
-     * Se busca un chofer por su Dni y si hay una coincidencia se muestran sus datos.
+     * Se busca un chofer por su Dni y si hay una coincidencia se muestran sus
+     * datos.
      * 
      * @throws IngresoInvalidoExcepcion
      * @throws InputMismatchException
@@ -256,18 +262,12 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
-
-    // GET LISTA DE CHOFERES.
-    public ArrayList<ChoferCategoria> getChoferes() {
-        return choferes;
-    }
-
     /**
      * Retorna una lista compuesta de objetos {@link Chofer}.
      * 
      * @return lista de {@link Chofer}.
      */
-    public ArrayList<Chofer> getChoferes() {
+    public ArrayList<ChoferCategoria> getChoferes() {
         return choferes;
     }
 
@@ -276,26 +276,7 @@ public class Ctrl_Chofer {
      * 
      * @param choferes una nueva lista de choferes.
      */
-    public void setChoferes(ArrayList<Chofer> choferes) {
+    public void setChoferes(ArrayList<ChoferCategoria> choferes) {
         this.choferes = choferes;
     }
-
-    /**
-     * Retorna los datos de un {@link chofer}.
-     * 
-     * @return un objeto {@link chofer}.
-     */
-    public Chofer getChofer() {
-        return chofer;
-    }
-
-    /**
-     * Asigna los datos de un chofer.
-     * 
-     * @param chofer define un objeto {@link Chofer} a asignar.
-     */
-    public void setChofer(Chofer chofer) {
-        this.chofer = chofer;
-    }
-
 }
