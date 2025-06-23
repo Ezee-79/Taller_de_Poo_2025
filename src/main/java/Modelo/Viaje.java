@@ -28,7 +28,8 @@ public class Viaje {
     /**
      * Constructor que inicializa un nuevo viaje con sus datos principales.
      *
-     * @param fecha la fecha del viaje (formato sugerido: dd/MM/yyyy).
+     * @param fechaSalida la fecha de salida del viaje (formato sugerido: dd/MM/yyyy).
+     * @param fechaLlegada la fecha de llegada del viaje a su destino(formato sugerido: dd/MM/yyyy).
      * @param horarioSalida la hora de salida del viaje (formato sugerido: HH:mm).
      * @param horarioLlegada la hora de llegada estimada (formato sugerido: HH:mm).
      * @param chofer el chofer asignado al viaje.
