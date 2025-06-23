@@ -7,7 +7,7 @@ package Modelo;
 /**
  * Representa un viaje realizado por un vehículo conducido por un chofer entre dos ciudades en una fecha y horarios determinados.
  * 
- * Contiene detalles como la fecha del viaje, horarios de salida y llegada, {@link Chofer}, {@link Vehículo} asignado,
+ * Contiene detalles como la fecha del viaje, horarios de salida y llegada, {@link Chofer}, {@link Vehiculo} asignado,
  * {@link Ciudad} de origen y destino, y el estado del viaje.
  * 
  * @author Gaston. 

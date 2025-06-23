@@ -23,7 +23,7 @@ public class Categoria {
      * Constructor con parámetros.
      * Permite crear una categoría directamente con un tipo definido.
      * 
-     * @param tipo el tipo de categoría segun lo contenido en {@link enumCategoria}.
+     * @param tipo el tipo de categoría segun lo contenido en {@link EnumCategoria}.
      */
     public Categoria(EnumCategoria tipo) {
         this.tipo = tipo;

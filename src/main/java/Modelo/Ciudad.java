@@ -3,7 +3,7 @@ package Modelo;
  * Clase que representa una ciudad junto con su provincia correspondiente.
  * 
  * Esta clase se utiliza para ubicarlas dentro del sistema,
- * donde cada ciudad pertenece a una provincia definida por el enumerador EnumProvincia.
+ * donde cada ciudad pertenece a una provincia definida por el enumerador {@link EnumProvincia}.
  * 
  * 
  * @author Gaston. 
