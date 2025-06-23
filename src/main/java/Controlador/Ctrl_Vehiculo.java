@@ -28,12 +28,6 @@ public class Ctrl_Vehiculo {
 
     // INGRESO DE DATOS DE VEHICULOS SEGUN SU TIPO.
     public void setVehiculo(int tipo) throws IngresoInvalidoExcepcion, InputMismatchException {
-        String patente;
-        int capacidad;
-        int VoF;
-        boolean bodega;
-        boolean aireAcondicionado;
-        boolean pisoDoble;
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
 
@@ -49,7 +43,7 @@ public class Ctrl_Vehiculo {
 
         System.out.println("\nINGRESAR LOS SIGUIENTES DATOS:");
         System.out.print("PATENTE: ");
-        patente = scL.nextLine();
+        String patente = scL.nextLine();
         patente = patente.trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
@@ -58,7 +52,7 @@ public class Ctrl_Vehiculo {
         }
 
         System.out.print("CAPACIDAD DE PERSONAS: ");
-        capacidad = scI.nextInt();
+        int capacidad = scI.nextInt();
         if (capacidad < 0 && capacidad > 50) {
             throw new IngresoInvalidoExcepcion("[ERROR: FUERA DEL RANGO DE 0 A 50]");
         }
@@ -67,18 +61,18 @@ public class Ctrl_Vehiculo {
             case 1:
                 System.out.println("\nRESPONDER CON [0.FALSO][1.VERDADERO]");
                 System.out.print("CUENTA CON BODEGA: ");
-                VoF = scI.nextInt();
+                int VoF = scI.nextInt();
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                bodega = (VoF == 1) ? true : false;
+                boolean bodega = (VoF == 1) ? true : false;
 
                 System.out.print("CUENTA CON AIRE ACONDICIONADO: ");
                 VoF = scI.nextInt();
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                aireAcondicionado = (VoF == 1) ? true : false;
+                boolean aireAcondicionado = (VoF == 1) ? true : false;
 
                 minibus.setPatente(patente);
                 minibus.setCapacidad(capacidad);
@@ -92,7 +86,7 @@ public class Ctrl_Vehiculo {
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                pisoDoble = (VoF == 1) ? true : false;
+                boolean pisoDoble = (VoF == 1) ? true : false;
 
                 colectivo.setPatente(patente);
                 colectivo.setCapacidad(capacidad);
@@ -103,13 +97,9 @@ public class Ctrl_Vehiculo {
 
     // AGREGAMOS UN NUEVO VEHICULO A LA LISTA SEGUN LA OPCION INGRESADA.
     public void agregarVehiculo() throws IngresoInvalidoExcepcion, InputMismatchException {
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
-
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VEHICULO]\n");
-        System.out.println("RESPONDER CON [1.MINIBUS][2.COLECTIVO]");
-        System.out.print("INGRESE EL TIPO DE VEHICULO: ");
+        System.out.print("INGRESAR TIPO DE VEHICULO CON [1.MINIBUS][2.COLECTIVO]: ");
         int tipo = scI.nextInt();
         if (tipo != 1 && tipo != 2) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
@@ -148,9 +138,11 @@ public class Ctrl_Vehiculo {
         }
 
         boolean encontrado = false;
+        int indice = 0;
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
                 vehiculo = v;
+                indice = vehiculos.indexOf(v);
                 encontrado = true;
                 break;
             }
@@ -164,11 +156,11 @@ public class Ctrl_Vehiculo {
             if (vehiculo instanceof Minibus) {
                 minibus = (Minibus) vehiculo;
                 setVehiculo(1);
-                vehiculos.set(vehiculos.indexOf(minibus), minibus);
+                vehiculos.set(indice, minibus);
             } else {
                 colectivo = (Colectivo) vehiculo;
                 setVehiculo(2);
-                vehiculos.set(vehiculos.indexOf(colectivo), colectivo);
+                vehiculos.set(indice, colectivo);
             }
 
             System.out.println("\n[EL VEHICULO HA SIDO MODIFICADO]");
@@ -247,20 +239,12 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-    // GETTERS & SETTERS.
+    // GETTERS.
     public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
-    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
-    }
-
     public Vehiculo getVehiculo() {
         return vehiculo;
-    }
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
     }
 }

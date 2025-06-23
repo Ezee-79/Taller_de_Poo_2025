@@ -35,10 +35,32 @@ public class Ctrl_Viaje {
                 "10:00",
                 "15:00",
                 ctrlC.getLista().get(0).getChofer(),
-                ctrlV.getVehiculos().get(1),
+                ctrlV.getVehiculos().get(0),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
                 new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
         viaje.setCodigo(0);
+        ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
+        listaViajes.add(viaje);
+
+        viaje = new Viaje("20/07/2025",
+                "15:00",
+                "18:30",
+                ctrlC.getLista().get(1).getChofer(),
+                ctrlV.getVehiculos().get(3),
+                new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
+                new Ciudad("Ubajay", EnumProvincia.ENTRE_RIOS));
+        viaje.setCodigo(1);
+        ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
+        listaViajes.add(viaje);
+
+        viaje = new Viaje("20/07/2025",
+                "10:00",
+                "11:45",
+                ctrlC.getLista().get(3).getChofer(),
+                ctrlV.getVehiculos().get(3),
+                new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
+                new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
+        viaje.setCodigo(1);
         ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
         listaViajes.add(viaje);
     }
@@ -135,6 +157,10 @@ public class Ctrl_Viaje {
 
         System.out.print("INGRESAR TIPO DE VEHICULO [1.MINIBUS][2.COLECTIVO]: ");
         int opcionv = scI.nextInt();
+        if (opcionv != 1 && opcionv != 2) {
+            throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
+        }
+
         EnumCategoria enumCateg = (opcionv == 1) ? EnumCategoria.MINIBUS : EnumCategoria.COLECTIVO;
         Vehiculo v = null;
         if (opcionv == 1) {
@@ -182,12 +208,9 @@ public class Ctrl_Viaje {
 
     public void planificarViaje()
             throws IngresoInvalidoExcepcion, InputMismatchException {
-
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VIAJE]");
         viaje = null;
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
         setViaje();
         listaViajes.add(viaje);
         System.out.println("\n[NUEVO VIAJE AGREGADO A LA LISTA]");
@@ -290,11 +313,16 @@ public class Ctrl_Viaje {
         }
     }
 
-    public void mostrarViajesVehiculo() {
+    public void mostrarViajesVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
 
         System.out.print("INGRESAR PATENTE DEL VEHICULO A REVISAR: ");
         String patente = scL.nextLine();
+        if (patente.isEmpty()) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
+        } else if (patente.contains(" ")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR ESPACIOS]");
+        }
 
         boolean encontrado = false;
         for (Viaje viaje : listaViajes) {
