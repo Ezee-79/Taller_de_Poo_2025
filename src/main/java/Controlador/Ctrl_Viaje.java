@@ -56,7 +56,7 @@ public class Ctrl_Viaje {
         viaje = new Viaje("20/07/2025",
                 "10:00",
                 "11:45",
-                ctrlC.getLista().get(3).getChofer(),
+                ctrlC.getLista().get(2).getChofer(),
                 ctrlV.getVehiculos().get(3),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
                 new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
@@ -341,7 +341,6 @@ public class Ctrl_Viaje {
 
     public void mostrarViajesChoferes() {
         System.out.println("CANTIDAD DE VIAJES FINALIZADOS POR CADA CHOFER DE COLECTIVOS:");
-        int cantViajes = 0;
         for (ChoferCategoria c : ctrlC.getLista()) {
             if (c.getCategoria().getTipo() == EnumCategoria.COLECTIVO
                     || c.getCategoria().getTipo() == EnumCategoria.AMBOS) {

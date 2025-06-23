@@ -44,11 +44,17 @@ public class Ctrl_Vehiculo {
         System.out.println("\nINGRESAR LOS SIGUIENTES DATOS:");
         System.out.print("PATENTE: ");
         String patente = scL.nextLine();
-        patente = patente.trim();
+        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR ESPACIOS]");
+        }
+
+        for (Vehiculo v : vehiculos) {
+            if (v.getPatente().equals(patente)) {
+                throw new IngresoInvalidoExcepcion("[ERROR: YA EXISTE UN VEHICULO CON LA PATENTE INGRESADA]");
+            }
         }
 
         System.out.print("CAPACIDAD DE PERSONAS: ");
@@ -100,6 +106,7 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VEHICULO]\n");
         System.out.print("INGRESAR TIPO DE VEHICULO CON [1.MINIBUS][2.COLECTIVO]: ");
+        scI = new Scanner(System.in);
         int tipo = scI.nextInt();
         if (tipo != 1 && tipo != 2) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
@@ -130,7 +137,7 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A EDITAR: ");
         String patente = scL.nextLine();
-        patente = patente.trim();
+        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
@@ -178,6 +185,7 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A ELIMINAR: ");
         String patente = scL.nextLine();
+        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
@@ -208,6 +216,7 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A MOSTRAR: ");
         String patente = scL.nextLine();
+        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {

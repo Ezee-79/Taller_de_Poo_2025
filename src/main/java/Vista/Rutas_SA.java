@@ -167,6 +167,7 @@ public class Rutas_SA {
                 switch (opcion) {
                     case 0:
                         finalizar = true;
+                        sc.close();
                         System.out.println("\n[EL PROGRAMA HA FINALIZADO]");
                         System.out.println("**************************************************");
                         break;

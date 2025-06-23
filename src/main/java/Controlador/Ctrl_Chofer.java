@@ -74,6 +74,12 @@ public class Ctrl_Chofer {
             throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR 7-8 DIGITOS]");
         }
 
+        for (ChoferCategoria c : choferes) {
+            if (c.getChofer().getDni() == dni) {
+                throw new IngresoInvalidoExcepcion("[ERROR: YA EXISTE UN CHOFER CON EL DNI INGRESADO]");
+            }
+        }
+
         System.out.print("NUMERO DE LICENCIA: ");
         String nroLicencia = scL.nextLine();
         nroLicencia = nroLicencia.trim();
