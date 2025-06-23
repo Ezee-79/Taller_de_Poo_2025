@@ -7,7 +7,7 @@ package Modelo;
 /**
  * Representa un viaje realizado por un vehículo conducido por un chofer entre dos ciudades en una fecha y horarios determinados.
  * 
- * Contiene detalles como la fecha del viaje, horarios de salida y llegada, {@link Chofer}, {@link Vehículo} asignado,
+ * Contiene detalles como la fecha del viaje, horarios de salida y llegada, {@link Chofer}, {@link Vehiculo} asignado,
  * {@link Ciudad} de origen y destino, y el estado del viaje.
  * 
  * @author Gaston. 
@@ -33,7 +33,7 @@ public class Viaje {
      * @param horarioSalida la hora de salida del viaje (formato sugerido: HH:mm).
      * @param horarioLlegada la hora de llegada estimada (formato sugerido: HH:mm).
      * @param chofer el {@link Chofer} asignado al viaje.
-     * @param vehiculo el {@link Vehículo} asignado al viaje.
+     * @param vehiculo el {@link Vehiculo} asignado al viaje.
      * @param ciudadOrigen la {@link Ciudad} de origen del viaje.
      * @param ciudadDestino la {@link Ciudad} de destino del viaje.
      */

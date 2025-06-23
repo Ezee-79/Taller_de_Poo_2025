@@ -21,8 +21,8 @@ public class ChoferCategoria {
     /**
      * Constructor parametrizado.
      * 
-     * @param chofer  el {@link chofer} asociado.
-     * @param categoria la {@link categoría}  que puede conducir.
+     * @param chofer  el {@link Chofer} asociado.
+     * @param categoria la {@link Categoría}  que puede conducir.
      * @param fechaVencimiento La fecha hasta la cual debe trabajar en esa categoria.
      */
     public ChoferCategoria(Chofer chofer, Categoria categoria, String fechaVencimiento) {
