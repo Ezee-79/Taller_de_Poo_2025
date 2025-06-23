@@ -15,13 +15,8 @@ package Modelo;
  * @author Enzo.
  */
 public class Viaje {
-
-    private int codigo;
-    private String fecha;
-
     private String fechaSalida;    
     private String fechaLlegada;
-
     private String horarioSalida;
     private String horarioLlegada;
     private Chofer chofer;
@@ -29,13 +24,6 @@ public class Viaje {
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
     private EstadoViaje estado;
-
-
-    public Viaje() {
-        this.codigo = -1;
-    }
-
-    public Viaje(String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
 
     /**
      * Constructor que inicializa un nuevo viaje con sus datos principales.
@@ -50,7 +38,6 @@ public class Viaje {
      * @param ciudadDestino la {@link Ciudad} de destino del viaje.
      */
     public Viaje(String fechaSalida, String fechaLlegada, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
-
             Ciudad ciudadOrigen, Ciudad ciudadDestino) {
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
@@ -62,15 +49,6 @@ public class Viaje {
         this.vehiculo = vehiculo;
     }
 
-
-    // set
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-
     /**
      * Establece la fecha de salida del viaje.
      *
@@ -78,7 +56,6 @@ public class Viaje {
      */
     public void setFechaSalida(String fechaSalida) {
         this.fechaSalida = fechaSalida;
-
     }
 
     /**
@@ -154,15 +131,6 @@ public class Viaje {
         this.estado = estado;
     }
 
-
-    // get
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public String getFecha() {
-        return fecha;
-
     /**
      * Devuelve la fecha de salida del viaje.
      *
@@ -179,7 +147,6 @@ public class Viaje {
      */
     public String getFechaLlegada() {
         return fechaLlegada;
-
     }
 
     /**

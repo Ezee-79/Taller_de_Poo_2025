@@ -29,10 +29,10 @@ public class Ctrl_Vehiculo {
      * Constructor por defecto, con algunos vehiculos predefinidos.
      */
     public Ctrl_Vehiculo() {
-        vehiculos.add(new Minibus("A1", 10, true, true));
-        vehiculos.add(new Colectivo("B2", 50, true));
-        vehiculos.add(new Minibus("C3", 20, false, false));
-        vehiculos.add(new Colectivo("D4", 30, false));
+        vehiculos.add(new Minibus("A1", 100, true, true));
+        vehiculos.add(new Colectivo("B2", 200, true));
+        vehiculos.add(new Minibus("C3", 300, false, false));
+        vehiculos.add(new Colectivo("D4", 400, false));
     }
 
     /**
@@ -44,6 +44,12 @@ public class Ctrl_Vehiculo {
      * @throws InputMismatchException si el tipo de entrada es incorrecto.
      */
     public void setVehiculo(int tipo) throws IngresoInvalidoExcepcion, InputMismatchException {
+        String patente;
+        int capacidad;
+        int VoF;
+        boolean bodega;
+        boolean aireAcondicionado;
+        boolean pisoDoble;
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
 
@@ -59,22 +65,16 @@ public class Ctrl_Vehiculo {
 
         System.out.println("\nINGRESAR LOS SIGUIENTES DATOS:");
         System.out.print("PATENTE: ");
-        String patente = scL.nextLine();
-        patente = patente.toUpperCase().trim();
+        patente = scL.nextLine();
+        patente = patente.trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR ESPACIOS]");
         }
 
-        for (Vehiculo v : vehiculos) {
-            if (v.getPatente().equals(patente)) {
-                throw new IngresoInvalidoExcepcion("[ERROR: YA EXISTE UN VEHICULO CON LA PATENTE INGRESADA]");
-            }
-        }
-
         System.out.print("CAPACIDAD DE PERSONAS: ");
-        int capacidad = scI.nextInt();
+        capacidad = scI.nextInt();
         if (capacidad < 0 && capacidad > 50) {
             throw new IngresoInvalidoExcepcion("[ERROR: FUERA DEL RANGO DE 0 A 50]");
         }
@@ -83,18 +83,18 @@ public class Ctrl_Vehiculo {
             case 1:
                 System.out.println("\nRESPONDER CON [0.FALSO][1.VERDADERO]");
                 System.out.print("CUENTA CON BODEGA: ");
-                int VoF = scI.nextInt();
+                VoF = scI.nextInt();
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                boolean bodega = (VoF == 1) ? true : false;
+                bodega = (VoF == 1) ? true : false;
 
                 System.out.print("CUENTA CON AIRE ACONDICIONADO: ");
                 VoF = scI.nextInt();
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                boolean aireAcondicionado = (VoF == 1) ? true : false;
+                aireAcondicionado = (VoF == 1) ? true : false;
 
                 minibus.setPatente(patente);
                 minibus.setCapacidad(capacidad);
@@ -108,7 +108,7 @@ public class Ctrl_Vehiculo {
                 if (VoF != 0 && VoF != 1) {
                     throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
                 }
-                boolean pisoDoble = (VoF == 1) ? true : false;
+                pisoDoble = (VoF == 1) ? true : false;
 
                 colectivo.setPatente(patente);
                 colectivo.setCapacidad(capacidad);
@@ -124,10 +124,13 @@ public class Ctrl_Vehiculo {
      * @throws InputMismatchException
      */
     public void agregarVehiculo() throws IngresoInvalidoExcepcion, InputMismatchException {
+        scI = new Scanner(System.in);
+        scL = new Scanner(System.in);
+
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VEHICULO]\n");
-        System.out.print("INGRESAR TIPO DE VEHICULO CON [1.MINIBUS][2.COLECTIVO]: ");
-        scI = new Scanner(System.in);
+        System.out.println("RESPONDER CON [1.MINIBUS][2.COLECTIVO]");
+        System.out.print("INGRESE EL TIPO DE VEHICULO: ");
         int tipo = scI.nextInt();
         if (tipo != 1 && tipo != 2) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
@@ -161,7 +164,7 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A EDITAR: ");
         String patente = scL.nextLine();
-        patente = patente.toUpperCase().trim();
+        patente = patente.trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
@@ -169,11 +172,9 @@ public class Ctrl_Vehiculo {
         }
 
         boolean encontrado = false;
-        int indice = 0;
         for (Vehiculo v : vehiculos) {
             if (v.getPatente().equals(patente)) {
                 vehiculo = v;
-                indice = vehiculos.indexOf(v);
                 encontrado = true;
                 break;
             }
@@ -187,11 +188,11 @@ public class Ctrl_Vehiculo {
             if (vehiculo instanceof Minibus) {
                 minibus = (Minibus) vehiculo;
                 setVehiculo(1);
-                vehiculos.set(indice, minibus);
+                vehiculos.set(vehiculos.indexOf(minibus), minibus);
             } else {
                 colectivo = (Colectivo) vehiculo;
                 setVehiculo(2);
-                vehiculos.set(indice, colectivo);
+                vehiculos.set(vehiculos.indexOf(colectivo), colectivo);
             }
 
             System.out.println("\n[EL VEHICULO HA SIDO MODIFICADO]");
@@ -213,7 +214,6 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A ELIMINAR: ");
         String patente = scL.nextLine();
-        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
@@ -248,7 +248,6 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************");
         System.out.print("INGRESAR PATENTE DEL VEHICULO A MOSTRAR: ");
         String patente = scL.nextLine();
-        patente = patente.toUpperCase().trim();
         if (patente.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         } else if (patente.contains(" ")) {
@@ -280,21 +279,13 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-
-    // GETTERS.
-
     /**
      * Retorna la lista de vehiculos actual.
      * 
      * @return la lista de vehiculos.
      */
-
     public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
-    }
-
-    public Vehiculo getVehiculo() {
-        return vehiculo;
     }
 
     /**
@@ -323,5 +314,4 @@ public class Ctrl_Vehiculo {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-
 }

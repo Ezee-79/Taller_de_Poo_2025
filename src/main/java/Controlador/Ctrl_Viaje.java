@@ -4,14 +4,11 @@
  */
 package Controlador;
 
-
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import Modelo.*;
 import Excepciones.IngresoInvalidoExcepcion;
-
 
 /**
  * Clase controladora encargada de gestionar las operaciones relacionadas con los viajes,
@@ -24,26 +21,11 @@ import Excepciones.IngresoInvalidoExcepcion;
  * @author Enzo.
  */
 
-import Modelo.*;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-import Excepciones.IngresoInvalidoExcepcion;
-
-
 public class Ctrl_Viaje {
     private ArrayList<Viaje> listaViajes = new ArrayList<>();
-    private Ctrl_Vehiculo ctrlV;
-    private Ctrl_Chofer ctrlC;
-    private Viaje viaje;
-    private Scanner scI;
-    private Scanner scL;
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    Scanner sc;
+    Scanner scL;
+    Viaje viaje;
 
     
     /**
@@ -51,51 +33,6 @@ public class Ctrl_Viaje {
      */
     public Ctrl_Viaje() {
     }
-
-
-    public Ctrl_Viaje(Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
-        this.ctrlC = ctrlC;
-        this.ctrlV = ctrlV;
-
-        viaje = new Viaje("30/07/2025",
-                "10:00",
-                "15:00",
-                ctrlC.getChoferes().get(0).getChofer(),
-                ctrlV.getVehiculos().get(0),
-                new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
-                new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
-        viaje.setCodigo(0);
-        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
-        ctrlV.getVehiculos().get(0).agregarViaje(viaje);
-        listaViajes.add(viaje);
-
-        viaje = new Viaje("20/07/2025",
-                "15:00",
-                "18:30",
-                ctrlC.getChoferes().get(1).getChofer(),
-                ctrlV.getVehiculos().get(3),
-                new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
-                new Ciudad("Ubajay", EnumProvincia.ENTRE_RIOS));
-        viaje.setCodigo(1);
-        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
-        ctrlV.getVehiculos().get(3).agregarViaje(viaje);
-        listaViajes.add(viaje);
-
-        viaje = new Viaje("20/07/2025",
-                "10:00",
-                "11:45",
-                ctrlC.getChoferes().get(2).getChofer(),
-                ctrlV.getVehiculos().get(2),
-                new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
-                new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
-        viaje.setCodigo(2);
-        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
-        ctrlV.getVehiculos().get(2).agregarViaje(viaje);
-        listaViajes.add(viaje);
-    }
-
-    public void setViaje() throws IngresoInvalidoExcepcion, InputMismatchException {
-        scI = new Scanner(System.in);
 
     /**
      * Permite planificar un nuevo viaje solicitando datos al usuario desde la consola.
@@ -109,14 +46,7 @@ public class Ctrl_Viaje {
     public void planificarViaje(Ctrl_Chofer ctrlCho, Ctrl_Vehiculo ctrlV)
             throws IngresoInvalidoExcepcion, InputMismatchException {
         sc = new Scanner(System.in);
-
         scL = new Scanner(System.in);
-
-        if (viaje == null) {
-            viaje = new Viaje();
-        } else {
-            System.out.println(viaje.toString());
-        }
 
         System.out.println("[PROVINCIAS DISPONIBLES]");
         int indice = 1;
@@ -125,14 +55,14 @@ public class Ctrl_Viaje {
             indice++;
         }
 
-        System.out.print("INGRESAR PROVINCIA DE SALIDA: ");
-        int origenNum = scI.nextInt();
+        System.out.println("INGRESAR PROVINCIA DE PARTIDA: ");
+        int origenNum = sc.nextInt();
         if (origenNum < 0 || origenNum > 23) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
         }
 
-        System.out.print("INGRESAR PROVINCIA DE DESTINO: ");
-        int destinoNum = scI.nextInt();
+        System.out.println("INGRESAR PROVINCIA DE DESTINO: ");
+        int destinoNum = sc.nextInt();
         if (destinoNum < 0 || destinoNum > 23) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
         }
@@ -141,16 +71,12 @@ public class Ctrl_Viaje {
         EnumProvincia destinoP = null;
         indice = 1;
         for (EnumProvincia p : EnumProvincia.values()) {
-            if (indice == origenNum) {
-                origenP = p;
-            }
-            if (indice == destinoNum) {
-                destinoP = p;
-            }
+            origenP = (indice == origenNum) ? p : null;
+            destinoP = (indice == destinoNum) ? p : null;
             indice++;
         }
 
-        System.out.print("INGRESAR CIUDAD DE SALIDA: ");
+        System.out.print("Ingrese ciudad de origen: ");
         String origenC = scL.nextLine();
         origenC = origenC.trim();
         if (!origenC.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
@@ -159,7 +85,7 @@ public class Ctrl_Viaje {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
         }
 
-        System.out.print("INGRESAR CIUDAD DE DESTINO: ");
+        System.out.print("ingrese ciudad de destino: ");
         String destinoC = scL.nextLine();
         if (!destinoC.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR NUMEROS]");
@@ -171,12 +97,6 @@ public class Ctrl_Viaje {
         Ciudad destino = new Ciudad(destinoC, destinoP);
 
         // fecha viaje
-
-        System.out.print("INGRESAR FECHA DE SALIDA (DD/MM/AAAA): ");
-        String fecha = scL.nextLine();
-        fecha = fecha.trim();
-        if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
-
         System.out.print("Ingrese la fecha de salida del viaje (DD/MM/AAAA): ");
         String fechaSalida = sc.nextLine();
         fechaSalida = fechaSalida.trim();
@@ -190,15 +110,14 @@ public class Ctrl_Viaje {
         String fechaLlegada = sc.nextLine();
         fechaLlegada = fechaLlegada.trim();
         if (!fechaLlegada.matches("\\d{2}/\\d{2}/\\d{4}")) {
-
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
         } else if (fechaLlegada.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
         }
 
         // horarios del viaje
-        System.out.print("INGRESAR HORARIO DE SALIDA (HH:MM): ");
-        String salida = scL.nextLine();
+        System.out.print("Ingrese horario de salida (HH:MM): ");
+        String salida = sc.nextLine();
         salida = salida.trim();
         if (!salida.matches("\\d{2}:\\d{2}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
@@ -206,122 +125,46 @@ public class Ctrl_Viaje {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
         }
 
-        System.out.print("INGRESAR HORARIO DE LLEGADA (HH:MM): ");
-        String llegada = scL.nextLine();
+        System.out.print("Ingrese horario de llegada (HH:MM): ");
+        String llegada = sc.nextLine();
         if (!llegada.matches("\\d{2}:\\d{2}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
         } else if (llegada.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
         }
 
-        System.out.print("INGRESAR TIPO DE VEHICULO [1.MINIBUS][2.COLECTIVO]: ");
-        int opcionv = scI.nextInt();
-        if (opcionv != 1 && opcionv != 2) {
-            throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
+        // agregar chofer a viaje
+        Chofer c = null;
+        for (Chofer p : ctrlCho.getChoferes()) {
+            if (p.isEstaDisponible() == true) {
+                c = p;
+            }
         }
-        EnumCategoria enumCateg = (opcionv == 1) ? EnumCategoria.MINIBUS : EnumCategoria.COLECTIVO;
-        Vehiculo v = null;
-        String salidaV = "";
-        String llegadaV = "";
+        if (c == null) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO CHOFER DISPONIBLE]");
+        }
 
+        System.out.print("1- MINI BUS ");
+        System.out.print("2 - COLECTIVO \n");
+        System.out.print("Ingrese vehiculo preferido: ");
+        int opcionv = sc.nextInt();
+        Vehiculo v = null;
         if (opcionv == 1) {
             for (Vehiculo p : ctrlV.getVehiculos()) {
-                if (p instanceof Minibus) {
-                    boolean disponible = true;
-                    for (Viaje y : p.getViajesProgramados()) {
-                        salidaV = y.getHorarioSalida();
-                        llegadaV = y.getHorarioLlegada();
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                        if (!fechaP.equals(fechaV)) {
-                            continue;
-                        }
-
-                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                            disponible = false;
-                            break;
-                        }
-                    }
-
-                    if (disponible) {
-                        v = p;
-                        break;
-                    }
-                } else {
-                    continue;
+                if (p.isEstaDisponible() == true && p instanceof Minibus) {
+                    v = p;
                 }
             }
         } else {
             for (Vehiculo p : ctrlV.getVehiculos()) {
-                if (p instanceof Colectivo) {
-                    boolean disponible = true;
-                    for (Viaje y : p.getViajesProgramados()) {
-                        salidaV = y.getHorarioSalida();
-                        llegadaV = y.getHorarioLlegada();
-
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                        if (!fechaP.equals(fechaV)) {
-                            continue;
-                        }
-
-                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                            disponible = false;
-                            break;
-                        }
-                    }
-
-                    if (disponible) {
-                        v = p;
-                        break;
-                    }
-                } else {
-                    continue;
+                if (p.isEstaDisponible() == true && p instanceof Colectivo) {
+                    v = p;
                 }
             }
         }
         if (v == null) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
-
-
-        // agregar chofer a viaje
-        Chofer c = null;
-        for (ChoferCategoria x : ctrlC.getChoferes()) {
-            if (x.getCategoria().getTipo() == enumCateg) {
-                boolean disponible = true;
-                for (Viaje y : x.getChofer().getViajesProgramados()) {
-                    salidaV = y.getHorarioSalida();
-                    llegadaV = y.getHorarioLlegada();
-
-                    LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                    LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                    if (!fechaP.equals(fechaV)) {
-                        continue;
-                    }
-
-                    if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                            && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                        disponible = false;
-                        break;
-                    }
-                }
-
-                if (disponible) {
-                    c = x.getChofer();
-                    break;
-                }
-            } else {
-                continue;
-            }
-        }
-        if (c == null) {
-            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO CHOFER DISPONIBLE]");
 
         // Viaje completo
         Viaje viaje = new Viaje(fechaSalida, fechaLlegada, salida, llegada, c, v, origen, destino);
@@ -338,43 +181,8 @@ public class Ctrl_Viaje {
             viaje.setEstadoViaje(EstadoViaje.TERMINADO);
         } else {
             viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
-
         }
 
-        // Viaje completo
-        viaje.setChofer(c);
-        viaje.setVehiculo(v);
-        viaje.setCiudadDestino(destino);
-        viaje.setCiudadOrigen(origen);
-        viaje.setFecha(fecha);
-        viaje.setHorarioSalida(salida);
-        viaje.setHorarioLlegada(llegada);
-        int codigo = (viaje.getCodigo() == -1) ? listaViajes.size() : viaje.getCodigo();
-        viaje.setCodigo(codigo);
-
-        c.agregarViaje(viaje);
-        v.agregarViaje(viaje);
-    }
-
-    public void planificarViaje()
-            throws IngresoInvalidoExcepcion, InputMismatchException {
-        System.out.println("***************************************************");
-        System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO VIAJE]");
-        viaje = null;
-        setViaje();
-        listaViajes.add(viaje);
-        System.out.println("\n[NUEVO VIAJE AGREGADO A LA LISTA]");
-        System.out.println("***************************************************\n");
-        /*
-         * DateTimeFormatter formatter =
-         * DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-         * LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
-         * if (!horaLlegada.isAfter(LocalDateTime.now())) {
-         * viaje.setEstadoViaje(EstadoViaje.TERMINADO);
-         * } else {
-         * viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
-         * }
-         */
     }
 
     /**
@@ -400,42 +208,24 @@ public class Ctrl_Viaje {
      */
     // Metodo para eliminar un viaje
     public void eliminarViaje() throws InputMismatchException {
-        scI = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("INGRESAR CODIGO DE VIAJE: ");
-        int codigo = scI.nextInt();
+        mostrarViajesConIndice();
 
-        boolean encontrado = false;
-        for (Viaje v : listaViajes) {
-            if (v.getCodigo() == codigo) {
-                listaViajes.remove(v);
-                encontrado = true;
-                break;
-            }
+        if (listaViajes.isEmpty())
+            return;
+
+        System.out.print("Ingrese el numero del viaje a eliminar: ");
+        int opcion = sc.nextInt();
+
+        if (opcion < 1 || opcion > listaViajes.size()) {
+            System.out.println("[ERROR: Numero inválido]");
+            return;
         }
 
-        if (encontrado) {
-            System.out.println("[EL VIAJE FUE ELIMINADO]");
-        } else {
-            System.out.println("[EL VIAJE NO FUE ENCONTRADO]");
-        }
+        Viaje eliminado = listaViajes.remove(opcion - 1);
+        System.out.println("El viaje fue eliminado con exito.");
     }
-
-
-    // Metodo para editar un viaje
-    public void editarViaje() throws InputMismatchException, IngresoInvalidoExcepcion {
-        scI = new Scanner(System.in);
-
-        System.out.println("INGRESAR CODIGO DE VIAJE: ");
-        int codigo = scI.nextInt();
-
-        boolean encontrado = false;
-        for (Viaje v : listaViajes) {
-            if (v.getCodigo() == codigo) {
-                viaje = v;
-                setViaje();
-                encontrado = true;
-            }
 
     /**
      * Permite editar las ciudades de origen y destino de un viaje.
@@ -476,71 +266,70 @@ public class Ctrl_Viaje {
         if (origenIndex < 0 || origenIndex >= ciudades.size()) {
             System.out.println("[ERROR: Ciudad origen no valida]");
             return;
-
         }
 
-        if (!encontrado) {
-            System.out.println("[EL VIAJE NO FUE ENCONTRADO]");
+        // Seleccionar nueva ciudad de destino
+        System.out.print("Seleccione nueva ciudad de destino: ");
+        int destinoIndex = sc.nextInt() - 1;
+        sc.nextLine();
+
+        if (destinoIndex < 0 || destinoIndex >= ciudades.size()) {
+            System.out.println("[ERROR: Ciudad destino no valida]");
+            return;
         }
+
+        // Asignar nuevas ciudades al viaje
+        viaje.setCiudadOrigen(ciudades.get(origenIndex));
+        viaje.setCiudadDestino(ciudades.get(destinoIndex));
+
+        System.out.println("El viaje fue editado correctamente.");
     }
 
     /**
      * Muestra los detalles completos de un viaje.
      */
     public void mostrarViaje() {
-        scI = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("INGRESAR CODIGO DE VIAJE: ");
-        int codigo = scI.nextInt();
-
-        boolean encontrado = false;
-        for (Viaje v : listaViajes) {
-            if (v.getCodigo() == codigo) {
-                System.out.println(viaje.toString());
-                encontrado = true;
-            }
+        if (listaViajes.isEmpty()) {
+            System.out.println("No hay viajes cargados.");
+            return;
         }
 
-        if (!encontrado) {
-            System.out.println("[EL VIAJE NO FUE ENCONTRADO]");
+        System.out.println("==== VIAJES DISPONIBLES ====");
+        for (int i = 0; i < listaViajes.size(); i++) {
+            System.out.println("[" + (i + 1) + "] " + listaViajes.get(i).getResumen());
         }
+        System.out.println("============================");
+
+        System.out.print("Seleccione el numero del viaje para ver detalles: ");
+        int seleccion = sc.nextInt();
+        sc.nextLine(); // limpiar buffer
+
+        if (seleccion < 1 || seleccion > listaViajes.size()) {
+            System.out.println("[ERROR: Numero invalido]");
+            return;
+        }
+
+        Viaje viaje = listaViajes.get(seleccion - 1);
+
+        System.out.println("\n===== DETALLES DEL VIAJE =====");
+        System.out.println(viaje.toString());
+        System.out.println("===============================");
     }
-
-
-    public void mostrarViajesProgramados() {
 
     /**
      * Muestra todos los viajes registrados con su información completa.
      */
     public void mostrarViajes() {
-
         if (listaViajes.isEmpty()) {
-            System.out.println("[NO HAY VIAJES PROGRAMADOS]");
+            System.out.println("No hay ningun viaje programado.");
         } else {
             for (Viaje viaje : listaViajes) {
-                System.out.println(viaje.toString() + "\n");
+                System.out.println(viaje.toString());
             }
         }
     }
-
-
-    public void mostrarViajesVehiculo() throws IngresoInvalidoExcepcion {
-        scL = new Scanner(System.in);
-
-        System.out.print("INGRESAR PATENTE DEL VEHICULO A REVISAR: ");
-        String patente = scL.nextLine();
-        if (patente.isEmpty()) {
-            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
-        } else if (patente.contains(" ")) {
-            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR ESPACIOS]");
-        }
-
-        boolean encontrado = false;
-        for (Viaje viaje : listaViajes) {
-            if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo) {
-                encontrado = true;
-                if (viaje.getEstadoViaje() != EstadoViaje.TERMINADO) {
-                    System.out.println(viaje.toString());
 
      /**
      * Muestra los viajes en curso asociados a un vehículo de tipo Colectivo según su patente.
@@ -561,16 +350,11 @@ public class Ctrl_Viaje {
                 if (viaje.getEstadoViaje() == EstadoViaje.EN_CURSO) {
                     System.out.println(viaje);
                     encontrado = true;
-
                 }
             }
         }
 
         if (!encontrado) {
-
-            System.out.println("[EL VEHICULO NO TIENE VIAJES PENDIENTES]");
-        }
-
             System.out.println("ERROR: NO HAY DATOS COINCIDENTES");
         }
 
@@ -581,14 +365,6 @@ public class Ctrl_Viaje {
      * utilizando el DNI ingresado por el usuario.
      */
     public void mostrarViajesChoferes() {
-
-        System.out.println("CANTIDAD DE VIAJES FINALIZADOS POR CADA CHOFER DE COLECTIVOS:");
-        for (ChoferCategoria c : ctrlC.getChoferes()) {
-            if (c.getCategoria().getTipo() == EnumCategoria.COLECTIVO
-                    || c.getCategoria().getTipo() == EnumCategoria.AMBOS) {
-                System.out.println("[EL CHOFER CON DNI " + c.getChofer().getDni()
-                        + " HA FINALIZADO: " + c.getChofer().getViajesFinalizados().size() + " VIAJES]");
-
 
         if (listaViajes.isEmpty()) {
             System.out.println("No hay viajes cargados.");
@@ -603,7 +379,6 @@ public class Ctrl_Viaje {
             if ((viaje.getChofer().getDni()) == (dni) && viaje.getVehiculo() instanceof Colectivo
                     && viaje.getEstadoViaje() == EstadoViaje.TERMINADO) {
                 cantViajes = cantViajes + 1;
-
             }
         }
         System.out.println ("Cantidad de viajes realizados por el chofer: " + cantViajes);

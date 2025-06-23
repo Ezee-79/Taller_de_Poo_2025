@@ -1,8 +1,5 @@
 package Modelo;
 
-
-/* Enzo */
-
 /**
  * Clase que representa que la categoria del vehiculo que se le asigna a un chofer.
  * y hasta cuando debe hacerlo.
@@ -10,7 +7,6 @@ package Modelo;
  * @author Denis.
  * @author Enzo.
  */
-
 public class ChoferCategoria {
     private Chofer chofer;
     private Categoria categoria;
@@ -20,14 +16,6 @@ public class ChoferCategoria {
      * Constructor por defecto.
      */
     public ChoferCategoria() {
-        this.chofer = new Chofer();
-        this.categoria = new Categoria();
-        this.fechaVencimiento = "";
-    }
-
-    public ChoferCategoria(Chofer chofer, Categoria categoria) {
-        this.chofer = chofer;
-        this.categoria = categoria;
     }
 
     /**

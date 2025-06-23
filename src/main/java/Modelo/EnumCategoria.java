@@ -8,7 +8,6 @@ package Modelo;
  */
 
 public enum EnumCategoria {
-    MINIBUS,
-    COLECTIVO,
-    AMBOS
+    Microbus,
+    Colectivo
 }

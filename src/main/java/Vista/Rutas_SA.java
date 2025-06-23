@@ -119,9 +119,6 @@ public class Rutas_SA {
         } while (!volver);
     }
 
-
-    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl) {
-
     /**
      * Muestra el submenú de gestión de viajes y permite realizar operaciones
      * como planificar, editar, eliminar o mostrar viajes.
@@ -132,7 +129,6 @@ public class Rutas_SA {
      * @param ctrlC  Controlador de choferes, utilizado para asociar choferes a los viajes.
      */
     private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
-
         int opcion;
         boolean volver = false;
         do {
@@ -154,7 +150,7 @@ public class Rutas_SA {
                         volver = true;
                         break;
                     case 1:
-                        ctrl.planificarViaje();
+                        ctrl.planificarViaje(ctrlC, ctrlV);
                         break;
                     case 2:
                         ctrl.editarViaje();
@@ -182,9 +178,9 @@ public class Rutas_SA {
      * @param args Argumentos de línea de comandos (no utilizados).
      */
     public static void main(String[] args) {
+        Ctrl_Viaje ctrlViaje = new Ctrl_Viaje();
         Ctrl_Chofer ctrlChofer = new Ctrl_Chofer();
         Ctrl_Vehiculo ctrlVehiculo = new Ctrl_Vehiculo();
-        Ctrl_Viaje ctrlViaje = new Ctrl_Viaje(ctrlVehiculo, ctrlChofer);
 
         Scanner sc;
         int opcion;
@@ -213,7 +209,6 @@ public class Rutas_SA {
                 switch (opcion) {
                     case 0:
                         finalizar = true;
-                        sc.close();
                         System.out.println("\n[EL PROGRAMA HA FINALIZADO]");
                         System.out.println("**************************************************");
                         break;
@@ -224,10 +219,10 @@ public class Rutas_SA {
                         menuVehiculos(sc, ctrlVehiculo);
                         break;
                     case 3:
-                        menuViajes(sc, ctrlViaje);
+                        menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer);
                         break;
                     case 4:
-                        ctrlViaje.mostrarViajesProgramados();
+                        ctrlViaje.mostrarViajes();
                         break;
                     case 5:
                         ctrlViaje.mostrarViajesVehiculo();

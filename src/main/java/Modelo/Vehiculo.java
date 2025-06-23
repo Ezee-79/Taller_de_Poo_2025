@@ -17,8 +17,7 @@ public abstract class Vehiculo {
     private String patente;
     private int capacidad;
     private boolean estaDisponible;
-    private ArrayList<Viaje> viajesProgramados = new ArrayList<Viaje>();
-    private ArrayList<Viaje> viajesFinalizados = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 
     /**
      * Constructor vacío de la clase Vehiculo.
@@ -94,26 +93,6 @@ public abstract class Vehiculo {
         this.estaDisponible = estaDisponible;
     }
 
-
-    public ArrayList<Viaje> getViajesProgramados() {
-        return viajesProgramados;
-    }
-
-    public void setViajesProgramados(ArrayList<Viaje> viajesProgramados) {
-        this.viajesProgramados = viajesProgramados;
-    }
-
-    public ArrayList<Viaje> getViajesFinalizados() {
-        return viajesFinalizados;
-    }
-
-    public void setViajesFinalizados(ArrayList<Viaje> viajesFinalizados) {
-        this.viajesFinalizados = viajesFinalizados;
-    }
-
-    public void agregarViaje(Viaje viaje) {
-        viajesProgramados.add(viaje);
-
     /**
      * Obtiene la lista de viajes asignados al vehículo.
      *
@@ -130,6 +109,5 @@ public abstract class Vehiculo {
      */
     public void setViajes(ArrayList<Viaje> viajes) {
         this.viajes = viajes;
-
     }
 }
