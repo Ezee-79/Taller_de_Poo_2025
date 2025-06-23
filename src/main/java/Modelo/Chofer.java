@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class Chofer extends Persona {
     private String nroLicencia;
     private boolean estaDisponible;
-    private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesProgramados = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesFinalizados = new ArrayList<Viaje>();
 
     public Chofer() {
     }
@@ -25,22 +26,12 @@ public class Chofer extends Persona {
         this.estaDisponible = true;
     }
 
-    // set
-    public void setNroLicencia(String nroLicencia) {
-        this.nroLicencia = nroLicencia;
-    }
-
-    public void setViajes(ArrayList<Viaje> viajes) {
-        this.viajes = viajes;
-    }
-
-    // get
     public String getNroLicencia() {
         return nroLicencia;
     }
 
-    public ArrayList<Viaje> getViajes() {
-        return viajes;
+    public void setNroLicencia(String nroLicencia) {
+        this.nroLicencia = nroLicencia;
     }
 
     public boolean isEstaDisponible() {
@@ -49,6 +40,26 @@ public class Chofer extends Persona {
 
     public void setEstaDisponible(boolean estaDisponible) {
         this.estaDisponible = estaDisponible;
+    }
+
+    public ArrayList<Viaje> getViajesProgramados() {
+        return viajesProgramados;
+    }
+
+    public void setViajesProgramados(ArrayList<Viaje> viajesProgramados) {
+        this.viajesProgramados = viajesProgramados;
+    }
+
+    public ArrayList<Viaje> getViajesFinalizados() {
+        return viajesFinalizados;
+    }
+
+    public void setViajesFinalizados(ArrayList<Viaje> viajesFinalizados) {
+        this.viajesFinalizados = viajesFinalizados;
+    }
+
+    public void agregarViaje(Viaje viaje) {
+        viajesFinalizados.add(viaje);
     }
 
     // toString

@@ -1,4 +1,5 @@
 package Modelo;
+
 /* Enzo */
 public class ChoferCategoria {
     private Chofer chofer;
@@ -6,6 +7,14 @@ public class ChoferCategoria {
     private String fechaVencimiento;
 
     public ChoferCategoria() {
+        this.chofer = new Chofer();
+        this.categoria = new Categoria();
+        this.fechaVencimiento = "";
+    }
+
+    public ChoferCategoria(Chofer chofer, Categoria categoria) {
+        this.chofer = chofer;
+        this.categoria = categoria;
     }
 
     public ChoferCategoria(Chofer chofer, Categoria categoria, String fechaVencimiento) {

@@ -9,6 +9,7 @@ package Modelo;
  * @author Gaston PC
  */
 public class Viaje {
+    private int codigo;
     private String fecha;
     private String horarioSalida;
     private String horarioLlegada;
@@ -17,6 +18,10 @@ public class Viaje {
     private Ciudad ciudadOrigen;
     private Ciudad ciudadDestino;
     private EstadoViaje estado;
+
+    public Viaje() {
+        this.codigo = -1;
+    }
 
     public Viaje(String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
             Ciudad ciudadOrigen, Ciudad ciudadDestino) {
@@ -30,6 +35,10 @@ public class Viaje {
     }
 
     // set
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
@@ -63,6 +72,10 @@ public class Viaje {
     }
 
     // get
+    public int getCodigo() {
+        return codigo;
+    }
+
     public String getFecha() {
         return fecha;
     }

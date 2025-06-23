@@ -20,10 +20,10 @@ public class Ctrl_Vehiculo {
 
     // CONSTRUCTOR
     public Ctrl_Vehiculo() {
-        vehiculos.add(new Minibus("A1", 100, true, true));
-        vehiculos.add(new Colectivo("B2", 200, true));
-        vehiculos.add(new Minibus("C3", 300, false, false));
-        vehiculos.add(new Colectivo("D4", 400, false));
+        vehiculos.add(new Minibus("A1", 10, true, true));
+        vehiculos.add(new Colectivo("B2", 50, true));
+        vehiculos.add(new Minibus("C3", 20, false, false));
+        vehiculos.add(new Colectivo("D4", 30, false));
     }
 
     // INGRESO DE DATOS DE VEHICULOS SEGUN SU TIPO.
