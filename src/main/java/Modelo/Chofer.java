@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class Chofer extends Persona {
     private String nroLicencia;
     private boolean estaDisponible;
-    private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesProgramados = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesFinalizados = new ArrayList<Viaje>();
 
     /**
      * Constructor por defecto.
@@ -41,6 +42,7 @@ public class Chofer extends Persona {
         this.nroLicencia = nroLicencia;
         this.estaDisponible = true;
     }
+
 
     /**
      * Establece el numero de licencia del chofer
@@ -65,9 +67,14 @@ public class Chofer extends Persona {
      * 
      * @return el numero de licencia.
      */
+
     public String getNroLicencia() {
         return nroLicencia;
     }
+
+
+    public void setNroLicencia(String nroLicencia) {
+        this.nroLicencia = nroLicencia;
 
     /**
      * Retorna la lista de viajes del chofer.
@@ -76,6 +83,7 @@ public class Chofer extends Persona {
      */
     public ArrayList<Viaje> getViajes() {
         return viajes;
+
     }
 
     /**
@@ -96,11 +104,35 @@ public class Chofer extends Persona {
         this.estaDisponible = estaDisponible;
     }
 
+
+    public ArrayList<Viaje> getViajesProgramados() {
+        return viajesProgramados;
+    }
+
+    public void setViajesProgramados(ArrayList<Viaje> viajesProgramados) {
+        this.viajesProgramados = viajesProgramados;
+    }
+
+    public ArrayList<Viaje> getViajesFinalizados() {
+        return viajesFinalizados;
+    }
+
+    public void setViajesFinalizados(ArrayList<Viaje> viajesFinalizados) {
+        this.viajesFinalizados = viajesFinalizados;
+    }
+
+    public void agregarViaje(Viaje viaje) {
+        viajesFinalizados.add(viaje);
+    }
+
+    // toString
+
     /**
      * Representacion de los datos impresos del chofer.
      * 
      * @return cadena de datos del chofer.
      */
+
     @Override
     public String toString() {
         String disponible = (estaDisponible) ? "Si" : "No";

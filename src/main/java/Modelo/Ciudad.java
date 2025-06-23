@@ -67,4 +67,9 @@ public class Ciudad {
     public void setProvincia(EnumProvincia provincia) {
         this.provincia = provincia;
     }
+
+    @Override
+    public String toString() {
+        return "Ciudad [nombre=" + nombre + ", provincia=" + provincia + "]";
+    }
 }

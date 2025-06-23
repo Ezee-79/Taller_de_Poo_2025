@@ -3,7 +3,11 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import Modelo.Categoria;
 import Modelo.Chofer;
+import Modelo.ChoferCategoria;
+import Modelo.EnumCategoria;
 import Excepciones.*;
 
 
@@ -17,18 +21,29 @@ import Excepciones.*;
  * @author Enzo.
  */
 public class Ctrl_Chofer {
-    private ArrayList<Chofer> choferes = new ArrayList<Chofer>();
+    private ArrayList<ChoferCategoria> choferes = new ArrayList<ChoferCategoria>();
+    private ChoferCategoria choferCateg;
     private Scanner scL;
     private Scanner scI;
-    private Chofer chofer;
 
     /**
      * Constructor que inicializa la lista de choferes con algunos valores por defecto.
      */
     public Ctrl_Chofer() {
-        choferes.add(new Chofer("ABC123", 10100100, "Enzo", "Portillo"));
-        choferes.add(new Chofer("DEF456", 20200200, "Ezequiel", "Romero"));
-        choferes.add(new Chofer("GHI789", 30300300, "Denis", "Chang"));
+        choferCateg = new ChoferCategoria(
+                new Chofer("ABC123", 10100100, "Enzo", "Portillo"),
+                new Categoria(EnumCategoria.MINIBUS));
+        choferes.add(choferCateg);
+
+        choferCateg = new ChoferCategoria(
+                new Chofer("DEF456", 20200200, "Ezequiel", "Romero"),
+                new Categoria(EnumCategoria.COLECTIVO));
+        choferes.add(choferCateg);
+
+        choferCateg = new ChoferCategoria(
+                new Chofer("GHI789", 30300300, "Denis", "Chang"),
+                new Categoria(EnumCategoria.AMBOS));
+        choferes.add(choferCateg);
     }
 
     /**
@@ -39,20 +54,21 @@ public class Ctrl_Chofer {
      * @throws InputMismatchException si se produce un error en el tipo de entrada.
      */
     public void setChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
-        String nombre;
-        String apellido;
-        long dni;
-        String nroLicencia;
+        scI = new Scanner(System.in);
+        scL = new Scanner(System.in);
 
-        if (chofer == null) {
-            chofer = new Chofer();
+        if (choferCateg == null) {
+            choferCateg = new ChoferCategoria();
         } else {
-            System.out.println("\n[DATOS ACTUALES DEL CHOFER]\n" + chofer.toString());
+            System.out.println("\n[DATOS ACTUALES DEL CHOFER]\n"
+                    + choferCateg.getChofer().toString() + "\n"
+                    + "{CATEGORIA: " + choferCateg.getCategoria().getTipo().name() + "\n"
+                    + "FECHA DE VENCIMIENTO: " + choferCateg.getFechaVencimiento() + "}");
         }
 
         System.out.println("\nINGRESAR LOS SIGUIENTES DATOS");
         System.out.print("NOMBRE: ");
-        nombre = scL.nextLine();
+        String nombre = scL.nextLine();
         nombre = nombre.trim();
         if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR NUMEROS O ESPACIOS]");
@@ -61,7 +77,7 @@ public class Ctrl_Chofer {
         }
 
         System.out.print("APELLIDO: ");
-        apellido = scL.nextLine();
+        String apellido = scL.nextLine();
         apellido = apellido.trim();
         if (!apellido.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR NUMEROS]");
@@ -70,13 +86,19 @@ public class Ctrl_Chofer {
         }
 
         System.out.print("DNI: ");
-        dni = scI.nextLong();
+        long dni = scI.nextLong();
         if (dni < 1000000 || dni > 99999999) {
             throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR 7-8 DIGITOS]");
         }
 
+        for (ChoferCategoria c : choferes) {
+            if (c.getChofer().getDni() == dni) {
+                throw new IngresoInvalidoExcepcion("[ERROR: YA EXISTE UN CHOFER CON EL DNI INGRESADO]");
+            }
+        }
+
         System.out.print("NUMERO DE LICENCIA: ");
-        nroLicencia = scL.nextLine();
+        String nroLicencia = scL.nextLine();
         nroLicencia = nroLicencia.trim();
         if (nroLicencia.isEmpty()) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE DEJAR EL CAMPO VACIO]");
@@ -84,10 +106,33 @@ public class Ctrl_Chofer {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR ESPACIOS]");
         }
 
-        chofer.setNombre(nombre);
-        chofer.setApellido(apellido);
-        chofer.setDni(dni);
-        chofer.setNroLicencia(nroLicencia);
+        System.out.print("CATEGORIA [1.MINIBUS][2.COLECTIVO][3.AMBOS]: ");
+        int enumC = scI.nextInt();
+        if (enumC != 1 && enumC != 2 && enumC != 3) {
+            throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR UNA DE LAS OPCIONES SUGERIDAS]");
+        }
+
+        if (enumC == 1) {
+            choferCateg.getCategoria().setTipo(EnumCategoria.MINIBUS);
+        } else if (enumC == 2) {
+            choferCateg.getCategoria().setTipo(EnumCategoria.COLECTIVO);
+        } else if (enumC == 3) {
+            choferCateg.getCategoria().setTipo(EnumCategoria.AMBOS);
+        }
+
+        System.out.print("INGRESAR FECHA DE VENCIMIENTO: ");
+        String fecha = scL.nextLine();
+        if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
+        } else if (fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        }
+
+        choferCateg.getChofer().setNombre(nombre);
+        choferCateg.getChofer().setApellido(apellido);
+        choferCateg.getChofer().setDni(dni);
+        choferCateg.getChofer().setNroLicencia(nroLicencia);
+        choferCateg.setFechaVencimiento(fecha);
     }
 
     /**
@@ -99,11 +144,9 @@ public class Ctrl_Chofer {
     public void agregarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO CHOFER]");
-        chofer = null;
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
+        choferCateg = null;
         setChofer();
-        choferes.add(chofer);
+        choferes.add(choferCateg);
         System.out.println("\n[NUEVO CHOFER AGREGADO A LA LISTA]");
         System.out.println("***************************************************\n");
     }
@@ -115,21 +158,21 @@ public class Ctrl_Chofer {
      * @throws InputMismatchException si se produce un error en el tipo de entrada.
      */
     public void editarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
+        scI = new Scanner(System.in);
         System.out.println("***************************************************");
         System.out.print("INGRESAR DNI DEL CHOFER A EDITAR: ");
-
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
         long dni = scI.nextLong();
         if (dni < 1000000 || dni > 99999999) {
             throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR 7-8 DIGITOS]");
         }
 
         boolean encontrado = false;
-        for (Chofer c : choferes) {
-            if (c.getDni() == dni) {
-                chofer = c;
+        int indice = 0;
+        for (ChoferCategoria c : choferes) {
+            if (c.getChofer().getDni() == dni) {
+                choferCateg = c;
                 encontrado = true;
+                indice = choferes.indexOf(c);
                 break;
             }
         }
@@ -137,8 +180,7 @@ public class Ctrl_Chofer {
         if (encontrado) {
             System.out.println("\n[INGRESAR LOS NUEVOS DATOS PARA EL CHOFER]\n");
             setChofer();
-            choferes.set(choferes.indexOf(chofer), chofer);
-            chofer = new Chofer();
+            choferes.set(indice, choferCateg);
             System.out.println("\n[EL CHOFER HA SIDO MODIFICADO]");
         } else {
             System.out.println("\n[EL CHOFER NO FUE ENCONTRADO]");
@@ -154,19 +196,17 @@ public class Ctrl_Chofer {
      * @throws InputMismatchException
      */
     public void eliminarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
+        scI = new Scanner(System.in);
         System.out.println("***************************************************");
         System.out.print("INGRESAR DNI DEL CHOFER A ELIMINAR: ");
-
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
         long dni = scI.nextLong();
         if (dni < 1000000 || dni > 99999999) {
             throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR 7-8 DIGITOS]");
         }
 
         boolean encontrado = false;
-        for (Chofer c : choferes) {
-            if (c.getDni() == dni) {
+        for (ChoferCategoria c : choferes) {
+            if (c.getChofer().getDni() == dni) {
                 choferes.remove(c);
                 encontrado = true;
                 break;
@@ -188,23 +228,23 @@ public class Ctrl_Chofer {
      * @throws InputMismatchException
      */
     public void mostrarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
+        scI = new Scanner(System.in);
         System.out.println("***************************************************");
         System.out.print("INGRESAR DNI DEL CHOFER A MOSTRAR: ");
-
-        scI = new Scanner(System.in);
-        scL = new Scanner(System.in);
         long dni = scI.nextLong();
         if (dni < 1000000 || dni > 99999999) {
             throw new IngresoInvalidoExcepcion("[ERROR: DEBE INGRESAR 7-8 DIGITOS]");
         }
 
         boolean encontrado = false;
-        for (Chofer c : choferes) {
-            if (c.getDni() == dni) {
+        for (ChoferCategoria c : choferes) {
+            if (c.getChofer().getDni() == dni) {
                 System.out.println("\n[CHOFER ENCONTRADO]\n");
                 encontrado = true;
 
-                System.out.println(c.toString());
+                System.out.println(c.getChofer().toString() + "\n"
+                        + "{CATEGORIA: " + c.getCategoria().getTipo().name() + "\n"
+                        + "FECHA DE VENCIMIENTO: " + c.getFechaVencimiento() + "}");
                 break;
             }
         }
@@ -214,6 +254,12 @@ public class Ctrl_Chofer {
         }
 
         System.out.println("***************************************************\n");
+    }
+
+
+    // GET LISTA DE CHOFERES.
+    public ArrayList<ChoferCategoria> getChoferes() {
+        return choferes;
     }
 
     /**
@@ -251,4 +297,5 @@ public class Ctrl_Chofer {
     public void setChofer(Chofer chofer) {
         this.chofer = chofer;
     }
+
 }
