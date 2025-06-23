@@ -9,18 +9,20 @@ import Controlador.*;
 import Excepciones.*;
 
 /**
- * Clase principal del sistema Rutas S.A. que contiene el menú de interacción con el usuario.
+ * Clase principal del sistema Rutas S.A. que contiene el menú de interacción
+ * con el usuario.
  * Permite gestionar choferes, vehículos y viajes mediante un menú de consola.
  * 
- * Ofrece submenús para realizar operaciones como agregar, editar, eliminar y mostrar registros.
+ * Ofrece submenús para realizar operaciones como agregar, editar, eliminar y
+ * mostrar registros.
  * Controla también excepciones personalizadas y errores de entrada del usuario.
  * 
- * @author Gaston. 
+ * @author Gaston.
  * @author Denis.
  * @author Enzo.
  */
 public class Rutas_SA {
-    
+
     /**
      * Muestra el submenú de gestión de choferes y permite realizar operaciones
      * como agregar, editar, eliminar o mostrar choferes.
@@ -119,17 +121,17 @@ public class Rutas_SA {
         } while (!volver);
     }
 
-
-    private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl) {
-
     /**
      * Muestra el submenú de gestión de viajes y permite realizar operaciones
      * como planificar, editar, eliminar o mostrar viajes.
      *
-     * @param sc     Scanner utilizado para capturar entradas desde consola.
-     * @param ctrl   Controlador de viajes, encargado de gestionar las operaciones sobre viajes.
-     * @param ctrlV  Controlador de vehículos, utilizado para asociar vehículos a los viajes.
-     * @param ctrlC  Controlador de choferes, utilizado para asociar choferes a los viajes.
+     * @param sc    Scanner utilizado para capturar entradas desde consola.
+     * @param ctrl  Controlador de viajes, encargado de gestionar las operaciones
+     *              sobre viajes.
+     * @param ctrlV Controlador de vehículos, utilizado para asociar vehículos a los
+     *              viajes.
+     * @param ctrlC Controlador de choferes, utilizado para asociar choferes a los
+     *              viajes.
      */
     private static void menuViajes(Scanner sc, Ctrl_Viaje ctrl, Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
 
@@ -224,7 +226,7 @@ public class Rutas_SA {
                         menuVehiculos(sc, ctrlVehiculo);
                         break;
                     case 3:
-                        menuViajes(sc, ctrlViaje);
+                        menuViajes(sc, ctrlViaje, ctrlVehiculo, ctrlChofer);
                         break;
                     case 4:
                         ctrlViaje.mostrarViajesProgramados();

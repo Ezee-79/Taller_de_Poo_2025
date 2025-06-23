@@ -11,9 +11,10 @@ import Modelo.Vehiculo;
 
 /**
  * Clase controladora encargada de gestionar vehiculos.
- * Permite agregar, editar, eliminar y mostrar los vehiculos, diferenciados entre minibuses y colectivos.
+ * Permite agregar, editar, eliminar y mostrar los vehiculos, diferenciados
+ * entre minibuses y colectivos.
  * 
- * @author Gaston. 
+ * @author Gaston.
  * @author Denis.
  * @author Enzo.
  */
@@ -39,9 +40,10 @@ public class Ctrl_Vehiculo {
      * Se ingresan los datos del vehiculo.
      * Según el tipo se crea un {@link Minibus} (1) o un {@link Colectivo} (2).
      * 
-     * @param tipo parametro para distinguir si un vehiculo es un minibus (1) o un colectivo (2).
+     * @param tipo parametro para distinguir si un vehiculo es un minibus (1) o un
+     *             colectivo (2).
      * @throws IngresoInvalidoExcepcion si los datos ingresados no son válidos.
-     * @throws InputMismatchException si el tipo de entrada es incorrecto.
+     * @throws InputMismatchException   si el tipo de entrada es incorrecto.
      */
     public void setVehiculo(int tipo) throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
@@ -151,9 +153,11 @@ public class Ctrl_Vehiculo {
     }
 
     /**
-     * Se ingresa una patente por scanner para identificar al vehiculo cuyos datos se quieran editar.
+     * Se ingresa una patente por scanner para identificar al vehiculo cuyos datos
+     * se quieran editar.
      * 
-     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o
+     *                                  tiene espacios.
      */
     public void editarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
@@ -203,9 +207,11 @@ public class Ctrl_Vehiculo {
     }
 
     /**
-     * Se ingresa una patente por scanner para identificar al vehiculo que se quiera eliminar de la lista.
+     * Se ingresa una patente por scanner para identificar al vehiculo que se quiera
+     * eliminar de la lista.
      * 
-     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o
+     *                                  tiene espacios.
      */
     public void eliminarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
@@ -238,9 +244,11 @@ public class Ctrl_Vehiculo {
     }
 
     /**
-     * Metodo para mostrar los datos de un vehiculo ingresando su patente correspondiente.
+     * Metodo para mostrar los datos de un vehiculo ingresando su patente
+     * correspondiente.
      * 
-     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o
+     *                                  tiene espacios.
      */
     public void mostrarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
@@ -280,7 +288,6 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-
     // GETTERS.
 
     /**
@@ -293,10 +300,6 @@ public class Ctrl_Vehiculo {
         return vehiculos;
     }
 
-    public Vehiculo getVehiculo() {
-        return vehiculo;
-    }
-
     /**
      * Define una nueva lista de vehiculos.
      * 
@@ -307,7 +310,7 @@ public class Ctrl_Vehiculo {
     }
 
     /**
-     * Retorna los datos del {@link Vehiculo} referenciado. 
+     * Retorna los datos del {@link Vehiculo} referenciado.
      * 
      * @return un objeto {@link vehiculo}.
      */
@@ -323,5 +326,4 @@ public class Ctrl_Vehiculo {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-
 }
