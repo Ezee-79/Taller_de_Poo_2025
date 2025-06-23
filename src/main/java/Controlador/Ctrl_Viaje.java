@@ -99,19 +99,19 @@ public class Ctrl_Viaje {
         // fecha viaje
         System.out.print("Ingrese la fecha de salida del viaje (DD/MM/AAAA): ");
         String fechaSalida = sc.nextLine();
-        fecha = fecha.trim();
-        if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
+        fechaSalida = fechaSalida.trim();
+        if (!fechaSalida.matches("\\d{2}/\\d{2}/\\d{4}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
-        } else if (fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+        } else if (fechaSalida.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
         }
 
         System.out.print("Ingrese la fecha de llegada del viaje (DD/MM/AAAA): ");
-        String fechaLLegada = sc.nextLine();
-        fecha = fecha.trim();
-        if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
+        String fechaLlegada = sc.nextLine();
+        fechaLlegada = fechaLlegada.trim();
+        if (!fechaLlegada.matches("\\d{2}/\\d{2}/\\d{4}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
-        } else if (fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+        } else if (fechaLlegada.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
         }
 
@@ -167,7 +167,7 @@ public class Ctrl_Viaje {
         }
 
         // Viaje completo
-        Viaje viaje = new Viaje(fechaSalida, fechaLLegada, salida, llegada, c, v, origen, destino);
+        Viaje viaje = new Viaje(fechaSalida, fechaLlegada, salida, llegada, c, v, origen, destino);
         listaViajes.add(viaje);
         sc.nextLine();
 
@@ -176,7 +176,7 @@ public class Ctrl_Viaje {
         System.out.println("**************************************************");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime horaLlegada = LocalDateTime.parse(fechaLLegada + " " + llegada, formatter);
+        LocalDateTime horaLlegada = LocalDateTime.parse(fechaLlegada + " " + llegada, formatter);
         if (!horaLlegada.isAfter(LocalDateTime.now())) {
             viaje.setEstadoViaje(EstadoViaje.Terminado);
         } else {

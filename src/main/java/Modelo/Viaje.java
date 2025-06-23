@@ -15,7 +15,8 @@ package Modelo;
  * @author Enzo.
  */
 public class Viaje {
-    private String fecha;
+    private String fechaSalida;    
+    private String fechaLlegada;
     private String horarioSalida;
     private String horarioLlegada;
     private Chofer chofer;
@@ -34,28 +35,37 @@ public class Viaje {
      * @param vehiculo el vehículo asignado al viaje.
      * @param ciudadOrigen la ciudad de origen del viaje.
      * @param ciudadDestino la ciudad de destino del viaje.
-     * @param estado situacion en la que transcurre el viaje.
      */
-    public Viaje(String fecha, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
-            Ciudad ciudadOrigen, Ciudad ciudadDestino, EstadoViaje estado) {
-        this.fecha = fecha;
+    public Viaje(String fechaSalida, String fechaLlegada, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
+            Ciudad ciudadOrigen, Ciudad ciudadDestino) {
+        this.fechaSalida = fechaSalida;
+        this.fechaLlegada = fechaLlegada;
         this.horarioSalida = horarioSalida;
         this.horarioLlegada = horarioLlegada;
         this.chofer = chofer;
         this.ciudadDestino = ciudadDestino;
         this.ciudadOrigen = ciudadOrigen;
         this.vehiculo = vehiculo;
-        this.estado = estado;
     }
 
     /**
-     * Establece la fecha del viaje.
+     * Establece la fecha de salida del viaje.
      *
-     * @param fecha nueva fecha del viaje.
+     * @param fecha nueva fecha de salida del viaje.
      */
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaSalida(String fechaSalida) {
+        this.fechaSalida = fechaSalida;
     }
+
+    /**
+     * Establece la fecha de llegada del viaje.
+     *
+     * @param fecha nueva fecha de llegada del viaje.
+     */
+    public void setFechaLlegada(String fechaLlegada) {
+        this.fechaLlegada = fechaLlegada;
+    }
+
 
     /**
      * Establece el horario de llegada del viaje.
@@ -121,12 +131,21 @@ public class Viaje {
     }
 
     /**
-     * Devuelve la fecha del viaje.
+     * Devuelve la fecha de salida del viaje.
      *
      * @return la fecha del viaje.
      */
-    public String getFecha() {
-        return fecha;
+    public String getFechaSalida() {
+        return fechaSalida;
+    }
+
+    /**
+     * Devuelve la fecha de salida del viaje.
+     *
+     * @return la fecha del viaje.
+     */
+    public String getFechaLlegada() {
+        return fechaLlegada;
     }
 
     /**
@@ -200,9 +219,10 @@ public class Viaje {
     @Override
     public String toString() {
         return "VIAJE{\n"
-                + " Fecha " + getFecha() + ",\n"
-                + " Horario de salida " + getHorarioSalida() + ",\n"
-                + " Horario de  llegada" + getHorarioLlegada() + ",\n"
+                + " Fecha de salida: " + getFechaSalida() + ",\n"
+                + " Fecha de llegada: " + getFechaLlegada() + ",\n"
+                + " Horario de salida: " + getHorarioSalida() + ",\n"
+                + " Horario de  llegada:" + getHorarioLlegada() + ",\n"
                 + " Chofer designado: " + getChofer() + ",\n"
                 + " Vehiculo designado: " + getVehiculo() + ",\n"
                 + " Ciudad de partida: " + getCiudadOrigen() + ",\n"
@@ -215,7 +235,7 @@ public class Viaje {
      * @return un resumen del viaje.
      */
     public String getResumen() {
-        return ciudadOrigen.getNombre() + " a " + ciudadDestino.getNombre() + " - " + fecha + " - " + "Salida:"
+        return ciudadOrigen.getNombre() + " a " + ciudadDestino.getNombre() + " - " + "fecha: " + getFechaSalida() + " - " + "Salida:"
                 + horarioSalida + "Llegada:" + horarioLlegada;
     }
 
