@@ -16,9 +16,6 @@ import Modelo.Vehiculo;
  * @author Gaston. 
  * @author Denis.
  * @author Enzo.
- * @see Vehiculo.
- * @see Minibus.
- * @see Colectivo.
  */
 public class Ctrl_Vehiculo {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();

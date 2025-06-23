@@ -21,8 +21,8 @@ public class ChoferCategoria {
     /**
      * Constructor parametrizado.
      * 
-     * @param chofer  el chofer asociado.
-     * @param categoria la categoría que puede conducir.
+     * @param chofer  el {@link chofer} asociado.
+     * @param categoria la {@link categoría}  que puede conducir.
      * @param fechaVencimiento La fecha hasta la cual debe trabajar en esa categoria.
      */
     public ChoferCategoria(Chofer chofer, Categoria categoria, String fechaVencimiento) {
@@ -34,7 +34,7 @@ public class ChoferCategoria {
     /**
      * Devuelve el chofer asociado.
      * 
-     * @return el objeto Chofer.
+     * @return el objeto {@link Chofer}.
      */
     public Chofer getChofer() {
         return chofer;
@@ -43,7 +43,7 @@ public class ChoferCategoria {
     /**
      * Establece el chofer asociado.
      * 
-     * @param chofer el objeto Chofer.
+     * @param chofer el objeto {@link Chofer}.
      */
     public void setChofer(Chofer chofer) {
         this.chofer = chofer;
@@ -52,7 +52,7 @@ public class ChoferCategoria {
     /**
      * Devuelve la categoría asignada al chofer.
      * 
-     * @return el objeto Categoria.
+     * @return el objeto {@link Categoria}.
      */
     public Categoria getCategoria() {
         return categoria;
@@ -61,7 +61,7 @@ public class ChoferCategoria {
     /**
      * Establece la categoría asignada al chofer.
      * 
-     * @param categoria el objeto Categoria.
+     * @param categoria el objeto {@link Categoria}.
      */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;

@@ -81,7 +81,7 @@ public class Chofer extends Persona {
     /**
      * Retorna la disponiblidad del chofer para un viaje.
      * 
-     * @return true si esta disponible, sino false.
+     * @return {@code true} si está disponible, {@code false} en caso contrario.
      */
     public boolean isEstaDisponible() {
         return estaDisponible;
@@ -90,7 +90,7 @@ public class Chofer extends Persona {
     /**
      * Define si un chofer esta ocupado o no, para conducir un viaje.
      * 
-     * @param estaDisponible valor booleano de disponibilidad.
+     * @param estaDisponible valor booleano de disponibilidad. {@code true} si lo esta, sino {@code false}.
      */
     public void setEstaDisponible(boolean estaDisponible) {
         this.estaDisponible = estaDisponible;

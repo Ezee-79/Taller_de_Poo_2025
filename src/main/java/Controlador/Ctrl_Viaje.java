@@ -178,9 +178,9 @@ public class Ctrl_Viaje {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime horaLlegada = LocalDateTime.parse(fechaLlegada + " " + llegada, formatter);
         if (!horaLlegada.isAfter(LocalDateTime.now())) {
-            viaje.setEstadoViaje(EstadoViaje.Terminado);
+            viaje.setEstadoViaje(EstadoViaje.TERMINADO);
         } else {
-            viaje.setEstadoViaje(EstadoViaje.En_curso);
+            viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
         }
 
     }
@@ -347,7 +347,7 @@ public class Ctrl_Viaje {
         String patente = sc.nextLine();
         for (Viaje viaje : listaViajes) {
             if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo) {
-                if (viaje.getEstadoViaje() == EstadoViaje.En_curso) {
+                if (viaje.getEstadoViaje() == EstadoViaje.EN_CURSO) {
                     System.out.println(viaje);
                     encontrado = true;
                 }
@@ -377,7 +377,7 @@ public class Ctrl_Viaje {
         int cantViajes = 0;
         for (Viaje viaje : listaViajes) {
             if ((viaje.getChofer().getDni()) == (dni) && viaje.getVehiculo() instanceof Colectivo
-                    && viaje.getEstadoViaje() == EstadoViaje.Terminado) {
+                    && viaje.getEstadoViaje() == EstadoViaje.TERMINADO) {
                 cantViajes = cantViajes + 1;
             }
         }

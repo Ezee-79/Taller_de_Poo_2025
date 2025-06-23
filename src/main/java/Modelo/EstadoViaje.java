@@ -7,6 +7,6 @@ package Modelo;
  * @author Enzo.
  */
 public enum EstadoViaje {
-    En_curso,
-    Terminado,
+    EN_CURSO,
+    TERMINADO,
 }
