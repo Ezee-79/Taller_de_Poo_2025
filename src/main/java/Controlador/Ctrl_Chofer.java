@@ -10,14 +10,25 @@ import Modelo.ChoferCategoria;
 import Modelo.EnumCategoria;
 import Excepciones.*;
 
-/* Enzo */
+
+/**
+ * Clase controladora encargada de gestionar choferes.
+ * Permite agregar, editar, eliminar y mostrar choferes, tambien muestra aquellos que estan disponibles para su asignacion a un viaje.
+ * Se encarga también de validar los datos ingresados por el usuario.
+ * 
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ */
 public class Ctrl_Chofer {
     private ArrayList<ChoferCategoria> choferes = new ArrayList<ChoferCategoria>();
     private ChoferCategoria choferCateg;
     private Scanner scL;
     private Scanner scI;
 
-    // CONSTRUCTOR.
+    /**
+     * Constructor que inicializa la lista de choferes con algunos valores por defecto.
+     */
     public Ctrl_Chofer() {
         choferCateg = new ChoferCategoria(
                 new Chofer("ABC123", 10100100, "Enzo", "Portillo"),
@@ -35,7 +46,13 @@ public class Ctrl_Chofer {
         choferes.add(choferCateg);
     }
 
-    // INGRESAMOS NUEVOS DATOS AL OBJETO CHOFER.
+    /**
+     * Permite ingresar o modificar los datos de un chofer.
+     * Lanza excepciones si los datos ingresados no son del mismo tipo.
+     * 
+     * @throws IngresoInvalidoExcepcion si se ingresan datos inválidos.
+     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     */
     public void setChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
@@ -118,7 +135,12 @@ public class Ctrl_Chofer {
         choferCateg.setFechaVencimiento(fecha);
     }
 
-    // AGREGAMOS NUEVO CHOFER A LA LISTA.
+    /**
+     * Agrega un nuevo chofer a la lista cuyos datos son ingresados por consola.
+     * 
+     * @throws IngresoInvalidoExcepcion si se ingresan datos inválidos.
+     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     */
     public void agregarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         System.out.println("***************************************************");
         System.out.println("[COMPLETA LOS DATOS PARA AGREGAR UN NUEVO CHOFER]");
@@ -129,7 +151,12 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
-    // BUSCAMOS EL CHOFER EN LA LISTA POR DNI, SI SE ENCUENTRA SE EDITAN LOS DATOS.
+     /**
+     * Se busca un chofer por su Dni y si hay una coincidencia se editan sus datos.
+     * 
+     * @throws IngresoInvalidoExcepcion si el DNI o los nuevos datos son inválidos.
+     * @throws InputMismatchException si se produce un error en el tipo de entrada.
+     */
     public void editarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
         System.out.println("***************************************************");
@@ -162,7 +189,12 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
-    // BUSCAMOS UN CHOFER EN LA LISTA POR DNI, SI SE ENCUENTRA SE ELIMINA.
+    /**
+     * Se busca un chofer por su Dni y si hay una coincidencia se lo elimina de la lista.
+     * 
+     * @throws IngresoInvalidoExcepcion
+     * @throws InputMismatchException
+     */
     public void eliminarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
         System.out.println("***************************************************");
@@ -189,7 +221,12 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
-    // BUSCAMOS UN CHOFER EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
+    /**
+     * Se busca un chofer por su Dni y si hay una coincidencia se muestran sus datos.
+     * 
+     * @throws IngresoInvalidoExcepcion
+     * @throws InputMismatchException
+     */
     public void mostrarChofer() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
         System.out.println("***************************************************");
@@ -219,8 +256,46 @@ public class Ctrl_Chofer {
         System.out.println("***************************************************\n");
     }
 
+
     // GET LISTA DE CHOFERES.
     public ArrayList<ChoferCategoria> getChoferes() {
         return choferes;
     }
+
+    /**
+     * Retorna una lista compuesta de objetos {@link Chofer}.
+     * 
+     * @return lista de {@link Chofer}.
+     */
+    public ArrayList<Chofer> getChoferes() {
+        return choferes;
+    }
+
+    /**
+     * Define una nueva lista de choferes.
+     * 
+     * @param choferes una nueva lista de choferes.
+     */
+    public void setChoferes(ArrayList<Chofer> choferes) {
+        this.choferes = choferes;
+    }
+
+    /**
+     * Retorna los datos de un {@link chofer}.
+     * 
+     * @return un objeto {@link chofer}.
+     */
+    public Chofer getChofer() {
+        return chofer;
+    }
+
+    /**
+     * Asigna los datos de un chofer.
+     * 
+     * @param chofer define un objeto {@link Chofer} a asignar.
+     */
+    public void setChofer(Chofer chofer) {
+        this.chofer = chofer;
+    }
+
 }

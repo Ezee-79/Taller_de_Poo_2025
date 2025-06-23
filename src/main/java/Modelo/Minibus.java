@@ -1,37 +1,82 @@
 package Modelo;
 
+/**
+ * Clase que representa un minibus, se especifica si tiene una bodega y aire acondicionado,
+ * extiende de la clase {@link Vehiculo}.
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ * 
+ */
+
 /* Enzo */
 public class Minibus extends Vehiculo {
     private boolean tieneBodega;
     private boolean tieneAire;
 
+    /**
+     * Constructor por defecto.
+     */
     // CONSTRUCTORES.
     public Minibus() {
     }
 
+    /**
+     * Constructor parametrizado
+     * 
+     * @param patente       patente del minibus, heredado de {@link Vehiculo}.
+     * @param capacidad     capacidad de maxima de pasajeros, heredado de {@link Vehiculo}.
+     * @param tieneBodega   si el minibus tiene una bodega o no.  
+     * @param tieneAire     indica si tiene aire acondicionado.
+     */
     public Minibus(String patente, int capacidad, boolean tieneBodega, boolean tieneAire) {
         super(patente, capacidad);
         this.tieneBodega = tieneBodega;
         this.tieneAire = tieneAire;
     }
 
+    /**
+     * Metodo que indica si un minibus tiene una bodega.
+     * 
+     * @return {@code true} si tiene, sino {@code false}.
+     */
     // SETTERS & GETTERS
     public boolean isTieneBodega() {
         return tieneBodega;
     }
 
+    /**
+     * Asigna el hecho que tenga o no una bodega.
+     * 
+     * @param tieneBodega valor booleano si posee bodega.
+     */
     public void setTieneBodega(boolean tieneBodega) {
         this.tieneBodega = tieneBodega;
     }
 
+    /**
+     * Metodo que indica si el minibus cuenta con aire acondicionado.
+     * 
+     * @return  {@code true} si tiene, sino {@code false}.
+     */
     public boolean isTieneAire() {
         return tieneAire;
     }
 
+    /**
+     * Asigna si cuenta con aire acondicionado.
+     * 
+     * @param tieneAire valor booleano de disponer aire acondicionado.
+     */
     public void setTieneAire(boolean tieneAire) {
         this.tieneAire = tieneAire;
     }
 
+    /**
+     * Representacion de los datos impresos del minibus.
+     * 
+     * @return cadena de datos del minibus.
+     */
     // TOSTRING.
     @Override
     public String toString() {

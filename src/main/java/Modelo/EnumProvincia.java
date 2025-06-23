@@ -1,6 +1,11 @@
 package Modelo;
 
-/* Eze */
+/**
+ * Enumerado encargado de representar las provincias del pais.
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ */
 public enum EnumProvincia {
     BUENOS_AIRES,
     CATAMARCA,
