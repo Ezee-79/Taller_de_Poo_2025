@@ -220,7 +220,7 @@ public class Ctrl_Chofer {
     }
 
     // GET LISTA DE CHOFERES.
-    public ArrayList<ChoferCategoria> getLista() {
+    public ArrayList<ChoferCategoria> getChoferes() {
         return choferes;
     }
 }

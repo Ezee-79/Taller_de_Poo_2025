@@ -10,6 +10,9 @@ package Controlador;
  */
 import Modelo.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -23,6 +26,7 @@ public class Ctrl_Viaje {
     private Viaje viaje;
     private Scanner scI;
     private Scanner scL;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Ctrl_Viaje() {
     }
@@ -34,34 +38,37 @@ public class Ctrl_Viaje {
         viaje = new Viaje("30/07/2025",
                 "10:00",
                 "15:00",
-                ctrlC.getLista().get(0).getChofer(),
+                ctrlC.getChoferes().get(0).getChofer(),
                 ctrlV.getVehiculos().get(0),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
                 new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
         viaje.setCodigo(0);
-        ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
+        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
+        ctrlV.getVehiculos().get(0).agregarViaje(viaje);
         listaViajes.add(viaje);
 
         viaje = new Viaje("20/07/2025",
                 "15:00",
                 "18:30",
-                ctrlC.getLista().get(1).getChofer(),
+                ctrlC.getChoferes().get(1).getChofer(),
                 ctrlV.getVehiculos().get(3),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
                 new Ciudad("Ubajay", EnumProvincia.ENTRE_RIOS));
         viaje.setCodigo(1);
-        ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
+        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
+        ctrlV.getVehiculos().get(3).agregarViaje(viaje);
         listaViajes.add(viaje);
 
         viaje = new Viaje("20/07/2025",
                 "10:00",
                 "11:45",
-                ctrlC.getLista().get(2).getChofer(),
-                ctrlV.getVehiculos().get(3),
+                ctrlC.getChoferes().get(2).getChofer(),
+                ctrlV.getVehiculos().get(2),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
                 new Ciudad("Colon", EnumProvincia.ENTRE_RIOS));
-        viaje.setCodigo(1);
-        ctrlC.getLista().get(0).getChofer().agregarViaje(viaje);
+        viaje.setCodigo(2);
+        ctrlC.getChoferes().get(0).getChofer().agregarViaje(viaje);
+        ctrlV.getVehiculos().get(2).agregarViaje(viaje);
         listaViajes.add(viaje);
     }
 
@@ -160,19 +167,68 @@ public class Ctrl_Viaje {
         if (opcionv != 1 && opcionv != 2) {
             throw new IngresoInvalidoExcepcion("[ERROR: SOLO PUEDE INGRESAR LAS OPCIONES SUGERIDAS]");
         }
-
         EnumCategoria enumCateg = (opcionv == 1) ? EnumCategoria.MINIBUS : EnumCategoria.COLECTIVO;
         Vehiculo v = null;
+        String salidaV = "";
+        String llegadaV = "";
+
         if (opcionv == 1) {
             for (Vehiculo p : ctrlV.getVehiculos()) {
-                if (p.isEstaDisponible() == true && p instanceof Minibus) {
-                    v = p;
+                if (p instanceof Minibus) {
+                    boolean disponible = true;
+                    for (Viaje y : p.getViajesProgramados()) {
+                        salidaV = y.getHorarioSalida();
+                        llegadaV = y.getHorarioLlegada();
+                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
+                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
+
+                        if (!fechaP.equals(fechaV)) {
+                            continue;
+                        }
+
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
+                        }
+                    }
+
+                    if (disponible) {
+                        v = p;
+                        break;
+                    }
+                } else {
+                    continue;
                 }
             }
         } else {
             for (Vehiculo p : ctrlV.getVehiculos()) {
-                if (p.isEstaDisponible() == true && p instanceof Colectivo) {
-                    v = p;
+                if (p instanceof Colectivo) {
+                    boolean disponible = true;
+                    for (Viaje y : p.getViajesProgramados()) {
+                        salidaV = y.getHorarioSalida();
+                        llegadaV = y.getHorarioLlegada();
+
+                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
+                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
+
+                        if (!fechaP.equals(fechaV)) {
+                            continue;
+                        }
+
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
+                        }
+                    }
+
+                    if (disponible) {
+                        v = p;
+                        break;
+                    }
+                } else {
+                    continue;
                 }
             }
         }
@@ -182,10 +238,33 @@ public class Ctrl_Viaje {
 
         // agregar chofer a viaje
         Chofer c = null;
-        for (ChoferCategoria x : ctrlC.getLista()) {
-            if (x.getCategoria().getTipo() == enumCateg
-                    && x.getChofer().isEstaDisponible()) {
-                c = x.getChofer();
+        for (ChoferCategoria x : ctrlC.getChoferes()) {
+            if (x.getCategoria().getTipo() == enumCateg) {
+                boolean disponible = true;
+                for (Viaje y : x.getChofer().getViajesProgramados()) {
+                    salidaV = y.getHorarioSalida();
+                    llegadaV = y.getHorarioLlegada();
+
+                    LocalDate fechaP = LocalDate.parse(fecha, formatter);
+                    LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
+
+                    if (!fechaP.equals(fechaV)) {
+                        continue;
+                    }
+
+                    if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                            && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                        disponible = false;
+                        break;
+                    }
+                }
+
+                if (disponible) {
+                    c = x.getChofer();
+                    break;
+                }
+            } else {
+                continue;
             }
         }
         if (c == null) {
@@ -204,6 +283,7 @@ public class Ctrl_Viaje {
         viaje.setCodigo(codigo);
 
         c.agregarViaje(viaje);
+        v.agregarViaje(viaje);
     }
 
     public void planificarViaje()
@@ -341,7 +421,7 @@ public class Ctrl_Viaje {
 
     public void mostrarViajesChoferes() {
         System.out.println("CANTIDAD DE VIAJES FINALIZADOS POR CADA CHOFER DE COLECTIVOS:");
-        for (ChoferCategoria c : ctrlC.getLista()) {
+        for (ChoferCategoria c : ctrlC.getChoferes()) {
             if (c.getCategoria().getTipo() == EnumCategoria.COLECTIVO
                     || c.getCategoria().getTipo() == EnumCategoria.AMBOS) {
                 System.out.println("[EL CHOFER CON DNI " + c.getChofer().getDni()

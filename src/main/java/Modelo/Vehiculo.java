@@ -6,7 +6,8 @@ public abstract class Vehiculo {
     private String patente;
     private int capacidad;
     private boolean estaDisponible;
-    private ArrayList<Viaje> viajes = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesProgramados = new ArrayList<Viaje>();
+    private ArrayList<Viaje> viajesFinalizados = new ArrayList<Viaje>();
 
     // CONSTRUCTORES.
     public Vehiculo() {
@@ -43,11 +44,23 @@ public abstract class Vehiculo {
         this.estaDisponible = estaDisponible;
     }
 
-    public ArrayList<Viaje> getViajes() {
-        return viajes;
+    public ArrayList<Viaje> getViajesProgramados() {
+        return viajesProgramados;
     }
 
-    public void setViajes(ArrayList<Viaje> viajes) {
-        this.viajes = viajes;
+    public void setViajesProgramados(ArrayList<Viaje> viajesProgramados) {
+        this.viajesProgramados = viajesProgramados;
+    }
+
+    public ArrayList<Viaje> getViajesFinalizados() {
+        return viajesFinalizados;
+    }
+
+    public void setViajesFinalizados(ArrayList<Viaje> viajesFinalizados) {
+        this.viajesFinalizados = viajesFinalizados;
+    }
+
+    public void agregarViaje(Viaje viaje) {
+        viajesProgramados.add(viaje);
     }
 }
