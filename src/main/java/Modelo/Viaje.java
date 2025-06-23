@@ -45,7 +45,7 @@ public class Viaje {
         this.ciudadDestino = ciudadDestino;
         this.ciudadOrigen = ciudadOrigen;
         this.vehiculo = vehiculo;
-        this.estado = estado.
+        this.estado = estado;
     }
 
     /**
