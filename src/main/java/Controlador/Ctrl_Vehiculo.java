@@ -9,7 +9,14 @@ import Modelo.Colectivo;
 import Modelo.Minibus;
 import Modelo.Vehiculo;
 
-/* Enzo */
+/**
+ * Clase controladora encargada de gestionar vehiculos.
+ * Permite agregar, editar, eliminar y mostrar los vehiculos, diferenciados entre minibuses y colectivos.
+ * 
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ */
 public class Ctrl_Vehiculo {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
     private Scanner scL;
@@ -18,7 +25,9 @@ public class Ctrl_Vehiculo {
     private Colectivo colectivo;
     private Vehiculo vehiculo;
 
-    // CONSTRUCTOR
+    /**
+     * Constructor por defecto, con algunos vehiculos predefinidos.
+     */
     public Ctrl_Vehiculo() {
         vehiculos.add(new Minibus("A1", 100, true, true));
         vehiculos.add(new Colectivo("B2", 200, true));
@@ -26,7 +35,13 @@ public class Ctrl_Vehiculo {
         vehiculos.add(new Colectivo("D4", 400, false));
     }
 
-    // INGRESO DE DATOS DE VEHICULOS SEGUN SU TIPO.
+    /**
+     * Se ingresan los datos del vehiculo.
+     * 
+     * @param tipo parametro para distinguir si un vehiculo es un minibus(1) o un colectivo(2) 
+     * @throws IngresoInvalidoExcepcion si los datos ingresados no son válidos.
+     * @throws InputMismatchException si el tipo de entrada es incorrecto.
+     */
     public void setVehiculo(int tipo) throws IngresoInvalidoExcepcion, InputMismatchException {
         String patente;
         int capacidad;
@@ -101,7 +116,12 @@ public class Ctrl_Vehiculo {
         }
     }
 
-    // AGREGAMOS UN NUEVO VEHICULO A LA LISTA SEGUN LA OPCION INGRESADA.
+    /**
+     * Se ingresan los datos del vehiculo.
+     * 
+     * @throws IngresoInvalidoExcepcion
+     * @throws InputMismatchException
+     */
     public void agregarVehiculo() throws IngresoInvalidoExcepcion, InputMismatchException {
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
@@ -132,8 +152,11 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-    // BUSCAMOS UN VEHICULO SEGUN PATENTE, SI SE ENCUENTRA SE EDITAN SUS DATOS SEGUN
-    // SU TIPO.
+    /**
+     * Se ingresa una patente por scanner para identificar al vehiculo cuyos datos se quieran editar.
+     * 
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     */
     public void editarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
 
@@ -179,7 +202,11 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-    // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE ELIMINA.
+    /**
+     * Se ingresa una patente por scanner para identificar al vehiculo que se quiera eliminar de la lista.
+     * 
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     */
     public void eliminarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
 
@@ -209,7 +236,11 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-    // SE BUSCA UN VEHICULO EN LA LISTA, SI SE ENCUENTRA SE MUESTRAN SUS DATOS.
+    /**
+     * Metodo para mostrar los datos de un vehiculo ingresando su patente correspondiente.
+     * 
+     * @throws IngresoInvalidoExcepcion si el ingreso de la patente esta vacio o tiene espacios.
+     */
     public void mostrarVehiculo() throws IngresoInvalidoExcepcion {
         scL = new Scanner(System.in);
 
@@ -247,19 +278,38 @@ public class Ctrl_Vehiculo {
         System.out.println("***************************************************\n");
     }
 
-    // GETTERS & SETTERS.
+    /**
+     * Retorna la lista de vehiculos actual.
+     * 
+     * @return la lista de vehiculos.
+     */
     public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
+    /**
+     * Define una nueva lista de vehiculos.
+     * 
+     * @param vehiculos nueva lista de vehiculos a definir.
+     */
     public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
 
+    /**
+     * Retorna los datos del vehiculo referenciado. 
+     * 
+     * @return un objeto vehiculo.
+     */
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
 
+    /**
+     * Define los datos de un vehiculo.
+     *
+     * @param vehiculo un objeto de {@link Vehiculo} a asignar como actual.
+     */
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
