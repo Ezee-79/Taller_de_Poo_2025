@@ -33,7 +33,7 @@ public class Viaje {
      * @param horarioSalida la hora de salida del viaje (formato sugerido: HH:mm).
      * @param horarioLlegada la hora de llegada estimada (formato sugerido: HH:mm).
      * @param chofer el {@link Chofer} asignado al viaje.
-     * @param vehiculo el {@link Vehículo} asignado al viaje.
+     * @param vehiculo el {@link Vehiculo} asignado al viaje.
      * @param ciudadOrigen la {@link Ciudad} de origen del viaje.
      * @param ciudadDestino la {@link Ciudad} de destino del viaje.
      */
