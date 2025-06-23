@@ -2,7 +2,7 @@ package Modelo;
 
 /**
  * Clase que representa un minibus, se especifica si tiene una bodega y aire acondicionado,
- * extiende de la clase Vehiculo.
+ * extiende de la clase {@link Vehiculo}.
  * @author Gaston. 
  * @author Denis.
  * @author Enzo.
@@ -24,8 +24,8 @@ public class Minibus extends Vehiculo {
     /**
      * Constructor parametrizado
      * 
-     * @param patente       patente del minibus, heredado de Vehiculo.
-     * @param capacidad     capacidad de maxima de pasajeros, heredado de Vehiculo.
+     * @param patente       patente del minibus, heredado de {@link Vehiculo}.
+     * @param capacidad     capacidad de maxima de pasajeros, heredado de {@link Vehiculo}.
      * @param tieneBodega   si el minibus tiene una bodega o no.  
      * @param tieneAire     indica si tiene aire acondicionado.
      */
@@ -38,7 +38,7 @@ public class Minibus extends Vehiculo {
     /**
      * Metodo que indica si un minibus tiene una bodega.
      * 
-     * @return true si tiene, sino false.
+     * @return {@code true} si tiene, sino {@code false}.
      */
     // SETTERS & GETTERS
     public boolean isTieneBodega() {
@@ -57,7 +57,7 @@ public class Minibus extends Vehiculo {
     /**
      * Metodo que indica si el minibus cuenta con aire acondicionado.
      * 
-     * @return  true si tiene, sino false.
+     * @return  {@code true} si tiene, sino {@code false}.
      */
     public boolean isTieneAire() {
         return tieneAire;

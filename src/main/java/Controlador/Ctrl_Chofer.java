@@ -217,9 +217,9 @@ public class Ctrl_Chofer {
     }
 
     /**
-     * Retorna una lista compuesta de choferes.
+     * Retorna una lista compuesta de objetos {@link Chofer}.
      * 
-     * @return lista de choferes.
+     * @return lista de {@link Chofer}.
      */
     public ArrayList<Chofer> getChoferes() {
         return choferes;
@@ -235,9 +235,9 @@ public class Ctrl_Chofer {
     }
 
     /**
-     * Retorna los datos de un chofer.
+     * Retorna los datos de un {@link chofer}.
      * 
-     * @return un objeto chofer.
+     * @return un objeto {@link chofer}.
      */
     public Chofer getChofer() {
         return chofer;

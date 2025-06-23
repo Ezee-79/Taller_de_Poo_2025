@@ -1,7 +1,7 @@
 package Modelo;
 
 /**
- * Clase que representa un colectivo y se especifica si tiene un piso doble, extiende de Vehiculo.
+ * Clase que representa un colectivo y se especifica si tiene un piso doble, extiende de {@link Vehiculo}.
  * 
  * @author Gaston. 
  * @author Denis.
@@ -32,7 +32,7 @@ public class Colectivo extends Vehiculo {
      /**
      * Devuelve si el colectivo tiene doble piso.
      * 
-     * @return true si tiene doble piso, false si no.
+     * @return {@code true} si tiene doble piso, {@code false} si no.
      */
     public boolean isTienePisoDoble() {
         return tienePisoDoble;

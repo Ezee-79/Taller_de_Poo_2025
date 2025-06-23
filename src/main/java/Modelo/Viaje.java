@@ -7,8 +7,8 @@ package Modelo;
 /**
  * Representa un viaje realizado por un vehículo conducido por un chofer entre dos ciudades en una fecha y horarios determinados.
  * 
- * Contiene detalles como la fecha del viaje, horarios de salida y llegada, chofer, vehículo asignado,
- * ciudades de origen y destino, y el estado del viaje.
+ * Contiene detalles como la fecha del viaje, horarios de salida y llegada, {@link Chofer}, {@link Vehículo} asignado,
+ * {@link Ciudad} de origen y destino, y el estado del viaje.
  * 
  * @author Gaston. 
  * @author Denis.
@@ -32,10 +32,10 @@ public class Viaje {
      * @param fechaLlegada la fecha de llegada del viaje a su destino(formato sugerido: dd/MM/yyyy).
      * @param horarioSalida la hora de salida del viaje (formato sugerido: HH:mm).
      * @param horarioLlegada la hora de llegada estimada (formato sugerido: HH:mm).
-     * @param chofer el chofer asignado al viaje.
-     * @param vehiculo el vehículo asignado al viaje.
-     * @param ciudadOrigen la ciudad de origen del viaje.
-     * @param ciudadDestino la ciudad de destino del viaje.
+     * @param chofer el {@link Chofer} asignado al viaje.
+     * @param vehiculo el {@link Vehículo} asignado al viaje.
+     * @param ciudadOrigen la {@link Ciudad} de origen del viaje.
+     * @param ciudadDestino la {@link Ciudad} de destino del viaje.
      */
     public Viaje(String fechaSalida, String fechaLlegada, String horarioSalida, String horarioLlegada, Chofer chofer, Vehiculo vehiculo,
             Ciudad ciudadOrigen, Ciudad ciudadDestino) {
@@ -89,7 +89,7 @@ public class Viaje {
     /**
      * Establece el chofer del viaje.
      *
-     * @param chofer nueva Chofer para el viaje.
+     * @param chofer nuevo {@link Chofer} para el viaje.
      */
     public void setChofer(Chofer chofer) {
         this.chofer = chofer;
@@ -98,7 +98,7 @@ public class Viaje {
     /**
      * Establece el vehiculo del viaje.
      *
-     * @param  vehiculo nuevo vehiculo del viaje.
+     * @param  vehiculo nuevo {@link Vehiculo} del viaje.
      */
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
@@ -107,7 +107,7 @@ public class Viaje {
     /**
      * Establece la ciudad de partida del viaje.
      *
-     * @param ciudadOrigen nueva ciudad de salida del viaje.
+     * @param ciudadOrigen nueva {@link Ciudad} de salida del viaje.
      */
     public void setCiudadOrigen(Ciudad ciudadOrigen) {
         this.ciudadOrigen = ciudadOrigen;
@@ -116,14 +116,14 @@ public class Viaje {
     /**
      * Establece la ciudad destino del viaje.
      *
-     * @param fecha  ciudadDestino nueva ciudad de destino del viaje.
+     * @param ciudadDestino nueva {@link Ciudad} de destino del viaje.
      */
     public void setCiudadDestino(Ciudad ciudadDestino) {
         this.ciudadDestino = ciudadDestino;
     }
 
     /**
-     * Establece el estado actual del viaje (ejemplo, En_curso, Terminado).
+     * Establece el estado actual del viaje (ejemplo, EN_CURSO, TERMINADO).
      *
      * @param estado el nuevo estado del viaje.
      */
@@ -170,7 +170,7 @@ public class Viaje {
     /**
      * Devuelve el chofer del viaje.
      *
-     * @return el chofer del viaje.
+     * @return el @{@link Chofer} del viaje.
      */
     public Chofer getChofer() {
         return chofer;
@@ -179,7 +179,7 @@ public class Viaje {
     /**
      * Devuelve el vehiculo del viaje.
      *
-     * @return el vehiculo del viaje.
+     * @return el {@link Vehiculo} del viaje.
      */
     public Vehiculo getVehiculo() {
         return vehiculo;
@@ -188,7 +188,7 @@ public class Viaje {
     /**
      * Devuelve la ciudad de partida del viaje.
      *
-     * @return la ciudad de partida del viaje.
+     * @return la {@link Ciudad} de partida del viaje.
      */
     public Ciudad getCiudadOrigen() {
         return ciudadOrigen;
@@ -197,7 +197,7 @@ public class Viaje {
     /**
      * Devuelve la ciudad destino del viaje.
      *
-     * @return la ciudad destino del viaje.
+     * @return la {@link Ciudad} destino del viaje.
      */
     public Ciudad getCiudadDestino() {
         return ciudadDestino;

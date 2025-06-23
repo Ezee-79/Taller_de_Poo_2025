@@ -78,7 +78,7 @@ public abstract class Vehiculo {
     /**
      * Indica si el vehículo está disponible para realizar viajes.
      *
-     * @return true si el vehículo está disponible, false en caso contrario.
+     * @return {@code true} si el vehículo está disponible, {@code false} en caso contrario.
      */
     public boolean isEstaDisponible() {
         return estaDisponible;
@@ -87,7 +87,7 @@ public abstract class Vehiculo {
     /**
      * Define la disponibilidad del vehículo.
      *
-     * @param estaDisponible true si el vehículo está disponible, false si no lo está.
+     * @param estaDisponible {@code true} si el vehículo está disponible, {@code false} si no lo está.
      */
     public void setEstaDisponible(boolean estaDisponible) {
         this.estaDisponible = estaDisponible;
