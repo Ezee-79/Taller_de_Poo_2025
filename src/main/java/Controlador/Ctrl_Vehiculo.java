@@ -16,6 +16,9 @@ import Modelo.Vehiculo;
  * @author Gaston. 
  * @author Denis.
  * @author Enzo.
+ * @see Vehiculo.
+ * @see Minibus.
+ * @see Colectivo.
  */
 public class Ctrl_Vehiculo {
     private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
@@ -37,8 +40,9 @@ public class Ctrl_Vehiculo {
 
     /**
      * Se ingresan los datos del vehiculo.
+     * Según el tipo se crea un {@link Minibus} (1) o un {@link Colectivo} (2).
      * 
-     * @param tipo parametro para distinguir si un vehiculo es un minibus(1) o un colectivo(2) 
+     * @param tipo parametro para distinguir si un vehiculo es un minibus (1) o un colectivo (2).
      * @throws IngresoInvalidoExcepcion si los datos ingresados no son válidos.
      * @throws InputMismatchException si el tipo de entrada es incorrecto.
      */
@@ -297,9 +301,9 @@ public class Ctrl_Vehiculo {
     }
 
     /**
-     * Retorna los datos del vehiculo referenciado. 
+     * Retorna los datos del {@link Vehiculo} referenciado. 
      * 
-     * @return un objeto vehiculo.
+     * @return un objeto {@link vehiculo}.
      */
     public Vehiculo getVehiculo() {
         return vehiculo;

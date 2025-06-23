@@ -336,17 +336,28 @@ public class Ctrl_Viaje {
      * Solo se muestran viajes en estado En_curso.
      */
     public void mostrarViajesVehiculo() {
+        
+        boolean encontrado = false;
+        
+        if (listaViajes.isEmpty()) {
+            System.out.println("No hay viajes cargados.");
+            return;
+        }
         System.out.print("Ingresar patente del colectivo a revisar:");
         String patente = sc.nextLine();
         for (Viaje viaje : listaViajes) {
             if (viaje.getVehiculo().getPatente().equals(patente) && viaje.getVehiculo() instanceof Colectivo) {
                 if (viaje.getEstadoViaje() == EstadoViaje.En_curso) {
                     System.out.println(viaje);
+                    encontrado = true;
                 }
-            } else {
-                System.out.print("Ocurrio un error inesperado: patente equivocada o no perteneciente a un colectivo");
             }
         }
+
+        if (!encontrado) {
+            System.out.println("ERROR: NO HAY DATOS COINCIDENTES");
+        }
+
     }
 
     /**
@@ -354,8 +365,15 @@ public class Ctrl_Viaje {
      * utilizando el DNI ingresado por el usuario.
      */
     public void mostrarViajesChoferes() {
+
+        if (listaViajes.isEmpty()) {
+            System.out.println("No hay viajes cargados.");
+            return;
+        }
+
         System.out.print("Ingresar el dni del chofer a revisar:");
         long dni = sc.nextLong();
+        sc.nextLine();
         int cantViajes = 0;
         for (Viaje viaje : listaViajes) {
             if ((viaje.getChofer().getDni()) == (dni) && viaje.getVehiculo() instanceof Colectivo
@@ -363,5 +381,6 @@ public class Ctrl_Viaje {
                 cantViajes = cantViajes + 1;
             }
         }
+        System.out.println ("Cantidad de viajes realizados por el chofer: " + cantViajes);
     }
 }
