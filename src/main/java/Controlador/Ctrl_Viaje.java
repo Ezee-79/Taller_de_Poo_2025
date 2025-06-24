@@ -160,10 +160,14 @@ public class Ctrl_Viaje {
         System.out.print("INGRESAR FECHA DE SALIDA (DD/MM/AAAA): ");
         String fecha = scL.nextLine();
         fecha = fecha.trim();
+
+        LocalDate fechaP = LocalDate.parse(fecha, formatter);
         if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
         } else if (fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        } else if (fechaP.isBefore(LocalDate.now())) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE PONER UNA FECHA ANTERIOR A LA ACTUAL]");
         }
 
         // horarios del viaje
@@ -255,7 +259,7 @@ public class Ctrl_Viaje {
 
                 for (Viaje y : x.getChofer().getViajesProgramados()) {
 
-                    LocalDate fechaP = LocalDate.parse(fecha, formatter);
+                    fechaP = LocalDate.parse(fecha, formatter);
                     LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
                     if (!fechaP.equals(fechaV)) {
                         continue;
@@ -300,7 +304,6 @@ public class Ctrl_Viaje {
 
         c.agregarViaje(viaje);
         v.agregarViaje(viaje);
-        System.out.println("[VIAJE PROGRAMADO]");
     }
 
     public void planificarViaje()
