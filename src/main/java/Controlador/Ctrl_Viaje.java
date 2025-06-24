@@ -45,7 +45,7 @@ public class Ctrl_Viaje {
     public Ctrl_Viaje(Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         this.ctrlC = ctrlC;
         this.ctrlV = ctrlV;
-
+        /* VIAJES PRECARGADOS PARA REALIZAR PRUEBAS.
         viaje = new Viaje("20/07/2025",
                 "10:00",
                 "15:00",
@@ -81,6 +81,7 @@ public class Ctrl_Viaje {
         ctrlC.getChoferes().get(2).getChofer().agregarViaje(viaje);
         ctrlV.getVehiculos().get(1).agregarViaje(viaje);
         listaViajes.add(viaje);
+        */
     }
 
     /**
@@ -248,7 +249,6 @@ public class Ctrl_Viaje {
         if (v == null) {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
-        System.out.println(v.toString());
 
         // agregar chofer a viaje
         Chofer c = null;
@@ -288,7 +288,6 @@ public class Ctrl_Viaje {
         if (c == null) {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO CHOFER DISPONIBLE]");
         }
-        System.out.println(c.toString());
 
         // Viaje completo
         viaje.setChofer(c);

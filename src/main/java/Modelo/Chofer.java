@@ -90,7 +90,7 @@ public class Chofer extends Persona {
     }
 
     public void agregarViaje(Viaje viaje) {
-        viajesFinalizados.add(viaje);
+        viajesProgramados.add(viaje);
     }
 
     // toString
