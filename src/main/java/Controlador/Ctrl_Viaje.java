@@ -4,31 +4,32 @@
  */
 package Controlador;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import Modelo.*;
+import Excepciones.IngresoInvalidoExcepcion;
+
+/**
+ * Clase controladora encargada de gestionar las operaciones relacionadas con los viajes,
+ * como planificar, editar, eliminar y mostrar viajes programados.
+ * 
+ * Gestiona además la asignación de choferes y vehículos disponibles para los viajes.
+ * 
+ * @author Gaston. 
+ * @author Denis.
+ * @author Enzo.
+ */
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import Excepciones.IngresoInvalidoExcepcion;
-import Modelo.*;
-
-/**
- * Clase controladora encargada de gestionar las operaciones relacionadas con
- * los viajes,
- * como planificar, editar, eliminar y mostrar viajes programados.
- * 
- * Gestiona además la asignación de choferes y vehículos disponibles para los
- * viajes.
- * 
- * @author Gaston.
- * @author Denis.
- * @author Enzo.
- */
 
 public class Ctrl_Viaje {
-    private ArrayList<Viaje> listaViajes = new ArrayList<Viaje>();
+    private ArrayList<Viaje> listaViajes = new ArrayList<>();
     private Ctrl_Vehiculo ctrlV;
     private Ctrl_Chofer ctrlC;
     private Viaje viaje;
@@ -37,16 +38,17 @@ public class Ctrl_Viaje {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
-     * Constructor por defecto de la clase Ctrl_Viaje.
+     * Constructor por defecto.
      */
     public Ctrl_Viaje() {
     }
+
 
     public Ctrl_Viaje(Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         this.ctrlC = ctrlC;
         this.ctrlV = ctrlV;
 
-        viaje = new Viaje("20/07/2025",
+        viaje = new Viaje("30/07/2025",
                 "10:00",
                 "15:00",
                 ctrlC.getChoferes().get(0).getChofer(),
@@ -71,8 +73,8 @@ public class Ctrl_Viaje {
         listaViajes.add(viaje);
 
         viaje = new Viaje("20/07/2025",
-                "18:00",
-                "19:45",
+                "10:00",
+                "11:45",
                 ctrlC.getChoferes().get(2).getChofer(),
                 ctrlV.getVehiculos().get(1),
                 new Ciudad("Concordia", EnumProvincia.ENTRE_RIOS),
@@ -156,6 +158,7 @@ public class Ctrl_Viaje {
         Ciudad destino = new Ciudad(destinoC, destinoP);
 
         // fecha viaje
+
         System.out.print("INGRESAR FECHA DE SALIDA (DD/MM/AAAA): ");
         String fecha = scL.nextLine();
         fecha = fecha.trim();
@@ -191,25 +194,26 @@ public class Ctrl_Viaje {
         EnumCategoria enumCateg = (opcionv == 1) ? EnumCategoria.MINIBUS : EnumCategoria.COLECTIVO;
 
         Vehiculo v = null;
+        String salidaV = "";
+        String llegadaV = "";
         if (opcionv == 1) {
             for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p instanceof Minibus) {
                     boolean disponible = true;
-
                     for (Viaje y : p.getViajesProgramados()) {
-                        String salidaV = y.getHorarioSalida();
-                        String llegadaV = y.getHorarioLlegada();
-
+                        salidaV = y.getHorarioSalida();
+                        llegadaV = y.getHorarioLlegada();
                         LocalDate fechaP = LocalDate.parse(fecha, formatter);
                         LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-                        if (fechaP != fechaV) {
+
+                        if (!fechaP.equals(fechaV)) {
                             continue;
-                        } else {
-                            if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                    && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                                disponible = false;
-                                break;
-                            }
+                        }
+
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
                         }
                     }
 
@@ -225,21 +229,21 @@ public class Ctrl_Viaje {
             for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p instanceof Colectivo) {
                     boolean disponible = true;
-
                     for (Viaje y : p.getViajesProgramados()) {
-                        String salidaV = y.getHorarioSalida();
-                        String llegadaV = y.getHorarioLlegada();
+                        salidaV = y.getHorarioSalida();
+                        llegadaV = y.getHorarioLlegada();
 
                         LocalDate fechaP = LocalDate.parse(fecha, formatter);
                         LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-                        if (fechaP != fechaV) {
+
+                        if (!fechaP.equals(fechaV)) {
                             continue;
-                        } else {
-                            if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                    && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                                disponible = false;
-                                break;
-                            }
+                        }
+
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
                         }
                     }
 
@@ -253,29 +257,29 @@ public class Ctrl_Viaje {
             }
         }
         if (v == null) {
-            throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO VEHICULO DISPONIBLE]");
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
 
         // agregar chofer a viaje
         Chofer c = null;
         for (ChoferCategoria x : ctrlC.getChoferes()) {
-            if (x.getCategoria().getTipo() == enumCateg
-                    || x.getCategoria().getTipo() == EnumCategoria.AMBOS) {
+            if (x.getCategoria().getTipo() == enumCateg) {
                 boolean disponible = true;
-
                 for (Viaje y : x.getChofer().getViajesProgramados()) {
+                    salidaV = y.getHorarioSalida();
+                    llegadaV = y.getHorarioLlegada();
+
                     LocalDate fechaP = LocalDate.parse(fecha, formatter);
                     LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-                    if (fechaP != fechaV) {
+
+                    if (!fechaP.equals(fechaV)) {
                         continue;
-                    } else {
-                        String salidaV = y.getHorarioSalida();
-                        String llegadaV = y.getHorarioLlegada();
-                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                            disponible = false;
-                            break;
-                        }
+                    }
+
+                    if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                            && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                        disponible = false;
+                        break;
                     }
                 }
 
@@ -288,7 +292,7 @@ public class Ctrl_Viaje {
             }
         }
         if (c == null) {
-            throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO CHOFER DISPONIBLE]");
+            throw new IngresoInvalidoExcepcion("[ERROR: NO SE ENCONTRO CHOFER DISPONIBLE]");
         }
 
         // Viaje completo
@@ -305,6 +309,15 @@ public class Ctrl_Viaje {
         c.agregarViaje(viaje);
         v.agregarViaje(viaje);
         System.out.println("[VIAJE PROGRAMADO]");
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
+            if (!horaLlegada.isAfter(LocalDateTime.now())) {
+                viaje.setEstadoViaje(EstadoViaje.TERMINADO);
+            } else {
+            viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
+        }
     }
 
     public void planificarViaje()
@@ -316,6 +329,22 @@ public class Ctrl_Viaje {
         listaViajes.add(viaje);
         System.out.println("\n[NUEVO VIAJE AGREGADO A LA LISTA]");
         System.out.println("***************************************************\n");
+
+    }
+
+    /**
+     * Muestra un listado de los viajes registrados con su índice.
+     */
+    public void mostrarViajesConIndice() {
+        if (listaViajes.isEmpty()) {
+            System.out.println("No hay viajes programados.");
+        } else {
+            System.out.println("==== VIAJES DISPONIBLES ====");
+            for (int i = 0; i < listaViajes.size(); i++) {
+                System.out.println("[" + (i + 1) + "] " + listaViajes.get(i));
+            }
+            System.out.println("============================");
+        }
     }
 
     // Metodo para eliminar un viaje

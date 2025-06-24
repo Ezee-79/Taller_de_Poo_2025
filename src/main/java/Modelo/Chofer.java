@@ -8,12 +8,11 @@ package Modelo;
 import java.util.ArrayList;
 
 /**
- * Clase para la clase Chofer extendida de la clase {@link Persona}.
+ * Clase para la Chofer extendida de la clase {@link Persona}.
  * 
- * Cada uno con su numero de licencia, disponibilidad y lista de viajes
- * asignados.
+ * Cada uno con su numero de licencia, disponibilidad y lista de viajes asignados.
  * 
- * @author Gaston.
+ * @author Gaston. 
  * @author Denis.
  * @author Enzo.
  * 
@@ -33,16 +32,17 @@ public class Chofer extends Persona {
     /**
      * Constructor con parametros.
      * 
-     * @param nroLicencia Numero de licencia del chofer.
-     * @param dni         Numero de dni del chofer, extendido de {@link Persona}.
-     * @param nombre      Nombre del chofer, extendido de {@link Persona}.
-     * @param apellido    Apellido del chofer, extendido de {@link Persona}.
+     * @param nroLicencia     Numero de licencia del chofer.
+     * @param dni             Numero de dni del chofer, extendido de {@link Persona}.
+     * @param nombre          Nombre del chofer, extendido de {@link Persona}.
+     * @param apellido        Apellido del chofer, extendido de {@link Persona}.
      */
     public Chofer(String nroLicencia, long dni, String nombre, String apellido) {
         super(dni, nombre, apellido);
         this.nroLicencia = nroLicencia;
         this.estaDisponible = true;
     }
+
 
     /**
      * Establece el numero de licencia del chofer
@@ -64,19 +64,28 @@ public class Chofer extends Persona {
     }
 
     /**
-     * Asigna una lista de viajes correspondientes al chofer.
+     * Retorna la disponiblidad del chofer para un viaje.
      * 
-     * @param viajesProgramados lista de viajes programados.
+     * @return {@code true} si está disponible, {@code false} en caso contrario.
      */
+    public boolean isEstaDisponible() {
+        return estaDisponible;
+    }
+
+    /**
+     * Define si un chofer esta ocupado o no, para conducir un viaje.
+     * 
+     * @param estaDisponible valor booleano de disponibilidad. {@code true} si lo esta, sino {@code false}.
+     */
+    public void setEstaDisponible(boolean estaDisponible) {
+        this.estaDisponible = estaDisponible;
+    }
+
+
     public ArrayList<Viaje> getViajesProgramados() {
         return viajesProgramados;
     }
 
-    /**
-     * Retorna la lista de viajes programados del chofer.
-     * 
-     * @return lista de viajes programados que se le asigna al chofer.
-     */
     public void setViajesProgramados(ArrayList<Viaje> viajesProgramados) {
         this.viajesProgramados = viajesProgramados;
     }
