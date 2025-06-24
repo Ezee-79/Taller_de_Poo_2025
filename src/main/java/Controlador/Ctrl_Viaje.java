@@ -156,6 +156,7 @@ public class Ctrl_Viaje {
         Ciudad destino = new Ciudad(destinoC, destinoP);
 
         // fecha viaje
+
         System.out.print("INGRESAR FECHA DE SALIDA (DD/MM/AAAA): ");
         String fecha = scL.nextLine();
         fecha = fecha.trim();
@@ -200,16 +201,10 @@ public class Ctrl_Viaje {
                         String salidaV = y.getHorarioSalida();
                         String llegadaV = y.getHorarioLlegada();
 
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-                        if (fechaP != fechaV) {
-                            continue;
-                        } else {
-                            if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                    && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                                disponible = false;
-                                break;
-                            }
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
                         }
                     }
 
@@ -221,7 +216,9 @@ public class Ctrl_Viaje {
                     continue;
                 }
             }
-        } else {
+        } else
+
+        {
             for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p instanceof Colectivo) {
                     boolean disponible = true;
@@ -230,16 +227,10 @@ public class Ctrl_Viaje {
                         String salidaV = y.getHorarioSalida();
                         String llegadaV = y.getHorarioLlegada();
 
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-                        if (fechaP != fechaV) {
-                            continue;
-                        } else {
-                            if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                    && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                                disponible = false;
-                                break;
-                            }
+                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                            disponible = false;
+                            break;
                         }
                     }
 
@@ -256,32 +247,35 @@ public class Ctrl_Viaje {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
 
+        System.out.println(v.toString());
+
         // agregar chofer a viaje
         Chofer c = null;
         for (ChoferCategoria x : ctrlC.getChoferes()) {
             if (x.getCategoria().getTipo() == enumCateg
                     || x.getCategoria().getTipo() == EnumCategoria.AMBOS) {
                 boolean disponible = true;
-
                 for (Viaje y : x.getChofer().getViajesProgramados()) {
+                    String salidaV = y.getHorarioSalida();
+                    String llegadaV = y.getHorarioLlegada();
+
                     LocalDate fechaP = LocalDate.parse(fecha, formatter);
                     LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
+
                     if (fechaP != fechaV) {
                         continue;
                     } else {
-                        String salidaV = y.getHorarioSalida();
-                        String llegadaV = y.getHorarioLlegada();
                         if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
                                 && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
                             disponible = false;
                             break;
                         }
                     }
-                }
 
-                if (disponible) {
-                    c = x.getChofer();
-                    break;
+                    if (disponible) {
+                        c = x.getChofer();
+                        break;
+                    }
                 }
             } else {
                 continue;
@@ -290,6 +284,8 @@ public class Ctrl_Viaje {
         if (c == null) {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO CHOFER DISPONIBLE]");
         }
+
+        System.out.println(c.toString());
 
         // Viaje completo
         viaje.setChofer(c);
