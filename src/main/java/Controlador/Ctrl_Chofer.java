@@ -31,6 +31,7 @@ public class Ctrl_Chofer {
      * defecto.
      */
     public Ctrl_Chofer() {
+        /* CHOFERES PRECARGADOS PARA REALIZAR PRUEBAS.
         choferCateg = new ChoferCategoria(
                 new Chofer("ABC123", 10100100, "Enzo", "Portillo"),
                 new Categoria(EnumCategoria.MINIBUS));
@@ -45,6 +46,7 @@ public class Ctrl_Chofer {
                 new Chofer("GHI789", 30300300, "Denis", "Chang"),
                 new Categoria(EnumCategoria.AMBOS));
         choferes.add(choferCateg);
+        */
     }
 
     /**
