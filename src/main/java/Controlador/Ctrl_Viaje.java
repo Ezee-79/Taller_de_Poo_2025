@@ -7,6 +7,7 @@ package Controlador;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -94,7 +95,7 @@ public class Ctrl_Viaje {
      * @throws IngresoInvalidoExcepcion Si alguna entrada del usuario es inválida.
      * @throws InputMismatchException   Si ocurre un error en el tipo de entrada.
      */
-    public void setViaje() throws IngresoInvalidoExcepcion, InputMismatchException {
+    public void setViaje() throws IngresoInvalidoExcepcion, InputMismatchException, DateTimeParseException {
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
 
