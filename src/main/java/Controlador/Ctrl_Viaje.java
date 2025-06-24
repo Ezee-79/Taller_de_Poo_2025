@@ -216,9 +216,7 @@ public class Ctrl_Viaje {
                     continue;
                 }
             }
-        } else
-
-        {
+        } else {
             for (Vehiculo p : ctrlV.getVehiculos()) {
                 if (p instanceof Colectivo) {
                     boolean disponible = true;
@@ -246,7 +244,6 @@ public class Ctrl_Viaje {
         if (v == null) {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO VEHICULO DISPONIBLE]");
         }
-
         System.out.println(v.toString());
 
         // agregar chofer a viaje
@@ -255,27 +252,30 @@ public class Ctrl_Viaje {
             if (x.getCategoria().getTipo() == enumCateg
                     || x.getCategoria().getTipo() == EnumCategoria.AMBOS) {
                 boolean disponible = true;
+
                 for (Viaje y : x.getChofer().getViajesProgramados()) {
-                    String salidaV = y.getHorarioSalida();
-                    String llegadaV = y.getHorarioLlegada();
 
                     LocalDate fechaP = LocalDate.parse(fecha, formatter);
                     LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                    if (fechaP != fechaV) {
+                    if (!fechaP.equals(fechaV)) {
                         continue;
-                    } else {
-                        if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
-                                && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
-                            disponible = false;
-                            break;
-                        }
                     }
 
-                    if (disponible) {
-                        c = x.getChofer();
+                    String salidaV = y.getHorarioSalida();
+                    String llegadaV = y.getHorarioLlegada();
+
+                    System.out.println(salidaV);
+                    System.out.println(llegadaV);
+                    if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
+                            && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
+                        disponible = false;
                         break;
                     }
+                }
+
+                if (disponible) {
+                    c = x.getChofer();
+                    break;
                 }
             } else {
                 continue;
@@ -284,7 +284,6 @@ public class Ctrl_Viaje {
         if (c == null) {
             throw new IngresoInvalidoExcepcion("[NO SE ENCONTRO CHOFER DISPONIBLE]");
         }
-
         System.out.println(c.toString());
 
         // Viaje completo
@@ -295,6 +294,7 @@ public class Ctrl_Viaje {
         viaje.setFecha(fecha);
         viaje.setHorarioSalida(salida);
         viaje.setHorarioLlegada(llegada);
+
         int codigo = (viaje.getCodigo() == -1) ? listaViajes.size() : viaje.getCodigo();
         viaje.setCodigo(codigo);
 
@@ -443,10 +443,16 @@ public class Ctrl_Viaje {
     public void mostrarViajesChoferes() {
         System.out.println("CANTIDAD DE VIAJES FINALIZADOS POR CADA CHOFER DE COLECTIVOS:");
         for (ChoferCategoria c : ctrlC.getChoferes()) {
+            int cantViajes = 0;
             if (c.getCategoria().getTipo() == EnumCategoria.COLECTIVO
                     || c.getCategoria().getTipo() == EnumCategoria.AMBOS) {
+                for (Viaje v : c.getChofer().getViajesFinalizados()) {
+                    if (v.getVehiculo() instanceof Colectivo) {
+                        cantViajes++;
+                    }
+                }
                 System.out.println("[EL CHOFER CON DNI " + c.getChofer().getDni()
-                        + " HA FINALIZADO: " + c.getChofer().getViajesFinalizados().size() + " VIAJES]");
+                        + " HA FINALIZADO: " + cantViajes + " VIAJES]");
             }
         }
     }
