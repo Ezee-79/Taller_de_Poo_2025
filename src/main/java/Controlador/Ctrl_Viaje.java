@@ -6,7 +6,11 @@ package Controlador;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import Modelo.*;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 import Excepciones.IngresoInvalidoExcepcion;
 
 /**
@@ -47,8 +51,8 @@ public class Ctrl_Viaje {
     public Ctrl_Viaje(Ctrl_Vehiculo ctrlV, Ctrl_Chofer ctrlC) {
         this.ctrlC = ctrlC;
         this.ctrlV = ctrlV;
-
-        viaje = new Viaje("30/07/2025",
+        /* VIAJES PRECARGADOS PARA REALIZAR PRUEBAS.
+        viaje = new Viaje("20/07/2025",
                 "10:00",
                 "15:00",
                 ctrlC.getChoferes().get(0).getChofer(),
@@ -83,6 +87,7 @@ public class Ctrl_Viaje {
         ctrlC.getChoferes().get(2).getChofer().agregarViaje(viaje);
         ctrlV.getVehiculos().get(1).agregarViaje(viaje);
         listaViajes.add(viaje);
+        */
     }
 
     /**
@@ -95,7 +100,7 @@ public class Ctrl_Viaje {
      * @throws IngresoInvalidoExcepcion Si alguna entrada del usuario es inválida.
      * @throws InputMismatchException   Si ocurre un error en el tipo de entrada.
      */
-    public void setViaje() throws IngresoInvalidoExcepcion, InputMismatchException {
+    public void setViaje() throws IngresoInvalidoExcepcion, InputMismatchException, DateTimeParseException {
         scI = new Scanner(System.in);
         scL = new Scanner(System.in);
 
@@ -162,10 +167,14 @@ public class Ctrl_Viaje {
         System.out.print("INGRESAR FECHA DE SALIDA (DD/MM/AAAA): ");
         String fecha = scL.nextLine();
         fecha = fecha.trim();
+
+        LocalDate fechaP = LocalDate.parse(fecha, formatter);
         if (!fecha.matches("\\d{2}/\\d{2}/\\d{4}")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO SE INGRESO EL FORMATO CORRECTO]");
         } else if (fecha.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE INGRESAR LETRAS]");
+        } else if (fechaP.isBefore(LocalDate.now())) {
+            throw new IngresoInvalidoExcepcion("[ERROR: NO PUEDE PONER UNA FECHA ANTERIOR A LA ACTUAL]");
         }
 
         // horarios del viaje
@@ -201,14 +210,8 @@ public class Ctrl_Viaje {
                 if (p instanceof Minibus) {
                     boolean disponible = true;
                     for (Viaje y : p.getViajesProgramados()) {
-                        salidaV = y.getHorarioSalida();
-                        llegadaV = y.getHorarioLlegada();
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                        if (!fechaP.equals(fechaV)) {
-                            continue;
-                        }
+                        String salidaV = y.getHorarioSalida();
+                        String llegadaV = y.getHorarioLlegada();
 
                         if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
                                 && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
@@ -232,13 +235,6 @@ public class Ctrl_Viaje {
                     for (Viaje y : p.getViajesProgramados()) {
                         salidaV = y.getHorarioSalida();
                         llegadaV = y.getHorarioLlegada();
-
-                        LocalDate fechaP = LocalDate.parse(fecha, formatter);
-                        LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
-                        if (!fechaP.equals(fechaV)) {
-                            continue;
-                        }
 
                         if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
                                 && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
@@ -266,16 +262,18 @@ public class Ctrl_Viaje {
             if (x.getCategoria().getTipo() == enumCateg) {
                 boolean disponible = true;
                 for (Viaje y : x.getChofer().getViajesProgramados()) {
-                    salidaV = y.getHorarioSalida();
-                    llegadaV = y.getHorarioLlegada();
 
-                    LocalDate fechaP = LocalDate.parse(fecha, formatter);
+                    fechaP = LocalDate.parse(fecha, formatter);
                     LocalDate fechaV = LocalDate.parse(y.getFecha(), formatter);
-
                     if (!fechaP.equals(fechaV)) {
                         continue;
                     }
 
+                    String salidaV = y.getHorarioSalida();
+                    String llegadaV = y.getHorarioLlegada();
+
+                    System.out.println(salidaV);
+                    System.out.println(llegadaV);
                     if (LocalTime.parse(salidaV).isBefore(LocalTime.parse(llegada))
                             && LocalTime.parse(salida).isBefore(LocalTime.parse(llegadaV))) {
                         disponible = false;
@@ -303,21 +301,12 @@ public class Ctrl_Viaje {
         viaje.setFecha(fecha);
         viaje.setHorarioSalida(salida);
         viaje.setHorarioLlegada(llegada);
+
         int codigo = (viaje.getCodigo() == -1) ? listaViajes.size() : viaje.getCodigo();
         viaje.setCodigo(codigo);
 
         c.agregarViaje(viaje);
         v.agregarViaje(viaje);
-        System.out.println("[VIAJE PROGRAMADO]");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        LocalDateTime horaLlegada = LocalDateTime.parse(llegada, formatter);
-            if (!horaLlegada.isAfter(LocalDateTime.now())) {
-                viaje.setEstadoViaje(EstadoViaje.TERMINADO);
-            } else {
-            viaje.setEstadoViaje(EstadoViaje.EN_CURSO);
-        }
     }
 
     public void planificarViaje()
@@ -476,10 +465,16 @@ public class Ctrl_Viaje {
     public void mostrarViajesChoferes() {
         System.out.println("CANTIDAD DE VIAJES FINALIZADOS POR CADA CHOFER DE COLECTIVOS:");
         for (ChoferCategoria c : ctrlC.getChoferes()) {
+            int cantViajes = 0;
             if (c.getCategoria().getTipo() == EnumCategoria.COLECTIVO
                     || c.getCategoria().getTipo() == EnumCategoria.AMBOS) {
+                for (Viaje v : c.getChofer().getViajesFinalizados()) {
+                    if (v.getVehiculo() instanceof Colectivo) {
+                        cantViajes++;
+                    }
+                }
                 System.out.println("[EL CHOFER CON DNI " + c.getChofer().getDni()
-                        + " HA FINALIZADO: " + c.getChofer().getViajesFinalizados().size() + " VIAJES]");
+                        + " HA FINALIZADO: " + cantViajes + " VIAJES]");
             }
         }
     }

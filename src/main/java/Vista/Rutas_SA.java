@@ -4,6 +4,7 @@
 
 package Vista;
 
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import Controlador.*;
 import Excepciones.*;
@@ -172,6 +173,8 @@ public class Rutas_SA {
                 System.out.println("\n" + e.getMensaje());
             } catch (InputMismatchException e) {
                 System.out.println("[ERROR: NO PUEDE INGRESAR LETRAS EN UN CAMPO NUMERICO]");
+            } catch (DateTimeParseException e) {
+                System.out.println("[ERROR: EL FORMATO DE FECHA NO ES EL INDICADO]");
             }
         } while (!volver);
     }

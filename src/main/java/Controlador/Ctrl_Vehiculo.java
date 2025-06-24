@@ -30,10 +30,12 @@ public class Ctrl_Vehiculo {
      * Constructor por defecto, con algunos vehiculos predefinidos.
      */
     public Ctrl_Vehiculo() {
+        /* VEHICULOS PRECARGADOS PARA REALIZAR PRUEBAS.
         vehiculos.add(new Minibus("A1", 10, true, true));
         vehiculos.add(new Colectivo("B2", 50, true));
         vehiculos.add(new Minibus("C3", 20, false, false));
         vehiculos.add(new Colectivo("D4", 30, false));
+        */
     }
 
     /**
